@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, TextField, Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { useSelector } from 'react-redux';
+import { Container, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
@@ -19,9 +20,16 @@ const useStyles = makeStyles({
 export const Login = () => {
   const classes = useStyles();
 
+  const userAuth = useSelector(state => state.user[0].isLoggedIn)
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    console.log(userAuth)
+  }
+
   return (
     <Container maxWidth="sm">
-      <form className={classes.root}>
+      <form className={classes.root} onSubmit={handleClick} >
         <TextField className={classes.txtField} label="Email" />
         <TextField className={classes.txtField} label="Password" />
         <Button className={classes.btn} type="submit" variant="contained">
@@ -31,3 +39,5 @@ export const Login = () => {
     </Container>
   );
 }
+
+export default Login

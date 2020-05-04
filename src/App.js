@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import { Login } from './components/Login'
+import Login from './components/Login'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+      <Provider store={store}>
+        <Login />
+      </Provider>
   );
 }
 
