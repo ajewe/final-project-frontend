@@ -1,5 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { verifyUser } from '../redux/actions'
+import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,12 +21,13 @@ const useStyles = makeStyles({
 
 export const Login = () => {
   const classes = useStyles();
-
-  const userAuth = useSelector(state => state.user[0].isLoggedIn)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleClick = (e) => {
     e.preventDefault()
-    console.log(userAuth)
+    dispatch(verifyUser())
+    history.push("/")
   }
 
   return (
@@ -39,5 +42,3 @@ export const Login = () => {
     </Container>
   );
 }
-
-export default Login
