@@ -14,7 +14,7 @@ export const LeftNavigation = () => {
       {/* <div className={classes.toolbar} /> */}
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Inventory', 'Members', 'Announcements'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon></ListItemIcon>
             <ListItemText primary={text} />
@@ -23,7 +23,7 @@ export const LeftNavigation = () => {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {['Book 1', 'Book 2', 'Book 3'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon></ListItemIcon>
             <ListItemText primary={text} />
