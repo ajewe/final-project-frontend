@@ -1,5 +1,6 @@
 import React from 'react';
-import { LeftNavigation } from './LeftNavigation'
+import { LeftNavigation } from './material-ui/LeftNavigation'
+
 export const Home = () => {
   return (
     <>

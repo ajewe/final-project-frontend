@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router'
 import { useSelector } from 'react-redux';
 import { Login } from './components/Login'
 import { Home } from './components/Home'
+import { NewEntry } from './components/NewEntry'
 
 const ProtectedRoute = ({component: Component, ...rest}) => {
   const userAuth = useSelector(state => state.user.isLoggedIn)
@@ -20,8 +21,9 @@ const ProtectedRoute = ({component: Component, ...rest}) => {
 const Router = () => {
   return (
     <Switch>
-      <Route path="/login" component={Login} />
-      <ProtectedRoute exact path="/" component={Home} />
+      <Route path="/login" component={ Login } />
+      <ProtectedRoute exact path="/" component={ Home } />
+      <ProtectedRoute path="/new-entry" component={ NewEntry } />
     </Switch>
   )
 }
