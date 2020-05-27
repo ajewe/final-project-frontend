@@ -42,7 +42,9 @@ export const AddProcedure = (props) => {
     <FormControl>
       <InputLabel htmlFor="formatted-text-mask-input">Date</InputLabel>
       <Input
-        onChange={ props.handleProcedureChange }
+        onChange={ (e) => {
+          props.handleProcedureChange(e, props.index) 
+        }}
         name="date"
         id="formatted-text-mask-input"
         inputComponent={TextMaskCustom}

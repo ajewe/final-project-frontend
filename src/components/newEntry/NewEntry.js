@@ -91,7 +91,7 @@ export const NewEntry = () => {
         <Button
           variant="contained"
           onClick={addProcedure}>
-          AddProcedure
+          Add a new Day
         </Button>
         <TextField
           id="standard-basic"
