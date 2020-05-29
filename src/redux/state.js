@@ -2,9 +2,7 @@ export default {
   user: {
       "isLoggedIn": true,
     },
-  logs: {
-    entries: [
-      {
+  entries:  []
         // "quickInfo": "",
         // "procedure": [
         //   {
@@ -17,8 +15,4 @@ export default {
         // ],
         // "results": "",
         // "yield": ""
-      }
-    ]
-  }
-  
 }

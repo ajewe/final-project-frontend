@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { LeftNavigation } from './material-ui/LeftNavigation'
 
 export const Home = () => {
+  const allEntries = useSelector(state => state.entries)
+
   return (
     <>
       <LeftNavigation />
@@ -13,8 +16,11 @@ export const Home = () => {
         </div> 
         <div id="home-recent-logs">
           Recent Logs:
-          {/* if nothing posted, list most recent Book {number} with entry(ies) */}
-          {/* if next entry is new book, list new Book {number} with entry(ies), repeat for x number of logs */}
+          <div>
+            {allEntries.length == 0 ? 'No Entries' : allEntries.quickInfo}
+            {/* if nothing posted, list most recent Book {number} with entry(ies) */}
+            {/* if next entry is new book, list new Book {number} with entry(ies), repeat for x number of logs */}
+          </div>
         </div>
       </div>
     </>

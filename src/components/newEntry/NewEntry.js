@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AddProcedure } from './AddProcedure'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
-import reducers from '../../redux/reducers';
+import { addEntry } from '../../redux/actions';
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
   formField: {
@@ -18,6 +19,7 @@ export const NewEntry = () => {
   const classes = useStyles();
   // const allEntries = useSelector(state => state.logs.entries)
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const [ newEntry, setNewEntry ] = React.useState({
     quickInfo: "",
@@ -45,8 +47,6 @@ export const NewEntry = () => {
     const propertyName = e.target.name
     newProceduresArray[i][propertyName]= e.target.value
     setProcedures(newProceduresArray)
-    // console.log(updateProcedures)
-    console.log(newProceduresArray)
   }
 
   const addProcedure = () => {
@@ -57,14 +57,14 @@ export const NewEntry = () => {
           entry: ""
         }
     ])
-    console.log(procedures)
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    // const payload = { ...newEntry, ...procedures }
-    // dispatch(action(payload))
-    console.log( procedures[0])
+    const payload = { ...newEntry, procedures }
+    dispatch(addEntry(payload))
+    alert('Entry added!')
+    history.push("/")
   }
 
   return (
