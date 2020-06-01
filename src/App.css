@@ -10,3 +10,7 @@
   text-decoration: none;
   color: black;
 }
+
+.entry-card-div {
+  display: flex;
+}

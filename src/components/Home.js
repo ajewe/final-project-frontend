@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { LeftNavigation } from './material-ui/LeftNavigation'
+import { EntryCard } from './material-ui/EntryCard'
 
 export const Home = () => {
   const allEntries = useSelector(state => state.entries)
@@ -17,7 +18,21 @@ export const Home = () => {
         <div id="home-recent-logs">
           Recent Logs:
           <div>
-            {allEntries.length == 0 ? 'No Entries' : allEntries.quickInfo}
+            {allEntries.length === 0 ? 
+              'No Entries'
+              :
+              <div className="entry-card-div">
+                {allEntries.map((entry, i) => {
+                  return (
+                    <EntryCard
+                      key={i}
+                      index={i}
+                      quickInfo={entry.quickInfo}
+                    />
+                  )
+                })}
+              </div>
+            }
             {/* if nothing posted, list most recent Book {number} with entry(ies) */}
             {/* if next entry is new book, list new Book {number} with entry(ies), repeat for x number of logs */}
           </div>
