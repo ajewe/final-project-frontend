@@ -28,6 +28,7 @@ export const Home = () => {
                       key={i}
                       index={i}
                       quickInfo={entry.quickInfo}
+                      procedures={entry.procedures}
                     />
                   )
                 })}

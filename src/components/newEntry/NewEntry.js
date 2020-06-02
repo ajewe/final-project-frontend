@@ -62,6 +62,8 @@ export const NewEntry = () => {
   const handleSubmit = e => {
     e.preventDefault()
     const payload = { ...newEntry, procedures }
+    console.log(procedures)
+    console.log(procedures[0].date)
     dispatch(addEntry(payload))
     alert('Entry added!')
     history.push("/")

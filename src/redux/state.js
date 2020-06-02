@@ -48,5 +48,20 @@ export default {
       "results": "RESULTS3",
       "yield": "100%"
     },
+    {
+      "procedures": [
+        {
+          "date": "",
+          "entry": "entry for procedure 1"
+        },
+        {
+          "date": "",
+          "entry": "entry for procedure 2"
+        }
+      ],
+      "quickInfo": "QUICKINFO4",
+      "results": "RESULTS4",
+      "yield": "105%"
+  },
   ]
 }

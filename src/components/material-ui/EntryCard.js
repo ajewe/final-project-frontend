@@ -4,7 +4,8 @@ import { Card, CardHeader, CardMedia, CardContent, Typography } from '@material-
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    width: "20%",
+    minWidth: 200,
   },
   media: {
     height: 0,
@@ -14,17 +15,18 @@ const useStyles = makeStyles((theme) => ({
 
 export const EntryCard = (props) => {
   const classes = useStyles();
+  const firstProcedure = props.procedures[0]
 
   return (
     <Card className={classes.root}>
       <CardHeader
         title={`Title ` + (props.index + 1)}
-        subheader="September 14, 2016"
+        subheader={firstProcedure.date}
       />
       <CardMedia
         className={classes.media}
-        // image="/static/images/cards/paella.jpg"
-        title="Paella dish"
+        // image="/static/imagesblahblah/bleh.jpg"
+        // title="Reaction"
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
