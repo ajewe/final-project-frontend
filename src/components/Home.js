@@ -4,8 +4,20 @@ import { LeftNavigation } from './material-ui/LeftNavigation'
 import { EntryCard } from './material-ui/EntryCard'
 
 export const Home = () => {
-  const allEntries = useSelector(state => state.entries)
+  const allLogs = useSelector(state => state.logs)
 
+  const findLatestBook = () => {
+    for (const property in allLogs) {
+      // console.log(`${property}: ${allLogs[property]}`)
+      allLogs[property].map((book) => {
+        console.log(book.dateCreated)
+      })
+    }
+  }
+  const currentBook = () => {
+    findLatestBook(allLogs)
+  }
+  
   return (
     <>
       <LeftNavigation />
@@ -18,17 +30,23 @@ export const Home = () => {
         <div id="home-recent-logs">
           Recent Logs:
           <div>
-            {allEntries.length === 0 ? 
+            <button onClick={() => findLatestBook()} >
+              Click Me
+            </button>
+
+            {allLogs.book2.length === 0 ? 
               'No Entries'
               :
               <div className="entry-card-div">
-                {allEntries.map((entry, i) => {
+                {allLogs.book2.map((entry, i) => {
                   return (
                     <EntryCard
                       key={i}
                       index={i}
                       quickInfo={entry.quickInfo}
                       procedures={entry.procedures}
+                      dateCreated={entry.dateCreated}
+                      timeCreated={entry.timeCreated}
                     />
                   )
                 })}

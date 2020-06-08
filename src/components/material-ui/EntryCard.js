@@ -29,6 +29,8 @@ export const EntryCard = (props) => {
         // title="Reaction"
       />
       <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">{`Date Created ` + (props.dateCreated)}</Typography>
+        <Typography variant="body2" color="textSecondary" component="p">{`Time Created ` + (props.timeCreated)}</Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.quickInfo}
         </Typography>

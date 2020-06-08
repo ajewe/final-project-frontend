@@ -4,9 +4,9 @@ export const verifyUser = () => {
   }
 }
 
-export const addEntry = (entry) => {
+export const addLog = (log) => {
   return {
-    type: 'ADD_ENTRY',
-    value: entry
+    type: 'ADD_LOG',
+    value: log
   }
 }

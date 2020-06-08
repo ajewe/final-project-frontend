@@ -13,4 +13,5 @@
 
 .entry-card-div {
   display: flex;
+  flex-wrap: wrap;
 }

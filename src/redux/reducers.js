@@ -11,13 +11,13 @@ const user = (state = [], action) => {
   }
 }
 
-const entries = (state = [], action) => {
+const logs = (state = [], action) => {
   switch(action.type) {
-    case 'ADD_ENTRY':
-      return [...state, action.value]
+    case 'ADD_LOG':
+      return { book2: [ ...state.book2, action.value ], book1: [...state.book1]}
     default:
       return state
   }
 }
 
-export default combineReducers({user, entries})
+export default combineReducers({ user, logs })
