@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 export const NewEntry = () => {
   const classes = useStyles();
   //make dynamic state.entries.{props.selectedbook} or something
-  const specifiedBook = useSelector(state => state.logs.book2)
+  // const specifiedBook = useSelector(state => state.logs.book2)
   const dispatch = useDispatch();
   const history = useHistory()
 
@@ -26,8 +26,7 @@ export const NewEntry = () => {
     quickInfo: "",
     results: "",
     yield: "",
-    dateCreated: "",
-    timeCreated: "",
+    lastUpdated: "",
   })
 
   const [ procedures, setProcedures ] = React.useState([
@@ -63,19 +62,9 @@ export const NewEntry = () => {
   }
 
   const setDateAndTimeCreated = () => {
-    const newEntryObject = newEntry
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    const hour = String(today.getHours()).padStart(2, '0');
-    const minute = String(today.getMinutes()).padStart(2, '0');
-    const time = hour + ':' + minute
-    today = mm + '/' + dd + '/' + yyyy;
-
-    newEntryObject.dateCreated = today
-    newEntryObject.timeCreated = time
-
+    let newEntryObject = newEntry
+    const today = Date.now();
+    newEntryObject.lastUpdated = today
     setNewEntry({newEntryObject})
   }
 
@@ -90,11 +79,6 @@ export const NewEntry = () => {
 
   return (
       <form className={ classes.formField } onSubmit={ handleSubmit }>
-
-        <Button onClick={() => setDateAndTimeCreated()}>Click Me!</Button>
-        {newEntry.dateCreated}
-        {newEntry.timeCreated}
-
         <TextField
           id="standard-basic"
           label="Quick Info (<10 words)"

@@ -14,7 +14,7 @@ const user = (state = [], action) => {
 const logs = (state = [], action) => {
   switch(action.type) {
     case 'ADD_LOG':
-      return { book2: [ ...state.book2, action.value ], book1: [...state.book1]}
+      return [ action.value, ...state ]
     default:
       return state
   }

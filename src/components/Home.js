@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { LeftNavigation } from './material-ui/LeftNavigation'
 import { EntryCard } from './material-ui/EntryCard'
 
 export const Home = () => {
   const allLogs = useSelector(state => state.logs)
+  let logsSortedByDate = []
 
-  const findLatestBook = () => {
-    for (const property in allLogs) {
-      // console.log(`${property}: ${allLogs[property]}`)
-      allLogs[property].map((book) => {
-        console.log(book.dateCreated)
-      })
+  const [ recentLogs, setRecentLogs ] = React.useState([])
+
+  const findLatestLogs = () => {
+    logsSortedByDate = allLogs.sort((a, b) => {
+      return b.lastUpdated - a.lastUpdated
+    })
+
+    for (let i = 0; i < 6; i++) {
+      if (!logsSortedByDate[i]) {
+        setRecentLogs([...recentLogs])
+      } else {
+        recentLogs.push(logsSortedByDate[i])
+      }
     }
+    setRecentLogs([...recentLogs])
   }
-  const currentBook = () => {
-    findLatestBook(allLogs)
-  }
+
+  useEffect(() => findLatestLogs(), []);
   
   return (
     <>
@@ -30,23 +38,22 @@ export const Home = () => {
         <div id="home-recent-logs">
           Recent Logs:
           <div>
-            <button onClick={() => findLatestBook()} >
+            <button onClick={() => console.log(recentLogs)} >
               Click Me
             </button>
 
-            {allLogs.book2.length === 0 ? 
+            {recentLogs.length === 0 ? 
               'No Entries'
               :
               <div className="entry-card-div">
-                {allLogs.book2.map((entry, i) => {
+                {recentLogs.map((log, i) => {
                   return (
                     <EntryCard
                       key={i}
                       index={i}
-                      quickInfo={entry.quickInfo}
-                      procedures={entry.procedures}
-                      dateCreated={entry.dateCreated}
-                      timeCreated={entry.timeCreated}
+                      quickInfo={log.quickInfo}
+                      procedures={log.procedures}
+                      lastUpdated={log.lastUpdated}
                     />
                   )
                 })}
