@@ -18,6 +18,7 @@ export const LeftNavigation = () => {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    console.log(event.currentTarget.getAttribute("bookname"))
   };
 
   const handleClose = () => {
@@ -51,12 +52,13 @@ export const LeftNavigation = () => {
       </List>
       <Divider />
       <List>
-        {['Book 1', 'Book 2', 'Book 3'].map((text, index) => (
+        {['Book 1', 'Book 2', 'Book 3'].map((text) => (
           <ListItem 
             button 
             key={ text }
             onClick={ handleClick }
             aria-describedby={ id }
+            bookName = { text }
           >
             <ListItemIcon></ListItemIcon>
             <ListItemText primary={text} />

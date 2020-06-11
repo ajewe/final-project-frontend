@@ -15,13 +15,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const EntryCard = (props) => {
   const classes = useStyles();
-  const firstProcedure = props.procedures[0]
 
   return (
     <Card className={classes.root}>
       <CardHeader
         title={`Title ` + (props.index + 1)}
-        subheader={firstProcedure.date}
+        subheader={props.bookName}
       />
       <CardMedia
         className={classes.media}

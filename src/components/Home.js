@@ -49,11 +49,12 @@ export const Home = () => {
                 {recentLogs.map((log, i) => {
                   return (
                     <EntryCard
-                      key={i}
-                      index={i}
-                      quickInfo={log.quickInfo}
-                      procedures={log.procedures}
-                      lastUpdated={log.lastUpdated}
+                      key={ i }
+                      index={ i }
+                      bookName={ log.bookName }
+                      quickInfo={ log.quickInfo }
+                      procedures={ log.procedures }
+                      lastUpdated={ log.lastUpdated }
                     />
                   )
                 })}

@@ -23,7 +23,7 @@ const Router = () => {
     <Switch>
       <Route path="/login" component={ Login } />
       <ProtectedRoute exact path="/" component={ Home } />
-      <ProtectedRoute path="/new-entry" component={ NewEntry } />
+      <ProtectedRoute path="/new-entry/:id" component={ NewEntry } />
     </Switch>
   )
 }

@@ -14,7 +14,7 @@ export const MenuPopUp = (props) => {
           <Paper>
             <ClickAwayListener onClickAway={props.handleClose}>
               <MenuList autoFocusItem={props.open} id="menu-list-grow">
-                <Link to={`/new-entry`} className="link">
+                <Link to={`/new-entry/${props.anchorEl.getAttribute("bookname")}`} className="link">
                   <MenuItem onClick={props.handleClose}>
                     New Entry
                   </MenuItem>

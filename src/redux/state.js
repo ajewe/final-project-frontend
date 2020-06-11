@@ -14,7 +14,7 @@ export default {
           "entry": "entry for procedure 2"
         }
       ],
-      "book": 2,
+      "bookName": "Book 2",
       "quickInfo": "QUICKINFO1",
       "results": "RESULTS1",
       "yield": "90%",
@@ -31,7 +31,7 @@ export default {
           "entry": "entry for procedure 2"
         }
       ],
-      "book": 1,
+      "bookName": "Book 1",
       "quickInfo": "QUICKINFO1",
       "results": "RESULTS1",
       "yield": "90%",
@@ -48,7 +48,7 @@ export default {
           "entry": "entry for procedure 2"
         }
       ],
-      "book": 1,
+      "bookName": "Book 1",
       "quickInfo": "QUICKINFO2",
       "results": "RESULTS2",
       "yield": "95%",
@@ -65,7 +65,7 @@ export default {
           "entry": "entry for procedure 2"
         }
       ],
-      "book": 1,
+      "bookName": "Book 1",
       "quickInfo": "QUICKINFO3",
       "results": "RESULTS3",
       "yield": "100%",
@@ -82,7 +82,7 @@ export default {
           "entry": "entry for procedure 2"
         }
       ],
-      "book": 1,
+      "bookName": "Book 1",
       "quickInfo": "QUICKINFO4",
       "results": "RESULTS4",
       "yield": "105%",

@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   }
 })
 
-export const NewEntry = () => {
+export const NewEntry = (props) => {
   const classes = useStyles();
   //make dynamic state.entries.{props.selectedbook} or something
   // const specifiedBook = useSelector(state => state.logs.book2)
@@ -23,6 +23,7 @@ export const NewEntry = () => {
   const history = useHistory()
 
   const [ newEntry, setNewEntry ] = React.useState({
+    bookName: props.match.params.id,
     quickInfo: "",
     results: "",
     yield: "",
