@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AddProcedure } from './AddProcedure'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
@@ -17,8 +17,6 @@ const useStyles = makeStyles({
 
 export const NewEntry = (props) => {
   const classes = useStyles();
-  //make dynamic state.entries.{props.selectedbook} or something
-  // const specifiedBook = useSelector(state => state.logs.book2)
   const dispatch = useDispatch();
   const history = useHistory()
 
@@ -73,6 +71,11 @@ export const NewEntry = (props) => {
     e.preventDefault()
     setDateAndTimeCreated()
     const payload = { ...newEntry, procedures }
+
+    // newEntry = { a: 'a' }
+    // payload = { newEntry } -> { newEntry: { a: 'a'} } 
+    // payload = { ...newEntry } -> { a: 'a' }
+
     dispatch(addLog(payload))
     alert('Entry added!')
     history.push("/")
@@ -88,7 +91,7 @@ export const NewEntry = (props) => {
           onChange={ handleEntryChange }
         />
         <label>Procedure:</label>
-        {procedures.map((procedure, i) => {
+        {procedures.map((_, i) => {
           return (
             <AddProcedure
               key={i}

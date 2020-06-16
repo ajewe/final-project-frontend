@@ -11,6 +11,15 @@ const user = (state = [], action) => {
   }
 }
 
+const books = (state = [], action) => {
+  switch(action.type) {
+    case 'ADD_BOOK':
+      return [ action.value, ...state ]
+    default:
+      return state
+  }
+}
+
 const logs = (state = [], action) => {
   switch(action.type) {
     case 'ADD_LOG':
@@ -20,4 +29,4 @@ const logs = (state = [], action) => {
   }
 }
 
-export default combineReducers({ user, logs })
+export default combineReducers({ user, logs, books })

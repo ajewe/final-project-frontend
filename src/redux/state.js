@@ -2,6 +2,10 @@ export default {
   user: {
       "isLoggedIn": true,
     },
+  books: [
+    "Book 2",
+    "Book 1",
+  ],
   logs: [
     {
       "procedures": [
@@ -15,6 +19,7 @@ export default {
         }
       ],
       "bookName": "Book 2",
+      "bookEntryNumber": 1,
       "quickInfo": "QUICKINFO1",
       "results": "RESULTS1",
       "yield": "90%",
@@ -32,6 +37,7 @@ export default {
         }
       ],
       "bookName": "Book 1",
+      "bookEntryNumber": 4,
       "quickInfo": "QUICKINFO1",
       "results": "RESULTS1",
       "yield": "90%",
@@ -49,6 +55,7 @@ export default {
         }
       ],
       "bookName": "Book 1",
+      "bookEntryNumber": 3,
       "quickInfo": "QUICKINFO2",
       "results": "RESULTS2",
       "yield": "95%",
@@ -66,6 +73,7 @@ export default {
         }
       ],
       "bookName": "Book 1",
+      "bookEntryNumber": 2,
       "quickInfo": "QUICKINFO3",
       "results": "RESULTS3",
       "yield": "100%",
@@ -74,15 +82,16 @@ export default {
     {
       "procedures": [
         {
-          "date": "",
+          "date": "05/14/91",
           "entry": "entry for procedure 1"
         },
         {
-          "date": "",
+          "date": "05/14/91",
           "entry": "entry for procedure 2"
         }
       ],
       "bookName": "Book 1",
+      "bookEntryNumber": 1,
       "quickInfo": "QUICKINFO4",
       "results": "RESULTS4",
       "yield": "105%",

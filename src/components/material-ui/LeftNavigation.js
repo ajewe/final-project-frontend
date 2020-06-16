@@ -1,20 +1,52 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { MenuPopUp } from './MenuPopUp'
-import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core/styles';
+import { addBook } from '../../redux/actions'
+import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     display: 'flex',
-//   },
-//   paper: {
-//     marginRight: theme.spacing(2),
-//   },
-// }));
+const useStyles = makeStyles(() => ({
+  labelField: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  label: {
+    display: "inline-block",
+    fontSize: "22px",
+  },
+  icon: {
+    margin: "0 10px",
+    cursor: "pointer",
+  }
+}));
 
 export const LeftNavigation = () => {
-  // const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const allBooks = useSelector( state => state.books )
+  const [ anchorEl, setAnchorEl ] = React.useState(null);
+  const [ bookInput, setBookInput ] = React.useState({
+    bookName: "",
+    displayInput: false,
+  })
+
+  const handleBookChange = e => {
+    setBookInput({
+      ...bookInput,
+      bookName: e.target.value
+    })
+  }
+
+  const handleBookStateSubmit = e => {
+    e.preventDefault()
+    dispatch(addBook(bookInput.bookName))
+    setBookInput({
+      bookName: "",
+      displayInput: false,
+    })
+  }
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,14 +62,9 @@ export const LeftNavigation = () => {
 
   return (
     <Drawer
-      // className={classes.drawer}
       variant="permanent"
-      // classes={{
-      //   paper: classes.drawerPaper,
-      // }}
       anchor="left"
     >
-      {/* <div className={classes.toolbar} /> */}
       <Divider />
       <List>
         {['Inventory', 'Members', 'Announcements'].map((text) => (
@@ -51,8 +78,31 @@ export const LeftNavigation = () => {
         ))}
       </List>
       <Divider />
+      <div className={classes.labelField}>
+        <Typography
+          className={classes.label}>
+          Books
+        </Typography>
+        <AddCircleOutlineOutlinedIcon 
+          className={classes.icon}
+          onClick={() => {
+            setBookInput({
+              ...bookInput, 
+              displayInput: !bookInput.displayInput,
+            })
+          }}
+        />
+      </div>
+      {bookInput.displayInput 
+        && 
+          <form onSubmit={ handleBookStateSubmit }>
+            <input 
+              autoFocus="autofocus" 
+              className="left-nav-input"
+              onChange={ handleBookChange }/>
+          </form>}
       <List>
-        {['Book 1', 'Book 2', 'Book 3'].map((text) => (
+        {allBooks.map((text) => (
           <ListItem 
             button 
             key={ text }

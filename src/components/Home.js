@@ -4,10 +4,10 @@ import { LeftNavigation } from './material-ui/LeftNavigation'
 import { EntryCard } from './material-ui/EntryCard'
 
 export const Home = () => {
-  const allLogs = useSelector(state => state.logs)
+  const allLogs = useSelector( state => state.logs )
   let logsSortedByDate = []
-
   const [ recentLogs, setRecentLogs ] = React.useState([])
+  // const [ allBooks, setAllBooks ] = React.useState([])
 
   const findLatestLogs = () => {
     logsSortedByDate = allLogs.sort((a, b) => {
@@ -23,9 +23,20 @@ export const Home = () => {
     }
     setRecentLogs([...recentLogs])
   }
-
   useEffect(() => findLatestLogs(), []);
-  
+
+  // const findAllBooks = () => {
+  //   let bookArr = []
+  //   //go through allLogs, check bookName for each, if new bookName, push to array
+  //   for (let i = 0; i < allLogs.length; i++) {
+  //     if (!bookArr.includes(allLogs[i].bookName)) {
+  //       bookArr.push(allLogs[i].bookName)
+  //     }
+  //   }
+  //   setAllBooks(bookArr)
+  // // }
+  // useEffect(() => findAllBooks(), []);
+
   return (
     <>
       <LeftNavigation />
@@ -38,7 +49,7 @@ export const Home = () => {
         <div id="home-recent-logs">
           Recent Logs:
           <div>
-            <button onClick={() => console.log(recentLogs)} >
+            <button onClick={() => 'hi'} >
               Click Me
             </button>
 
@@ -55,6 +66,7 @@ export const Home = () => {
                       quickInfo={ log.quickInfo }
                       procedures={ log.procedures }
                       lastUpdated={ log.lastUpdated }
+                      bookEntryNumber={ log.bookEntryNumber }
                     />
                   )
                 })}

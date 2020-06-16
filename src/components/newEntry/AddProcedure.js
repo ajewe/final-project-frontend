@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextField, FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
 import MaskedInput from 'react-text-mask';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
@@ -17,22 +16,16 @@ function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
 
   return (
-    
     <MaskedInput
       {...other}
-      ref={(ref) => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
+      ref={(ref) => inputRef(ref ? ref.inputElement : null)}
       mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/]}
       placeholderChar={'\u2000'}
+      keepCharPositions
       showMask
     />
   );
 }
-
-TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-};
 
 export const AddProcedure = (props) => {
   const classes = useStyles()
@@ -47,7 +40,7 @@ export const AddProcedure = (props) => {
         }}
         name="date"
         id="formatted-text-mask-input"
-        inputComponent={TextMaskCustom}
+        inputComponent={ TextMaskCustom }
       />
       <FormHelperText>mm/dd/yy</FormHelperText>
     </FormControl>

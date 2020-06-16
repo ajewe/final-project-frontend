@@ -19,8 +19,9 @@ export const EntryCard = (props) => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        title={`Title ` + (props.index + 1)}
-        subheader={props.bookName}
+        title={props.bookName + ' - Entry ' + props.bookEntryNumber}
+        titleTypographyProps={{variant:'h6' }}
+        subheader={props.procedures[0].date}
       />
       <CardMedia
         className={classes.media}
