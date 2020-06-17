@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AddProcedure } from './AddProcedure'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
@@ -17,11 +17,14 @@ const useStyles = makeStyles({
 
 export const NewEntry = (props) => {
   const classes = useStyles();
+  const allLogs = useSelector(state => state.logs)
   const dispatch = useDispatch();
   const history = useHistory()
+  let currentBookEntryNumber = 0;
 
   const [ newEntry, setNewEntry ] = React.useState({
     bookName: props.match.params.id,
+    bookEntryNumber: 1,
     quickInfo: "",
     results: "",
     yield: "",
@@ -35,6 +38,28 @@ export const NewEntry = (props) => {
       }
     ]
   )
+  
+  const findBookEntryNumber = () => {
+    const logsinCurrentBookArr = [];
+    //search allLogs for bookName that matches props.match.params.id, add these to array
+    for ( let i = 0; i < allLogs.length; i++ ) {
+      if ( allLogs[i].bookName === props.match.params.id ) {
+        logsinCurrentBookArr.push(allLogs[i])
+      }
+    }
+    if ( logsinCurrentBookArr.length === 0 ) {
+      return
+    }
+    //sort array by biggest to smallest bookEntryNumber
+    logsinCurrentBookArr.sort((a, b) => b.bookEntryNumber - a.bookEntryNumber)
+    //add 1 to biggest bookEntryNumber, return this currentBookEntryNumber
+    currentBookEntryNumber = logsinCurrentBookArr[0].bookEntryNumber + 1
+    setNewEntry({
+      ...newEntry,
+      bookEntryNumber: currentBookEntryNumber
+    })
+  }
+  useEffect(() => findBookEntryNumber(), [])
 
   const handleEntryChange = e => {
     setNewEntry({
