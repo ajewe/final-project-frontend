@@ -8,10 +8,11 @@ import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
   formField: {
+    backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
-    width: '80%',
-    margin: '0 10%'
+    height: '100vh',
+    padding: '20px',
   }
 })
 
@@ -29,6 +30,7 @@ export const NewEntry = (props) => {
     results: "",
     yield: "",
     lastUpdated: "",
+    logId: 0,
   })
 
   const [ procedures, setProcedures ] = React.useState([
@@ -60,6 +62,17 @@ export const NewEntry = (props) => {
     })
   }
   useEffect(() => findBookEntryNumber(), [])
+
+  //going to need to generate unique logId, but for the time being...
+  const generateLogId = () => {
+    let logsSortedArr = allLogs.sort((a, b) => b.logId - a.logId)
+    let newId = logsSortedArr[0].logId + 1
+    setNewEntry({
+      ...newEntry,
+      logId: newId
+    })
+  }
+  useEffect(() => generateLogId(), [])
 
   const handleEntryChange = e => {
     setNewEntry({
