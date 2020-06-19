@@ -38,7 +38,7 @@ export const NewEntry = (props) => {
       }
     ]
   )
-  
+
   const findBookEntryNumber = () => {
     const logsinCurrentBookArr = [];
     //search allLogs for bookName that matches props.match.params.id, add these to array
@@ -151,7 +151,7 @@ export const NewEntry = (props) => {
           variant="contained">
           Save
         </Button>
+        <h3>Entry {newEntry.bookEntryNumber}</h3>
       </form>
-
   )
 }

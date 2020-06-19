@@ -24,12 +24,13 @@ export default {
       "results": "RESULTS1",
       "yield": "90%",
       "lastUpdated": "1591908933467",
+      "logId": 5,
     },
     {
       "procedures": [
         {
           "date": "11/11/11",
-          "entry": "entry for procedure 1"
+          "entry": "entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1eentry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1ntry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1entry for procedure 1"
         },
         {
           "date": "22/22/22",
@@ -42,6 +43,7 @@ export default {
       "results": "RESULTS1",
       "yield": "90%",
       "lastUpdated": "1591908909547",
+      "logId": 4,
     },
     {
       "procedures": [
@@ -60,6 +62,7 @@ export default {
       "results": "RESULTS2",
       "yield": "95%",
       "lastUpdated": "1591908872958",
+      "logId": 3,
     },
     {
       "procedures": [
@@ -78,6 +81,7 @@ export default {
       "results": "RESULTS3",
       "yield": "100%",
       "lastUpdated": "1591908806037",
+      "logId": 2,
     },
     {
       "procedures": [
@@ -96,6 +100,7 @@ export default {
       "results": "RESULTS4",
       "yield": "105%",
       "lastUpdated": "1591908787894",
+      "logId": 1,
     },
   ]
 }

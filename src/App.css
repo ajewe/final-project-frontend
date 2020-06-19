@@ -1,3 +1,7 @@
+body {
+  background-color: rgba(0,0,0,0.1);
+}
+
 #home-container {
   margin-left: 240px;
 }
@@ -11,9 +15,15 @@
   color: black;
 }
 
-.entry-card-div {
+.entry-card-container-div {
   display: flex;
   flex-wrap: wrap;
+}
+
+.entry-card-div {
+  width: 20%;
+  min-width: 225px;
+  margin: 10px;
 }
 
 .left-nav-input {
@@ -27,4 +37,52 @@
   letter-spacing: 0.00938em;
   padding: 0;
   width: 95%;
+}
+
+.view-entry-procedure-date {
+  display: inline;
+  margin: 0px 30px;
+}
+
+.view-entry-procedure-entry {
+  display: inline;
+}
+
+#view-entry-paper {
+  width: 70%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 20px auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+  box-shadow: 0px 0px 5px 0px #888;
+}
+
+#view-entry-paper::before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 15%;
+  background-color: rgba(255,0,0,0.6);
+}
+
+#view-entry-pattern {
+  height: 100%;
+  background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
+}
+
+#view-entry-content {
+  padding-top: 6px;
+  padding-left: 15.5%;
+  padding-right: 16px;
+  line-height: 25px;
+  /* font-family: 'Dancing Script', cursive; */
+  font-size: 16px;
+  letter-spacing: 1px;
+  word-spacing: 5px;
 }

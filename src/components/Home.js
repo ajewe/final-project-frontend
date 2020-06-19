@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { LeftNavigation } from './material-ui/LeftNavigation'
+import { Link } from 'react-router-dom'
 import { EntryCard } from './material-ui/EntryCard'
 
 export const Home = () => {
@@ -14,7 +15,7 @@ export const Home = () => {
       return b.lastUpdated - a.lastUpdated
     })
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 10; i++) {
       if (!logsSortedByDate[i]) {
         setRecentLogs([...recentLogs])
       } else {
@@ -56,18 +57,22 @@ export const Home = () => {
             {recentLogs.length === 0 ? 
               'No Entries'
               :
-              <div className="entry-card-div">
+              <div className="entry-card-container-div">
                 {recentLogs.map((log, i) => {
                   return (
-                    <EntryCard
-                      key={ i }
-                      index={ i }
-                      bookName={ log.bookName }
-                      quickInfo={ log.quickInfo }
-                      procedures={ log.procedures }
-                      lastUpdated={ log.lastUpdated }
-                      bookEntryNumber={ log.bookEntryNumber }
-                    />
+                    <div className="entry-card-div">
+                      <Link to={`/view-entry/${ log.logId }`} className="link">
+                        <EntryCard
+                          key={ i }
+                          index={ i }
+                          bookName={ log.bookName }
+                          quickInfo={ log.quickInfo }
+                          procedures={ log.procedures }
+                          lastUpdated={ log.lastUpdated }
+                          bookEntryNumber={ log.bookEntryNumber }
+                        />
+                      </Link>
+                    </div>
                   )
                 })}
               </div>
