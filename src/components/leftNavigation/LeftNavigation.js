@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useOutsideClick } from "./useOutsideClick";
 import { MenuPopUp } from './MenuPopUp'
 import { addBook } from '../../redux/actions'
 import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
@@ -11,6 +12,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    margin: "10px",
   },
   label: {
     display: "inline-block",
@@ -24,6 +26,7 @@ const useStyles = makeStyles(() => ({
 
 export const LeftNavigation = () => {
   const classes = useStyles();
+  const ref = useRef();
   const dispatch = useDispatch();
   const allBooks = useSelector( state => state.books )
   const [ anchorEl, setAnchorEl ] = React.useState(null);
@@ -48,9 +51,23 @@ export const LeftNavigation = () => {
     })
   }
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    console.log(event.currentTarget.getAttribute("bookname"))
+  useOutsideClick(ref, (e) => {
+    //to avoid initial click trigger, before form renders
+    if (bookInput.displayInput) {
+      //disregard empty, null, space values
+      if (bookInput.bookName === "" || bookInput.bookName === " ") {
+        setBookInput({
+          bookName: "",
+          displayInput: false,
+        })
+      } else {
+        handleBookStateSubmit(e)
+      }
+    }
+  });
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
   };
 
   const handleClose = () => {
@@ -95,7 +112,7 @@ export const LeftNavigation = () => {
       </div>
       {bookInput.displayInput 
         && 
-          <form onSubmit={ handleBookStateSubmit }>
+          <form ref={ref} onSubmit={ handleBookStateSubmit }>
             <input 
               autoFocus="autofocus" 
               className="left-nav-input"

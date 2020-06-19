@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { LeftNavigation } from './material-ui/LeftNavigation'
+import { LeftNavigation } from '../leftNavigation/LeftNavigation'
 import { Link } from 'react-router-dom'
-import { EntryCard } from './material-ui/EntryCard'
+import { EntryCard } from './EntryCard'
 
 export const Home = () => {
   const allLogs = useSelector( state => state.logs )

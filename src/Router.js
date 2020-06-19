@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { useSelector } from 'react-redux';
 import { Login } from './components/Login';
-import { Home } from './components/Home';
+import { Home } from './components/home/Home';
 import { NewEntry } from './components/newEntry/NewEntry';
 import { ViewEntry } from './components/ViewEntry';
 
