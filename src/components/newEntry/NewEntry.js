@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
 import { addLog } from '../../redux/actions';
 import { useHistory } from 'react-router-dom'
+import { RxnCanvas } from '../RxnCanvas';
 
 const useStyles = makeStyles({
   formField: {
@@ -128,6 +129,7 @@ export const NewEntry = (props) => {
           value={ newEntry.quickInfo }
           onChange={ handleEntryChange }
         />
+        <RxnCanvas />
         <label>Procedure:</label>
         {procedures.map((_, i) => {
           return (
