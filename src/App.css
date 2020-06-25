@@ -27,6 +27,11 @@ body {
   margin: 10px;
 }
 
+.entry-card-canvas-div {
+  display: flex;
+  justify-content: center;
+}
+
 .left-nav-input {
   text-align: center;
   outline: none;
@@ -86,4 +91,12 @@ body {
   font-size: 16px;
   letter-spacing: 1px;
   word-spacing: 5px;
+}
+
+#canvas-div{
+  padding: 30px;
+}
+
+#canvas-id {
+  border: 1px solid black;
 }

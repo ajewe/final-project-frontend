@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AddProcedure } from './AddProcedure'
+import { AddProcedure } from './AddProcedure';
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
 import { addLog } from '../../redux/actions';
-import { useHistory } from 'react-router-dom'
-import { RxnCanvas } from '../RxnCanvas';
+import { useHistory } from 'react-router-dom';
+/* global ChemDoodle */
+
 
 const useStyles = makeStyles({
   formField: {
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
+    height: '100%',
     padding: '20px',
   }
 })
@@ -22,11 +23,12 @@ export const NewEntry = (props) => {
   const allLogs = useSelector(state => state.logs)
   const dispatch = useDispatch();
   const history = useHistory()
-  let currentBookEntryNumber = 0;
-
+  const [ sketcher, setSketcher ] = React.useState(null);
+  
   const [ newEntry, setNewEntry ] = React.useState({
     bookName: props.match.params.id,
     bookEntryNumber: 1,
+    rxnSketch: [],
     quickInfo: "",
     results: "",
     yield: "",
@@ -42,6 +44,17 @@ export const NewEntry = (props) => {
     ]
   )
 
+  useEffect(() => {
+    let newSketcher = new ChemDoodle.SketcherCanvas("canvas-id", "850", "350", {
+      useServices: false,
+      oneMolecule: false,
+      isMobile: false,
+    });
+    setSketcher(newSketcher)
+    findBookEntryNumber()
+    generateLogId()
+  }, [])
+
   const findBookEntryNumber = () => {
     const logsinCurrentBookArr = [];
     //search allLogs for bookName that matches props.match.params.id, add these to array
@@ -53,16 +66,15 @@ export const NewEntry = (props) => {
     if ( logsinCurrentBookArr.length === 0 ) {
       return
     }
+
     //sort array by biggest to smallest bookEntryNumber
     logsinCurrentBookArr.sort((a, b) => b.bookEntryNumber - a.bookEntryNumber)
     //add 1 to biggest bookEntryNumber, return this currentBookEntryNumber
-    currentBookEntryNumber = logsinCurrentBookArr[0].bookEntryNumber + 1
-    setNewEntry({
-      ...newEntry,
-      bookEntryNumber: currentBookEntryNumber
-    })
+    let updatedNewEntry = newEntry
+    let newBookEntryNumber = logsinCurrentBookArr[0].bookEntryNumber + 1
+    updatedNewEntry.bookEntryNumber = newBookEntryNumber
+    setNewEntry(updatedNewEntry)
   }
-  useEffect(() => findBookEntryNumber(), [])
 
   //going to need to generate unique logId, but for the time being...
   const generateLogId = () => {
@@ -73,9 +85,9 @@ export const NewEntry = (props) => {
       logId: newId
     })
   }
-  useEffect(() => generateLogId(), [])
 
   const handleEntryChange = e => {
+    console.log(newEntry)
     setNewEntry({
       ...newEntry,
       [e.target.name]: e.target.value
@@ -106,15 +118,19 @@ export const NewEntry = (props) => {
     setNewEntry({newEntryObject})
   }
 
+  const setSketchData = () => {
+    let newEntryObject = newEntry
+    // let sketchData = sketcher.getAllPoints()
+    newEntryObject.rxnSketch = { mols: sketcher.molecules , shapes: sketcher.shapes }
+    // console.log(sketchData[0])
+    setNewEntry({newEntryObject})
+  }
+
   const handleSubmit = e => {
     e.preventDefault()
     setDateAndTimeCreated()
+    setSketchData()
     const payload = { ...newEntry, procedures }
-
-    // newEntry = { a: 'a' }
-    // payload = { newEntry } -> { newEntry: { a: 'a'} } 
-    // payload = { ...newEntry } -> { a: 'a' }
-
     dispatch(addLog(payload))
     alert('Entry added!')
     history.push("/")
@@ -129,7 +145,7 @@ export const NewEntry = (props) => {
           value={ newEntry.quickInfo }
           onChange={ handleEntryChange }
         />
-        <RxnCanvas />
+        <canvas id="canvas-id" />
         <label>Procedure:</label>
         {procedures.map((_, i) => {
           return (
@@ -141,7 +157,6 @@ export const NewEntry = (props) => {
             />
           )
         })}
-        
         <Button
           variant="contained"
           onClick={addProcedure}>

@@ -66,6 +66,7 @@ export const Home = () => {
                           key={ i }
                           index={ i }
                           bookName={ log.bookName }
+                          rxnSketch={ log.rxnSketch }
                           quickInfo={ log.quickInfo }
                           procedures={ log.procedures }
                           lastUpdated={ log.lastUpdated }
