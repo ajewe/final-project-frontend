@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardHeader, CardMedia, CardContent, Typography } from '@material-ui/core/';
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core/';
 /* global ChemDoodle */
 
 const useStyles = makeStyles((theme) => ({
@@ -18,10 +18,10 @@ export const EntryCard = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log('useeffe', props.rxnSketch)
     if (props.rxnSketch) {
-      let myCanvas = new ChemDoodle.ViewerCanvas('myCanvas', '100', '100');
-      myCanvas.loadContent(props.rxnSketch.mols, props.rxnSketch.shapes)
+      let myCanvas = new ChemDoodle.ViewerCanvas(`myCanvas-${props.index}`, '200', '100');
+      let rxnData = ChemDoodle.readRXN(props.rxnSketch);
+      myCanvas.loadContent(rxnData.molecules, rxnData.shapes)
     }
   }, []);
 
@@ -32,14 +32,16 @@ export const EntryCard = (props) => {
         titleTypographyProps={{ variant:'h6' }}
         subheader={props.procedures[0].date}
       />
-      {/* <CardMedia
-        className={classes.media}
-        // image="/static/imagesblahblah/bleh.jpg"
-        // title="Reaction"
-      /> */}
       <div className="entry-card-canvas-div">
-        {props.rxnSketch ? <canvas id="myCanvas" /> : "noo"}
-        {/* <canvas id="myCanvas"></canvas> */}
+        {props.rxnSketch ? 
+          <canvas id={`myCanvas-${props.index}`} /> 
+        : 
+          <div className="entry-card-no-canvas">
+            <Typography>
+              No Reaction Scheme
+            </Typography>
+          </div>
+        }
       </div>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">{`Last Updated (ms) ` + (props.lastUpdated)}</Typography>

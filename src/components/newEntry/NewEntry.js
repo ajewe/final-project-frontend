@@ -28,7 +28,7 @@ export const NewEntry = (props) => {
   const [ newEntry, setNewEntry ] = React.useState({
     bookName: props.match.params.id,
     bookEntryNumber: 1,
-    rxnSketch: [],
+    rxnSketch: null,
     quickInfo: "",
     results: "",
     yield: "",
@@ -87,7 +87,6 @@ export const NewEntry = (props) => {
   }
 
   const handleEntryChange = e => {
-    console.log(newEntry)
     setNewEntry({
       ...newEntry,
       [e.target.name]: e.target.value
@@ -120,9 +119,11 @@ export const NewEntry = (props) => {
 
   const setSketchData = () => {
     let newEntryObject = newEntry
-    // let sketchData = sketcher.getAllPoints()
-    newEntryObject.rxnSketch = { mols: sketcher.molecules , shapes: sketcher.shapes }
-    // console.log(sketchData[0])
+    let molecules = sketcher.molecules
+    let shapes = sketcher.shapes
+    let sketchDataRxnFile = ChemDoodle.writeRXN(molecules, shapes)
+    newEntryObject.rxnSketch = sketchDataRxnFile
+
     setNewEntry({newEntryObject})
   }
 

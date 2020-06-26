@@ -31,6 +31,13 @@ body {
   display: flex;
   justify-content: center;
 }
+.entry-card-no-canvas {
+  height: 100px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .left-nav-input {
   text-align: center;
