@@ -28,7 +28,10 @@ export const NewEntry = (props) => {
   const [ newEntry, setNewEntry ] = React.useState({
     bookName: props.match.params.id,
     bookEntryNumber: 1,
-    rxnSketch: null,
+    rxnSketch: {
+      fileData: null,
+      fileType: null,
+    },
     quickInfo: "",
     results: "",
     yield: "",
@@ -121,10 +124,18 @@ export const NewEntry = (props) => {
     let newEntryObject = newEntry
     let molecules = sketcher.molecules
     let shapes = sketcher.shapes
-    let sketchDataRxnFile = ChemDoodle.writeRXN(molecules, shapes)
-    newEntryObject.rxnSketch = sketchDataRxnFile
-
-    setNewEntry({newEntryObject})
+    if (shapes.length) {
+      let sketchDataRxnFile = ChemDoodle.writeRXN(molecules, shapes)
+      newEntryObject.rxnSketch.fileData = sketchDataRxnFile
+      newEntryObject.rxnSketch.fileType = "rxn"
+      setNewEntry({newEntryObject})
+    } else if (molecules.length) {
+        let mol = sketcher.getMolecule()
+        let sketchDataMolFile = ChemDoodle.writeMOL(mol)
+        newEntryObject.rxnSketch.fileData = sketchDataMolFile
+        newEntryObject.rxnSketch.fileType = "mol"
+        setNewEntry({newEntryObject})
+    }
   }
 
   const handleSubmit = e => {

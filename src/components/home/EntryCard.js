@@ -18,10 +18,16 @@ export const EntryCard = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (props.rxnSketch) {
+    if (props.rxnSketch.fileData) {
       let myCanvas = new ChemDoodle.ViewerCanvas(`myCanvas-${props.index}`, '200', '100');
-      let rxnData = ChemDoodle.readRXN(props.rxnSketch);
-      myCanvas.loadContent(rxnData.molecules, rxnData.shapes)
+      if (props.rxnSketch.fileType === "rxn") {
+        let rxnData = ChemDoodle.readRXN(props.rxnSketch.fileData);
+        myCanvas.loadContent(rxnData.molecules, rxnData.shapes)
+      }
+      if (props.rxnSketch.fileType === "mol") {
+        let molData = ChemDoodle.readMOL(props.rxnSketch.fileData)
+        myCanvas.loadMolecule(molData)
+      }
     }
   }, []);
 
@@ -33,7 +39,7 @@ export const EntryCard = (props) => {
         subheader={props.procedures[0].date}
       />
       <div className="entry-card-canvas-div">
-        {props.rxnSketch ? 
+        {props.rxnSketch.fileData ? 
           <canvas id={`myCanvas-${props.index}`} /> 
         : 
           <div className="entry-card-no-canvas">
