@@ -50,9 +50,6 @@ export const Home = () => {
         <div id="home-recent-logs">
           Recent Logs:
           <div>
-            <button onClick={() => 'hi'} >
-              Click Me
-            </button>
 
             {recentLogs.length === 0 ? 
               'No Entries'

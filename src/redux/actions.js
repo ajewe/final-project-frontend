@@ -17,3 +17,11 @@ export const addLog = (log) => {
     value: log
   }
 }
+
+export const changeLog = (index, payload) => {
+  return {
+    type: 'CHANGE_LOG',
+    index,
+    payload
+  }
+}

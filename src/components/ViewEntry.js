@@ -7,7 +7,7 @@ export const ViewEntry = (props) => {
   const selectedLogId = props.match.params.id
   const [ sketcher, setSketcher ] = React.useState(null);
 
-    const findSelectedLog = state => {
+  const findSelectedLog = state => {
     return state.logs.find(l => l.logId == selectedLogId)
   }
   const selectedLog = useSelector(state => findSelectedLog(state))
@@ -18,33 +18,36 @@ export const ViewEntry = (props) => {
     procedureShowInput: false,
     resultsShowInput: false,
     yieldShowInput: false,
-    procedures: selectedLog.procedures.map((_, i) => ({
+    procedures: selectedLog.procedures.map(() => ({
       dateShowInput: false,
       entryShowInput: false,
     }))
   })
+  const [ editableLog, setEditableLog ] = React.useState(selectedLog)
 
-  // const findSelectedLog = state => {
-  //   return state.logs.find(l => l.logId == selectedLogId)
-  // }
-  // const selectedLog = useSelector(state => findSelectedLog(state))
+  const handleInputChange = e => {
+    setEditableLog({
+      ...editableLog,
+      [e.target.name]: e.target.value
+    })
+  }
 
-  // const enterDateAndEntries = () => {
-  //   let newEditEntryObject = editEntry
-
-  //   selectedLog.procedures.map((_, i) => {
-  //     newEditEntryObject.procedures.push(
-  //       {
-  //         dateShowInput: false,
-  //         entryShowInput: false,
-  //       }
-  //     )
-  //     setEditEntry(newEditEntryObject)
-  //   })
-  // }
+  const handleProcedureChange = (e, i) => {
+      setEditableLog({
+        ...editableLog,
+        procedures: [
+          ...editableLog.procedures.slice(0, i),
+          {
+            ...editableLog.procedures[i],
+            [e.target.name]: e.target.value
+          },
+          ...editableLog.procedures.slice(i + 1)
+        ]
+      })
+  }
 
   useEffect(() => {
-    // enterDateAndEntries()
+
     //make sketcher responsive***
     let myCanvas = new ChemDoodle.SketcherCanvas("canvas-id", "600", "350", {
       useServices: false,
@@ -83,7 +86,11 @@ export const ViewEntry = (props) => {
             }}>
               <h2 className="view-entry-text">Quick Info: </h2>
               {editEntry.quickInfoShowInput ? 
-                <input value={selectedLog.quickInfo} ></input>
+                <input 
+                  value={editableLog.quickInfo} 
+                  name="quickInfo"
+                  onChange={ e => handleInputChange(e) }
+                />
                 :
                 <h2 className="view-entry-text">{selectedLog.quickInfo} </h2>
               }
@@ -91,11 +98,15 @@ export const ViewEntry = (props) => {
             <canvas id="canvas-id" onMouseDown={() => canvasClicked()} />
             <br />
             <h2 className="view-entry-text">Procedure: </h2>
-              {selectedLog.procedures.map((p, i) => {
+              {editableLog.procedures.map((p, i) => {
                 return (
                   <div className="view-entry-procedure-div">
-                    {editEntry.procedures[i].dateShowInput ?
-                      <input value={p.date}></input>
+                    {editEntry.procedures[i] && editEntry.procedures[i].dateShowInput ?
+                      <input 
+                        value={p.date} 
+                        name="date"
+                        onChange={ e => handleProcedureChange(e, i) }
+                      />
                     :
                       <h2 className="view-entry-procedure-date" 
                           onClick={() => {
@@ -116,8 +127,12 @@ export const ViewEntry = (props) => {
                         {p.date} 
                       </h2>
                     }
-                    {editEntry.procedures[i].entryShowInput ?
-                      <input value={p.entry}></input>
+                    {editEntry.procedures[i] && editEntry.procedures[i].entryShowInput ?
+                      <input 
+                        value={p.entry} 
+                        name="entry"
+                        onChange={ e => handleProcedureChange(e, i) }
+                      />
                     :
                       <h2 className="view-entry-procedure-entry"
                           onClick={() => {
@@ -150,7 +165,11 @@ export const ViewEntry = (props) => {
             }}>
               <h2 className="view-entry-text">Results: </h2>
               {editEntry.resultsShowInput ?
-                <input value={selectedLog.results}></input>
+                <input 
+                  value={editableLog.results}
+                  name="results"
+                  onChange={ e => handleInputChange(e) }
+                />
                 :
                 <h2 className="view-entry-text">{selectedLog.results}</h2>
               }
@@ -164,11 +183,16 @@ export const ViewEntry = (props) => {
             }}>
               <h2 className="view-entry-text">Yield: </h2>
               {editEntry.yieldShowInput ?
-                <input value={selectedLog.yield}></input>
+                <input 
+                  value={editableLog.yield} 
+                  name="yield"
+                  onChange={ e => handleInputChange(e) }
+                />
                 :
                 <h2 className="view-entry-text">{selectedLog.yield}</h2>
               }
             </div>
+            {/* Need to update lastUpdated when click 'Save Changes' */}
             { editEntry.changesMade && 
               <div id="view-entry-div-buttons">
                 <Button color="primary" variant="contained" >Save Changes</Button>

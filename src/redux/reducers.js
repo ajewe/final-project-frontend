@@ -24,6 +24,10 @@ const logs = (state = [], action) => {
   switch(action.type) {
     case 'ADD_LOG':
       return [ action.value, ...state ]
+    case 'CHANGE_LOG':
+      let newState = state.slice()
+      newState.splice(action.index, 1, action.payload)
+      return newState
     default:
       return state
   }
