@@ -100,6 +100,16 @@ body {
   word-spacing: 5px;
 }
 
+.view-entry-text {
+  display: inline;
+}
+
+#view-entry-div-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20%;
+}
+
 #canvas-div{
   padding: 30px;
 }
