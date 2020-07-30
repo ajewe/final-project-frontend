@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeLog } from '../redux/actions'
 import { TextField, Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 /* global ChemDoodle */
 
 export const ViewEntry = (props) => {
+  const history = useHistory()
+  const dispatch = useDispatch();
   const selectedLogId = props.match.params.id
   const [ sketcher, setSketcher ] = React.useState(null);
 
@@ -24,6 +28,24 @@ export const ViewEntry = (props) => {
     }))
   })
   const [ editableLog, setEditableLog ] = React.useState(selectedLog)
+  
+  useEffect(() => {
+    //make sketcher responsive***
+    let myCanvas = new ChemDoodle.SketcherCanvas("canvas-id", "600", "350", {
+      useServices: false,
+      oneMolecule: false,
+      isMobile: false,
+    });
+    if (selectedLog.rxnSketch.fileType === "rxn") {
+      let rxnData = ChemDoodle.readRXN(selectedLog.rxnSketch.fileData);
+      myCanvas.loadContent(rxnData.molecules, rxnData.shapes)
+    }
+    if (selectedLog.rxnSketch.fileType === "mol") {
+      let molData = ChemDoodle.readMOL(selectedLog.rxnSketch.fileData)
+      myCanvas.loadMolecule(molData)
+    }
+    setSketcher(myCanvas)
+  }, [])
 
   const handleInputChange = e => {
     setEditableLog({
@@ -46,29 +68,44 @@ export const ViewEntry = (props) => {
       })
   }
 
-  useEffect(() => {
-
-    //make sketcher responsive***
-    let myCanvas = new ChemDoodle.SketcherCanvas("canvas-id", "600", "350", {
-      useServices: false,
-      oneMolecule: false,
-      isMobile: false,
-    });
-    if (selectedLog.rxnSketch.fileType === "rxn") {
-      let rxnData = ChemDoodle.readRXN(selectedLog.rxnSketch.fileData);
-      myCanvas.loadContent(rxnData.molecules, rxnData.shapes)
-    }
-    if (selectedLog.rxnSketch.fileType === "mol") {
-      let molData = ChemDoodle.readMOL(selectedLog.rxnSketch.fileData)
-      myCanvas.loadMolecule(molData)
-    }
-    setSketcher(myCanvas)
-  }, [])
-
   //'save changes' or 'discard changes' buttons appear when clicking on canvas
   let canvasClicked = () => {
     let newEditEntry = { ...editEntry, changesMade: true }
     setEditEntry(newEditEntry)
+  }
+
+  const changeDateAndTimeLastUpdated = () => {
+    let newEditableLog = editableLog
+    const today = Date.now();
+    newEditableLog.lastUpdated = today
+    setEditableLog(newEditableLog)
+  }
+
+  const setSketchData = () => {
+    let newEditableLog = editableLog
+    let molecules = sketcher.molecules
+    let shapes = sketcher.shapes
+    if (shapes.length) {
+      let sketchDataRxnFile = ChemDoodle.writeRXN(molecules, shapes)
+      newEditableLog.rxnSketch.fileData = sketchDataRxnFile
+      newEditableLog.rxnSketch.fileType = "rxn"
+      setEditableLog(newEditableLog)
+    } else if (molecules.length) {
+        let mol = sketcher.getMolecule()
+        let sketchDataMolFile = ChemDoodle.writeMOL(mol)
+        newEditableLog.rxnSketch.fileData = sketchDataMolFile
+        newEditableLog.rxnSketch.fileType = "mol"
+        setEditableLog(newEditableLog)
+    }
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    changeDateAndTimeLastUpdated()
+    setSketchData()
+    const payload = { ...editableLog }
+    dispatch(changeLog(selectedLogId, payload))
+    history.push("/")
   }
 
   return (
@@ -76,7 +113,7 @@ export const ViewEntry = (props) => {
       <div id="view-entry-pattern">
         <div id="view-entry-content">
           <h1>{selectedLog.bookName}: Entry {selectedLog.bookEntryNumber} </h1 >
-          <form>
+          <form onSubmit={handleSubmit}>
             <div onClick={() => {
               setEditEntry({
                 ...editEntry, 
@@ -195,8 +232,22 @@ export const ViewEntry = (props) => {
             {/* Need to update lastUpdated when click 'Save Changes' */}
             { editEntry.changesMade && 
               <div id="view-entry-div-buttons">
-                <Button color="primary" variant="contained" >Save Changes</Button>
-                <Button color="secondary" variant="contained" >Discard Changes</Button>
+                <Button color="primary" 
+                        variant="contained" 
+                        type='submit'
+                >
+                  Save Changes
+                </Button>
+                <Button color="secondary" 
+                        variant="contained" 
+                        onClick={() => {
+                          if (window.confirm('Are you sure you want to discard changes?')) {
+                            history.push("/")
+                          }
+                        }}
+                >
+                  Discard Changes
+                </Button>
               </div>
             }
           </form>

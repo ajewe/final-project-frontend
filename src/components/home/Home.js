@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { LeftNavigation } from '../leftNavigation/LeftNavigation'
+import { fetchBooks } from '../../redux/actions'
 import { Link } from 'react-router-dom'
 import { EntryCard } from './EntryCard'
 
 export const Home = () => {
+  const dispatch = useDispatch()
   const allLogs = useSelector( state => state.logs )
   let logsSortedByDate = []
   const [ recentLogs, setRecentLogs ] = React.useState([])
   // const [ allBooks, setAllBooks ] = React.useState([])
+  const allUsers = useSelector( state => state.users )
 
   const findLatestLogs = () => {
     logsSortedByDate = allLogs.sort((a, b) => {
@@ -24,7 +27,10 @@ export const Home = () => {
     }
     setRecentLogs([...recentLogs])
   }
-  useEffect(() => findLatestLogs(), []);
+  useEffect(() => {
+    dispatch(fetchBooks())
+    findLatestLogs()
+  }, []);
 
   // const findAllBooks = () => {
   //   let bookArr = []
@@ -46,6 +52,13 @@ export const Home = () => {
         <div id="home-announcements">
           Lab Announcements:
           {/* and then if there are announcements it would show latest 3 announcements, else it would say  */}
+            <div>
+              {allUsers.map(user => {
+                return(
+                  <p>{user.first_name}</p>
+                )
+              })}
+            </div>
         </div> 
         <div id="home-recent-logs">
           Recent Logs:

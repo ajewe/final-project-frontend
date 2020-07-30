@@ -1,6 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { verifyUser } from '../redux/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
+// import { verifyUser } from '../redux/actions'
+import { createSession } from '../redux/actions'
 import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,26 +21,74 @@ const useStyles = makeStyles({
   }
 })
 
-export const Login = () => {
+export const Login = ({ location }) => {
   const classes = useStyles();
   const dispatch = useDispatch()
   const history = useHistory()
+  const user = useSelector(state => state.user)
+  const [ userLoginInfo, setUserLoginInfo ] = React.useState({
+    email: "",
+    password: ""
+  })
+  // const [ redirectToReferrer, setRedirectToReferrer ] = React.useState(false)
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    dispatch(verifyUser())
-    history.push("/")
+  const handleTextChange = e => {
+    setUserLoginInfo({
+      ...userLoginInfo,
+      [e.target.name]: e.target.value
+    })
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    dispatch(createSession(userLoginInfo))
+      // setRedirectToReferrer(true)
+    
+    console.log('in login')
+  }
+
+  // if (redirectToReferrer){
+  //   console.log('backbakc')
+  //   history.push('/')
+  //   return
+  // }
+
+  const handleSignUp = () => {
+    history.push("/signup")
+  }
+  const { from } = location.state || {from: { pathname:"/" }};
+  console.log('loginasta', location, from)
   return (
-    <Container maxWidth="sm">
-      <form className={classes.root} onSubmit={handleClick} >
-        <TextField className={classes.txtField} label="Email" />
-        <TextField className={classes.txtField} label="Password" />
-        <Button className={classes.btn} type="submit" variant="contained">
-          Login
-        </Button>
-      </form>
-    </Container>
+    <>
+      { user.isLoggedIn ? 
+        <Redirect to={from} /> :
+        <Container maxWidth="sm">
+          <form className={ classes.root } onSubmit={ handleSubmit } >
+            <TextField className={ classes.txtField } 
+                      label="Email" 
+                      name="email" 
+                      value={ userLoginInfo.email }
+                      onChange={ handleTextChange } 
+
+            />
+            <TextField className={ classes.txtField } 
+                      label="Password" 
+                      name="password" 
+                      value={ userLoginInfo.password }
+                      onChange={ handleTextChange }
+            />
+            <Button className={ classes.btn } type="submit" variant="contained">
+              Login
+            </Button>
+            <Button className={ classes.btn } 
+                    onClick={ () => handleSignUp() } 
+                    variant="contained"
+            >
+              Sign Up
+            </Button>
+          </form>
+        </Container>
+      }
+    </>
   );
 }

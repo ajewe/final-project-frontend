@@ -47,6 +47,7 @@ export const NewEntry = (props) => {
   )
 
   useEffect(() => {
+    
      //make sketcher responsive*****
     let newSketcher = new ChemDoodle.SketcherCanvas("canvas-id", "850", "350", {
       useServices: false,

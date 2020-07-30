@@ -7,8 +7,8 @@ import Router from './Router'
 
 function App() {
   return (
-      <Provider store={store}>
-        <BrowserRouter>
+      <Provider store={ store }>
+        <BrowserRouter >
           <Router />
         </BrowserRouter>
       </Provider>
