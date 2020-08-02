@@ -1,18 +1,20 @@
-
-// export const fetchUsers = () => {
-//   return (dispatch) => {
-//     //adding env variables in .env
-//     fetch('http://localhost:4001/users')
-//       .then(res => res.json())
-//       .then(response => {
-//         const action = {
-//           type: 'FETCH_USERS',
-//           value: response
-//         }
-//         dispatch(action)
-//       })
-//   }
-// }
+export const createUser = userData => {
+  return (dispatch) => {
+    fetch('http://localhost:4001/user/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(response => {
+      alert('User Created!')
+    }).catch(e => {
+      console.log('issues: ', e)
+    })
+  }
+}
 
 export const createSession = userLoginInfo => {
   return (dispatch) => {

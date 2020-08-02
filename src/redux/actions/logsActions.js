@@ -84,15 +84,10 @@ export const changeLog = (logId, payload, userToken) => {
       body: JSON.stringify(payload)
     })
     .then(res => res.json())
-    .then(response => {
-      // const action = {
-      //   type: 'CHANGE_LOG',
-      //   logId,
-      //   payload
-      // }
-      // dispatch(action)
+    .then( response => {
       alert('Log Updated!')
-    }).catch(e => {
+    })
+    .catch(e => {
       console.log('issues: ', e)
     })
   }

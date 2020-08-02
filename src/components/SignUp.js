@@ -1,6 +1,6 @@
 import React from 'react';
-// import { useDispatch } from 'react-redux';
-// import { verifyUser } from '../redux/actions'
+import { useDispatch } from 'react-redux';
+import { createUser } from '../redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,29 +21,61 @@ const useStyles = makeStyles({
 
 export const SignUp = () => {
   const classes = useStyles();
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const history = useHistory()
+  const [ newUserData, setNewUserData ] = React.useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: ""
+  })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // dispatch(verifyUser())
-    history.push("/")
+  const handleChange = e => {
+    setNewUserData({
+      ...newUserData,
+      [e.target.name]: e.target.value
+    })
   }
 
-  const handleSignUp = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
-
+    dispatch(createUser(newUserData))
+    history.push("/login")
   }
 
   return (
     <Container maxWidth="sm">
       <form className={ classes.root } onSubmit={ handleSubmit } >
-        <TextField className={ classes.txtField } label="Email" />
-        <TextField className={ classes.txtField } label="First Name" />
-        <TextField className={ classes.txtField } label="Last Name" />
-        <TextField className={ classes.txtField } label="Password" />
+        <TextField 
+          className={ classes.txtField } 
+          name="email"
+          label="Email" 
+          value={ newUserData.email }
+          onChange={ handleChange }
+        />
+        <TextField 
+          className={ classes.txtField } 
+          name="firstName"
+          label="First Name" 
+          value={ newUserData.firstName }
+          onChange={ handleChange }
+        />
+        <TextField 
+          className={ classes.txtField } 
+          name="lastName"
+          label="Last Name" 
+          value={ newUserData.lastName }
+          onChange={ handleChange }
+        />
+        <TextField 
+          className={ classes.txtField } 
+          name="password"
+          label="Password" 
+          value={ newUserData.password }
+          onChange={ handleChange }
+        />
         <Button className={ classes.btn } 
-                onClick={ () => handleSignUp } 
+                type="submit" 
                 variant="contained"
         >
           Sign Up
