@@ -13,7 +13,7 @@ export const ViewEntry = (props) => {
   const userToken = useSelector ( state => state.user.token )
   const selectedLog = useSelector( state => state.selectedLog)
   const [ sketcher, setSketcher ] = React.useState(null);
-
+  const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
   // const findSelectedLog = state => {
   //   return state.logs.find(l => l.logId == selectedLogId)
   // }
@@ -28,13 +28,20 @@ export const ViewEntry = (props) => {
     procedures: []
   })
 
-  const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
-
   useEffect(() => {
     dispatch(fetchSelectedLog(selectedLogId, userToken))
   }, [])
 
   useEffect(() => {
+    setEditEntry({
+      ...editEntry,
+      procedures: selectedLog?.procedures?.map(() => ({
+        dateShowInput: false,
+        entryShowInput: false,
+      }))
+    })
+    setEditableLog({...selectedLog})
+
     if (!sketcher) {
       //make responsive
       let myCanvas = new ChemDoodle.SketcherCanvas("canvas-id", "600", "350", {
@@ -56,16 +63,6 @@ export const ViewEntry = (props) => {
       let molData = ChemDoodle.readMOL(selectedLog.rxn_sketch.fileData)
       sketcher.loadMolecule(molData)
     }
-
-    setEditEntry({
-      ...editEntry,
-      procedures: selectedLog?.procedures?.map(() => ({
-        dateShowInput: false,
-        entryShowInput: false,
-      }))
-    })
-    setEditableLog({...selectedLog})
-    
   }, [selectedLog])
 
   const handleInputChange = e => {
@@ -98,7 +95,7 @@ export const ViewEntry = (props) => {
   const changeDateAndTimeLastUpdated = () => {
     let newEditableLog = editableLog
     const today = Date.now();
-    newEditableLog.lastUpdated = today
+    newEditableLog.last_updated = today.toString()
     setEditableLog(newEditableLog)
   }
 
@@ -125,7 +122,8 @@ export const ViewEntry = (props) => {
     changeDateAndTimeLastUpdated()
     setSketchData()
     const payload = { ...editableLog }
-    dispatch(changeLog(selectedLogId, payload))
+    console.log(payload)
+    dispatch(changeLog(selectedLogId, payload, userToken))
     history.push("/")
   }
 
@@ -135,7 +133,7 @@ export const ViewEntry = (props) => {
       <div id="view-entry-pattern">
         <div id="view-entry-content">
           <h1>{selectedLog.book_name}: Entry {selectedLog.book_entry_number} </h1 >
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={ handleSubmit }>
             <div onClick={() => {
               setEditEntry({
                 ...editEntry, 
@@ -147,7 +145,7 @@ export const ViewEntry = (props) => {
               {editEntry.quickInfoShowInput ? 
                 <input 
                   value={editableLog.quick_info} 
-                  name="quickInfo"
+                  name="quick_info"
                   onChange={ e => handleInputChange(e) }
                 />
                 :

@@ -33,15 +33,16 @@ const logs = (state = [], action) => {
     case 'ADD_LOG':
       return state
     case 'CHANGE_LOG':
-      let index;
-      for (let i = 0; i < state.length; i++) {
-        if (action.logId == state[i].logId) {
-          index = i
-        }
-      }
-      let newState = state.slice()
-      newState.splice(index, 1, action.payload)
-      return newState
+      // let index;
+      // for (let i = 0; i < state.length; i++) {
+      //   if (action.logId == state[i].logId) {
+      //     index = i
+      return state
+      //   }
+      // }
+      // let newState = state.slice()
+      // newState.splice(index, 1, action.payload)
+      // return newState
     default:
       return state
   }

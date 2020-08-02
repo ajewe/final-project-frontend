@@ -16,7 +16,6 @@ export const fetchLogs = (userToken) => {
             }
           })
         }
-        console.log(response)
         dispatch(action)
       }).catch(e => {
         console.log(e)
@@ -34,7 +33,10 @@ export const addLog = (log, userToken) => {
       },
       body: JSON.stringify(log)
     })
-      .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        // res.json()
+      })
       .then( response => {
         // const action = {
         //   type: 'ADD_LOG',
@@ -71,10 +73,27 @@ export const fetchSelectedLog = (logId, userToken) => {
   }
 }
 
-export const changeLog = (logId, payload) => {
-  return {
-    type: 'CHANGE_LOG',
-    logId,
-    payload
+export const changeLog = (logId, payload, userToken) => {
+  return (dispatch) => {
+    fetch(`http://localhost:4001/logs/update/${logId}`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+          token: userToken
+        },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(response => {
+      // const action = {
+      //   type: 'CHANGE_LOG',
+      //   logId,
+      //   payload
+      // }
+      // dispatch(action)
+      alert('Log Updated!')
+    }).catch(e => {
+      console.log('issues: ', e)
+    })
   }
 }

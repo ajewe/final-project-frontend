@@ -35,7 +35,6 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log(allLogs)
     findLatestLogs()
   }, [ allLogs ]);
 
