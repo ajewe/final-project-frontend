@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AddProcedure } from './AddProcedure';
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
-import { addLog } from '../../redux/actions';
+import { addLog } from '../../redux/actions/logsActions';
 import { useHistory } from 'react-router-dom';
 /* global ChemDoodle */
 
@@ -19,6 +19,7 @@ const useStyles = makeStyles({
 
 export const NewEntry = (props) => {
   const classes = useStyles();
+  const userToken = useSelector ( state => state.user.token )
   const allLogs = useSelector(state => state.logs)
   const dispatch = useDispatch();
   const history = useHistory()
@@ -56,14 +57,14 @@ export const NewEntry = (props) => {
     });
     setSketcher(newSketcher)
     findBookEntryNumber()
-    generateLogId()
   }, [])
 
   const findBookEntryNumber = () => {
+    console.log(allLogs)
     const logsinCurrentBookArr = [];
     //search allLogs for bookName that matches props.match.params.id, add these to array
     for ( let i = 0; i < allLogs.length; i++ ) {
-      if ( allLogs[i].bookName === props.match.params.id ) {
+      if ( allLogs[i].book_name === props.match.params.id ) {
         logsinCurrentBookArr.push(allLogs[i])
       }
     }
@@ -72,22 +73,12 @@ export const NewEntry = (props) => {
     }
 
     //sort array by biggest to smallest bookEntryNumber
-    logsinCurrentBookArr.sort((a, b) => b.bookEntryNumber - a.bookEntryNumber)
+    logsinCurrentBookArr.sort((a, b) => b.book_entry_number - a.book_entry_number)
     //add 1 to biggest bookEntryNumber, return this currentBookEntryNumber
     let updatedNewEntry = newEntry
-    let newBookEntryNumber = logsinCurrentBookArr[0].bookEntryNumber + 1
+    let newBookEntryNumber = logsinCurrentBookArr[0].book_entry_number + 1
     updatedNewEntry.bookEntryNumber = newBookEntryNumber
     setNewEntry(updatedNewEntry)
-  }
-
-  //going to need to generate unique logId, but for the time being...
-  const generateLogId = () => {
-    let logsSortedArr = allLogs.sort((a, b) => b.logId - a.logId)
-    let newId = logsSortedArr[0].logId + 1
-    setNewEntry({
-      ...newEntry,
-      logId: newId
-    })
   }
 
   const handleEntryChange = e => {
@@ -144,7 +135,7 @@ export const NewEntry = (props) => {
     setDateAndTimeCreated()
     setSketchData()
     const payload = { ...newEntry, procedures }
-    dispatch(addLog(payload))
+    dispatch(addLog(payload, userToken))
     alert('Entry added!')
     history.push("/")
   }

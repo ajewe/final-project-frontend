@@ -17,6 +17,15 @@ const useStyles = makeStyles((theme) => ({
 export const EntryCard = (props) => {
   const classes = useStyles();
 
+  const createDateFromLastUpdated = () => {
+    //convert from str to int 
+     let timestamp = parseInt(props.lastUpdated)
+     let date = new Date(timestamp)
+     //convert to be more legible for humans
+     let humanDate = date.toDateString()
+     return humanDate
+  }
+
   useEffect(() => {
     if (props.rxnSketch.fileData) {
       let myCanvas = new ChemDoodle.ViewerCanvas(`myCanvas-${props.index}`, '200', '100');
@@ -29,14 +38,14 @@ export const EntryCard = (props) => {
         myCanvas.loadMolecule(molData)
       }
     }
-  }, []);
+  }, [props]);
 
   return (
     <Card className={classes.root}>
       <CardHeader
         title={props.bookName + ' - Entry ' + props.bookEntryNumber}
         titleTypographyProps={{ variant:'h6' }}
-        subheader={props.procedures[0].date}
+        subheader={createDateFromLastUpdated()}
       />
       <div className="entry-card-canvas-div">
         {props.rxnSketch.fileData ? 
@@ -50,7 +59,6 @@ export const EntryCard = (props) => {
         }
       </div>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">{`Last Updated (ms) ` + (props.lastUpdated)}</Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           {props.quickInfo}
         </Typography>

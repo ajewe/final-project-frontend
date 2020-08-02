@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useOutsideClick } from "./useOutsideClick";
 import { MenuPopUp } from './MenuPopUp'
-import { addBook } from '../../redux/actions'
+import { addBook } from '../../redux/actions/booksActions'
 import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export const LeftNavigation = () => {
+export const LeftNavigation = (props) => {
   const classes = useStyles();
   const ref = useRef();
   const dispatch = useDispatch();
@@ -34,20 +34,17 @@ export const LeftNavigation = () => {
     bookName: "",
     displayInput: false,
   })
+  const [ reversedBooks, setReversedBooks ] = React.useState([])
+
+  const reverseAllBooks = () => {
+    let reverseBooksArr = allBooks.sort((a, b) => b.id - a.id)
+    setReversedBooks(reverseBooksArr)
+  }
 
   const handleBookChange = e => {
     setBookInput({
       ...bookInput,
       bookName: e.target.value
-    })
-  }
-
-  const handleBookStateSubmit = e => {
-    e.preventDefault()
-    dispatch(addBook(bookInput.bookName))
-    setBookInput({
-      bookName: "",
-      displayInput: false,
     })
   }
 
@@ -75,7 +72,23 @@ export const LeftNavigation = () => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  // const id = open ? 'simple-popover' : undefined;
+
+  const handleBookStateSubmit = e => {
+    e.preventDefault()
+    let bookSubmitObject = {
+      bookName: bookInput.bookName
+    }
+    dispatch(addBook(bookSubmitObject, props.userToken))
+  }
+
+  useEffect(() => {
+    reverseAllBooks()    
+    setBookInput({
+      bookName: "",
+      displayInput: false,
+    })
+  }, [allBooks])
 
   return (
     <Drawer
@@ -110,7 +123,7 @@ export const LeftNavigation = () => {
           }}
         />
       </div>
-      {bookInput.displayInput 
+      {bookInput.displayInput
         && 
           <form ref={ref} onSubmit={ handleBookStateSubmit }>
             <input 
@@ -119,16 +132,15 @@ export const LeftNavigation = () => {
               onChange={ handleBookChange }/>
           </form>}
       <List>
-        {allBooks.map((text) => (
+        {reversedBooks.map((b) => (
           <ListItem 
             button 
-            key={ text }
+            key={ b.id }
             onClick={ handleClick }
-            aria-describedby={ id }
-            bookName = { text }
+            bookName = { b.book }
           >
             <ListItemIcon></ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={ b.book } />
           </ListItem>
         ))}
       </List>

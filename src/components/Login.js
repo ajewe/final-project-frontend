@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
-// import { verifyUser } from '../redux/actions'
-import { createSession } from '../redux/actions'
+import { createSession } from '../redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -42,22 +41,13 @@ export const Login = ({ location }) => {
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(createSession(userLoginInfo))
-      // setRedirectToReferrer(true)
-    
-    console.log('in login')
   }
-
-  // if (redirectToReferrer){
-  //   console.log('backbakc')
-  //   history.push('/')
-  //   return
-  // }
 
   const handleSignUp = () => {
     history.push("/signup")
   }
   const { from } = location.state || {from: { pathname:"/" }};
-  console.log('loginasta', location, from)
+  
   return (
     <>
       { user.isLoggedIn ? 

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLog } from '../redux/actions'
-import { TextField, Button } from '@material-ui/core';
+import { fetchSelectedLog } from '../redux/actions/logsActions'
+import { changeLog } from '../redux/actions/logsActions'
+import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 /* global ChemDoodle */
 
@@ -9,12 +10,14 @@ export const ViewEntry = (props) => {
   const history = useHistory()
   const dispatch = useDispatch();
   const selectedLogId = props.match.params.id
+  const userToken = useSelector ( state => state.user.token )
+  const selectedLog = useSelector( state => state.selectedLog)
   const [ sketcher, setSketcher ] = React.useState(null);
 
-  const findSelectedLog = state => {
-    return state.logs.find(l => l.logId == selectedLogId)
-  }
-  const selectedLog = useSelector(state => findSelectedLog(state))
+  // const findSelectedLog = state => {
+  //   return state.logs.find(l => l.logId == selectedLogId)
+  // }
+  // const selectedLog = useSelector(state => findSelectedLog(state))
 
   const [ editEntry, setEditEntry ] = React.useState({
     changesMade: false,
@@ -22,13 +25,11 @@ export const ViewEntry = (props) => {
     procedureShowInput: false,
     resultsShowInput: false,
     yieldShowInput: false,
-    procedures: selectedLog.procedures.map(() => ({
-      dateShowInput: false,
-      entryShowInput: false,
-    }))
+    procedures: []
   })
-  const [ editableLog, setEditableLog ] = React.useState(selectedLog)
-  
+
+  const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
+
   useEffect(() => {
     //make sketcher responsive***
     let myCanvas = new ChemDoodle.SketcherCanvas("canvas-id", "600", "350", {
@@ -36,16 +37,30 @@ export const ViewEntry = (props) => {
       oneMolecule: false,
       isMobile: false,
     });
-    if (selectedLog.rxnSketch.fileType === "rxn") {
-      let rxnData = ChemDoodle.readRXN(selectedLog.rxnSketch.fileData);
-      myCanvas.loadContent(rxnData.molecules, rxnData.shapes)
-    }
-    if (selectedLog.rxnSketch.fileType === "mol") {
-      let molData = ChemDoodle.readMOL(selectedLog.rxnSketch.fileData)
-      myCanvas.loadMolecule(molData)
-    }
     setSketcher(myCanvas)
+    dispatch(fetchSelectedLog(selectedLogId, userToken))
   }, [])
+
+  useEffect(() => {
+    if (selectedLog?.rxn_sketch?.fileType === "rxn") {
+      let rxnData = ChemDoodle.readRXN(selectedLog.rxn_sketch.fileData);
+      sketcher.loadContent(rxnData.molecules, rxnData.shapes)
+    }
+    if (selectedLog?.rxn_sketch?.fileType === "mol") {
+      let molData = ChemDoodle.readMOL(selectedLog.rxn_sketch.fileData)
+      sketcher.loadMolecule(molData)
+    }
+
+    setEditEntry({
+      ...editEntry,
+      procedures: selectedLog?.procedures?.map(() => ({
+        dateShowInput: false,
+        entryShowInput: false,
+      }))
+    })
+    setEditableLog({...selectedLog})
+    
+  }, [selectedLog])
 
   const handleInputChange = e => {
     setEditableLog({
@@ -87,14 +102,14 @@ export const ViewEntry = (props) => {
     let shapes = sketcher.shapes
     if (shapes.length) {
       let sketchDataRxnFile = ChemDoodle.writeRXN(molecules, shapes)
-      newEditableLog.rxnSketch.fileData = sketchDataRxnFile
-      newEditableLog.rxnSketch.fileType = "rxn"
+      newEditableLog.rxn_sketch.fileData = sketchDataRxnFile
+      newEditableLog.rxn_sketch.fileType = "rxn"
       setEditableLog(newEditableLog)
     } else if (molecules.length) {
         let mol = sketcher.getMolecule()
         let sketchDataMolFile = ChemDoodle.writeMOL(mol)
-        newEditableLog.rxnSketch.fileData = sketchDataMolFile
-        newEditableLog.rxnSketch.fileType = "mol"
+        newEditableLog.rxn_sketch.fileData = sketchDataMolFile
+        newEditableLog.rxn_sketch.fileType = "mol"
         setEditableLog(newEditableLog)
     }
   }
@@ -109,10 +124,11 @@ export const ViewEntry = (props) => {
   }
 
   return (
+    <>
     <div id="view-entry-paper">
       <div id="view-entry-pattern">
         <div id="view-entry-content">
-          <h1>{selectedLog.bookName}: Entry {selectedLog.bookEntryNumber} </h1 >
+          <h1>{selectedLog.book_name}: Entry {selectedLog.book_entry_number} </h1 >
           <form onSubmit={handleSubmit}>
             <div onClick={() => {
               setEditEntry({
@@ -124,12 +140,12 @@ export const ViewEntry = (props) => {
               <h2 className="view-entry-text">Quick Info: </h2>
               {editEntry.quickInfoShowInput ? 
                 <input 
-                  value={editableLog.quickInfo} 
+                  value={editableLog.quick_info} 
                   name="quickInfo"
                   onChange={ e => handleInputChange(e) }
                 />
                 :
-                <h2 className="view-entry-text">{selectedLog.quickInfo} </h2>
+                <h2 className="view-entry-text">{selectedLog.quick_info} </h2>
               }
             </div>
             <canvas id="canvas-id" onMouseDown={() => canvasClicked()} />
@@ -254,5 +270,6 @@ export const ViewEntry = (props) => {
         </div>
       </div>
     </div>
+    </>
   )
 }

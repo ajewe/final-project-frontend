@@ -1,69 +1,59 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { LeftNavigation } from '../leftNavigation/LeftNavigation'
-import { fetchBooks } from '../../redux/actions'
+import { fetchBooks } from '../../redux/actions/booksActions'
+import { fetchLogs } from '../../redux/actions/logsActions'
 import { Link } from 'react-router-dom'
 import { EntryCard } from './EntryCard'
 
 export const Home = () => {
   const dispatch = useDispatch()
   const allLogs = useSelector( state => state.logs )
-  let logsSortedByDate = []
+  const userToken = useSelector ( state => state.user.token )
   const [ recentLogs, setRecentLogs ] = React.useState([])
-  // const [ allBooks, setAllBooks ] = React.useState([])
-  const allUsers = useSelector( state => state.users )
-
+  
   const findLatestLogs = () => {
+    let logsSortedByDate = []
+    let firstFewLogs = []
     logsSortedByDate = allLogs.sort((a, b) => {
-      return b.lastUpdated - a.lastUpdated
+      return b.last_updated - a.last_updated
     })
 
     for (let i = 0; i < 10; i++) {
       if (!logsSortedByDate[i]) {
-        setRecentLogs([...recentLogs])
+        setRecentLogs(firstFewLogs)
       } else {
-        recentLogs.push(logsSortedByDate[i])
+        firstFewLogs.push(logsSortedByDate[i])
       }
     }
-    setRecentLogs([...recentLogs])
+    setRecentLogs(firstFewLogs)
   }
+
   useEffect(() => {
-    dispatch(fetchBooks())
-    findLatestLogs()
+    dispatch(fetchLogs(userToken))
+    dispatch(fetchBooks(userToken))
   }, []);
 
-  // const findAllBooks = () => {
-  //   let bookArr = []
-  //   //go through allLogs, check bookName for each, if new bookName, push to array
-  //   for (let i = 0; i < allLogs.length; i++) {
-  //     if (!bookArr.includes(allLogs[i].bookName)) {
-  //       bookArr.push(allLogs[i].bookName)
-  //     }
-  //   }
-  //   setAllBooks(bookArr)
-  // // }
-  // useEffect(() => findAllBooks(), []);
+  useEffect(() => {
+    console.log(allLogs)
+    findLatestLogs()
+  }, [ allLogs ]);
 
   return (
     <>
-      <LeftNavigation />
+      <LeftNavigation 
+        userToken={ userToken }
+      />
+      {/* {allBooksFromState.length === 0 ? <p>no books</p> : <p>{allBooksFromState[0].book}</p>} */}
       <div id="home-container">
         <h1>Welcome User</h1>
         <div id="home-announcements">
           Lab Announcements:
           {/* and then if there are announcements it would show latest 3 announcements, else it would say  */}
-            <div>
-              {allUsers.map(user => {
-                return(
-                  <p>{user.first_name}</p>
-                )
-              })}
-            </div>
         </div> 
         <div id="home-recent-logs">
           Recent Logs:
           <div>
-
             {recentLogs.length === 0 ? 
               'No Entries'
               :
@@ -71,16 +61,17 @@ export const Home = () => {
                 {recentLogs.map((log, i) => {
                   return (
                     <div className="entry-card-div">
-                      <Link to={`/view-entry/${ log.logId }`} className="link">
+                      <Link to={`/view-entry/${ log.id }`} 
+                            className="link"
+                      >
                         <EntryCard
                           key={ i }
                           index={ i }
-                          bookName={ log.bookName }
-                          rxnSketch={ log.rxnSketch }
-                          quickInfo={ log.quickInfo }
-                          procedures={ log.procedures }
-                          lastUpdated={ log.lastUpdated }
-                          bookEntryNumber={ log.bookEntryNumber }
+                          bookName={ log.book_name }
+                          rxnSketch={ log.rxn_sketch }
+                          quickInfo={ log.quick_info }
+                          lastUpdated={ log.last_updated }
+                          bookEntryNumber={ log.book_entry_number }
                         />
                       </Link>
                     </div>
@@ -88,8 +79,6 @@ export const Home = () => {
                 })}
               </div>
             }
-            {/* if nothing posted, list most recent Book {number} with entry(ies) */}
-            {/* if next entry is new book, list new Book {number} with entry(ies), repeat for x number of logs */}
           </div>
         </div>
       </div>
