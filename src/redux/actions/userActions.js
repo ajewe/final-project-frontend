@@ -29,6 +29,7 @@ export const createSession = userLoginInfo => {
           type: 'CREATE_SESSION',
           value: json.token
         }
+        localStorage.setItem('token', action.value)
         dispatch(action)
       }).catch((e) => {
         console.log("issues", e)

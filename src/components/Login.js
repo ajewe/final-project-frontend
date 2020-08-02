@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { createSession } from '../redux/actions/userActions'
@@ -47,6 +47,18 @@ export const Login = ({ location }) => {
     history.push("/signup")
   }
   const { from } = location.state || {from: { pathname:"/" }};
+
+  useEffect(() => {
+    const user = localStorage.getItem('token')
+
+    if (user) {
+      const action = {
+        type: 'CREATE_SESSION',
+        value: user
+      }
+      dispatch(action)
+    }
+  }, []);
   
   return (
     <>

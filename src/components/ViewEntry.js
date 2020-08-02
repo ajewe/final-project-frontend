@@ -31,18 +31,24 @@ export const ViewEntry = (props) => {
   const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
 
   useEffect(() => {
-    //make sketcher responsive***
-    let myCanvas = new ChemDoodle.SketcherCanvas("canvas-id", "600", "350", {
-      useServices: false,
-      oneMolecule: false,
-      isMobile: false,
-    });
-    setSketcher(myCanvas)
     dispatch(fetchSelectedLog(selectedLogId, userToken))
   }, [])
 
   useEffect(() => {
+    if (!sketcher) {
+      //make responsive
+      let myCanvas = new ChemDoodle.SketcherCanvas("canvas-id", "600", "350", {
+        useServices: false,
+        oneMolecule: false,
+        isMobile: false,
+      });
+      setSketcher(myCanvas)
+      // Make new sketcher
+      return 
+    }
+    
     if (selectedLog?.rxn_sketch?.fileType === "rxn") {
+      console.log('here2')
       let rxnData = ChemDoodle.readRXN(selectedLog.rxn_sketch.fileData);
       sketcher.loadContent(rxnData.molecules, rxnData.shapes)
     }
