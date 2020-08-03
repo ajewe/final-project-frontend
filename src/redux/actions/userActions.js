@@ -38,3 +38,9 @@ export const createSession = userLoginInfo => {
       })
   }
 }
+
+export const endSession = () => {
+  return {
+      type: 'END_SESSION'
+    }
+}

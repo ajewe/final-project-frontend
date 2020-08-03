@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TopNavigation } from '../TopNavigation'
-import { LeftNavigation } from '../leftNavigation/LeftNavigation'
+import { TopNavigation } from '../navigation/TopNavigation'
+import { LeftNavigation } from '../navigation/LeftNavigation'
 import { fetchBooks } from '../../redux/actions/booksActions'
 import { fetchLogs } from '../../redux/actions/logsActions'
 import { Link } from 'react-router-dom'
@@ -27,7 +27,6 @@ export const Home = () => {
         firstFewLogs.push(logsSortedByDate[i])
       }
     }
-    console.log('rece : ', recentLogs)
     setRecentLogs(firstFewLogs)
   }
 
@@ -37,8 +36,6 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log('all logs: ', allLogs)
-    console.log('recent logs: ', recentLogs)
     findLatestLogs()
   }, [ allLogs ]);
 
@@ -63,7 +60,6 @@ export const Home = () => {
               :
               <div className="entry-card-container-div">
                 {recentLogs.map((log, i) => {
-                  console.log(recentLogs)
                   return (
                     <div className="entry-card-div">
                       <Link to={`/view-entry/${ log.id }`} 

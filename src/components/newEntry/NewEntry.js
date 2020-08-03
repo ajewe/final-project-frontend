@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TopNavigation } from '../navigation/TopNavigation'
 import { AddProcedure } from './AddProcedure';
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
@@ -46,7 +47,7 @@ export const NewEntry = (props) => {
       }
     ]
   )
-
+  // useEffect(() => {findBookEntryNumber()}, [allLogs])
   useEffect(() => {
      //make sketcher responsive*****
     let newSketcher = new ChemDoodle.SketcherCanvas("canvas-id", "850", "350", {
@@ -60,24 +61,23 @@ export const NewEntry = (props) => {
 
   const findBookEntryNumber = () => {
     const logsinCurrentBookArr = [];
-    console.log(allLogs)
-    //search allLogs for bookName that matches props.match.params.id, add these to array
-    //need to change thisssss
+    //search allLogs for book_id that matches props.match.params.id, add these to array
     for ( let i = 0; i < allLogs.length; i++ ) {
-      if ( allLogs[i].book_name === props.match.params.id ) {
+      if ( allLogs[i].book_id == props.match.params.id ) {
         logsinCurrentBookArr.push(allLogs[i])
       }
     }
+    //if there aren't any, entry is already set to one so return
     if ( logsinCurrentBookArr.length === 0 ) {
       return
     }
-
-    //sort array by biggest to smallest bookEntryNumber
+    //sort array by bookEntryNumber in descending order 
     logsinCurrentBookArr.sort((a, b) => b.book_entry_number - a.book_entry_number)
     //add 1 to biggest bookEntryNumber, return this currentBookEntryNumber
     let updatedNewEntry = newEntry
     let newBookEntryNumber = logsinCurrentBookArr[0].book_entry_number + 1
     updatedNewEntry.bookEntryNumber = newBookEntryNumber
+    console.log('newent: ', newBookEntryNumber)
     setNewEntry(updatedNewEntry)
   }
 
@@ -141,6 +141,8 @@ export const NewEntry = (props) => {
   }
 
   return (
+    <> 
+      <TopNavigation />
       <form className={ classes.formField } onSubmit={ handleSubmit }>
         <TextField
           id="standard-basic"
@@ -187,5 +189,6 @@ export const NewEntry = (props) => {
         </Button>
         <h3>Entry {newEntry.bookEntryNumber}</h3>
       </form>
+    </>
   )
 }

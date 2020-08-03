@@ -30,6 +30,9 @@ export const LeftNavigation = (props) => {
   const dispatch = useDispatch();
   const allBooks = useSelector( state => state.books )
   const [ anchorEl, setAnchorEl ] = React.useState(null);
+  const open = Boolean(anchorEl);
+  // const id = open ? 'simple-popover' : undefined;
+
   const [ bookInput, setBookInput ] = React.useState({
     bookName: "",
     displayInput: false,
@@ -63,16 +66,13 @@ export const LeftNavigation = (props) => {
     }
   });
 
-  const handleClick = (e) => {
+  const handleTextClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const open = Boolean(anchorEl);
-  // const id = open ? 'simple-popover' : undefined;
 
   const handleBookStateSubmit = e => {
     e.preventDefault()
@@ -136,7 +136,7 @@ export const LeftNavigation = (props) => {
           <ListItem 
             button 
             key={ b.id }
-            onClick={ handleClick }
+            onClick={ handleTextClick }
             bookId = { b.id }
           >
             <ListItemIcon></ListItemIcon>
@@ -148,6 +148,24 @@ export const LeftNavigation = (props) => {
         open={ open }
         handleClose={ handleClose }
         anchorEl={ anchorEl }
+        menuItemContent={
+          [
+            {
+              text: "New Entry",
+              linkTo: "/new-entry/",
+              handleClick: null
+            },
+            // {
+            //   text: "Table Of Contents",
+            //   linkTo: "",
+            // },
+            // {
+            //   text: "View All",
+            //   linkTo: "",
+            // }
+          ]
+        }
+        extraLinkAttribute={ anchorEl ? anchorEl.getAttribute("bookId"): "" }
       />
     </Drawer>
   )

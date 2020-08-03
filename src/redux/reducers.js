@@ -4,7 +4,8 @@ const user = (state = { token: '', isLoggedIn: false}, action) => {
   switch(action.type) {
     case 'CREATE_SESSION':
       return { ...state, isLoggedIn: true, token: action.value }
-    // case 'CREATE_USER'
+    case 'END_SESSION':
+      return { token: '', isLoggedIn: false}
     default:
       return state
   }
