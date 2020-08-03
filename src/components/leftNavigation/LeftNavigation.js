@@ -137,7 +137,7 @@ export const LeftNavigation = (props) => {
             button 
             key={ b.id }
             onClick={ handleClick }
-            bookName = { b.book }
+            bookId = { b.id }
           >
             <ListItemIcon></ListItemIcon>
             <ListItemText primary={ b.book } />

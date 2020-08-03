@@ -26,7 +26,7 @@ export const NewEntry = (props) => {
   const [ sketcher, setSketcher ] = React.useState(null);
   
   const [ newEntry, setNewEntry ] = React.useState({
-    bookName: props.match.params.id,
+    bookId: props.match.params.id,
     bookEntryNumber: 1,
     rxnSketch: {
       fileData: null,
@@ -48,7 +48,6 @@ export const NewEntry = (props) => {
   )
 
   useEffect(() => {
-    
      //make sketcher responsive*****
     let newSketcher = new ChemDoodle.SketcherCanvas("canvas-id", "850", "350", {
       useServices: false,
@@ -60,9 +59,10 @@ export const NewEntry = (props) => {
   }, [])
 
   const findBookEntryNumber = () => {
-    console.log(allLogs)
     const logsinCurrentBookArr = [];
+    console.log(allLogs)
     //search allLogs for bookName that matches props.match.params.id, add these to array
+    //need to change thisssss
     for ( let i = 0; i < allLogs.length; i++ ) {
       if ( allLogs[i].book_name === props.match.params.id ) {
         logsinCurrentBookArr.push(allLogs[i])

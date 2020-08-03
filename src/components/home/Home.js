@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { TopNavigation } from '../TopNavigation'
 import { LeftNavigation } from '../leftNavigation/LeftNavigation'
 import { fetchBooks } from '../../redux/actions/booksActions'
 import { fetchLogs } from '../../redux/actions/logsActions'
@@ -26,6 +27,7 @@ export const Home = () => {
         firstFewLogs.push(logsSortedByDate[i])
       }
     }
+    console.log('rece : ', recentLogs)
     setRecentLogs(firstFewLogs)
   }
 
@@ -35,11 +37,14 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
+    console.log('all logs: ', allLogs)
+    console.log('recent logs: ', recentLogs)
     findLatestLogs()
   }, [ allLogs ]);
 
   return (
     <>
+      <TopNavigation />
       <LeftNavigation 
         userToken={ userToken }
       />
@@ -58,6 +63,7 @@ export const Home = () => {
               :
               <div className="entry-card-container-div">
                 {recentLogs.map((log, i) => {
+                  console.log(recentLogs)
                   return (
                     <div className="entry-card-div">
                       <Link to={`/view-entry/${ log.id }`} 
@@ -66,7 +72,7 @@ export const Home = () => {
                         <EntryCard
                           key={ i }
                           index={ i }
-                          bookName={ log.book_name }
+                          bookName={ log.book }
                           rxnSketch={ log.rxn_sketch }
                           quickInfo={ log.quick_info }
                           lastUpdated={ log.last_updated }

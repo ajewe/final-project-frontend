@@ -34,7 +34,6 @@ export const addBook = (bookInput, userToken) => {
           type: 'ADD_BOOK',
           value: json
         }
-        console.log(action)
         dispatch(action)
       }).catch((e) => {
         console.log(e)

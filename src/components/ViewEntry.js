@@ -11,11 +11,11 @@ export const ViewEntry = (props) => {
   const dispatch = useDispatch();
   const selectedLogId = props.match.params.id
   const userToken = useSelector ( state => state.user.token )
-  const selectedLog = useSelector( state => state.selectedLog)
   const [ sketcher, setSketcher ] = React.useState(null);
+  const selectedLog = useSelector( state => state.selectedLog )
   const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
   // const findSelectedLog = state => {
-  //   return state.logs.find(l => l.logId == selectedLogId)
+  //   return state.logs.find(l => l.id == selectedLogId)
   // }
   // const selectedLog = useSelector(state => findSelectedLog(state))
 
@@ -29,6 +29,7 @@ export const ViewEntry = (props) => {
   })
 
   useEffect(() => {
+    console.log('sup')
     dispatch(fetchSelectedLog(selectedLogId, userToken))
   }, [])
 
@@ -55,7 +56,6 @@ export const ViewEntry = (props) => {
     }
     
     if (selectedLog?.rxn_sketch?.fileType === "rxn") {
-      console.log('here2')
       let rxnData = ChemDoodle.readRXN(selectedLog.rxn_sketch.fileData);
       sketcher.loadContent(rxnData.molecules, rxnData.shapes)
     }
@@ -122,7 +122,6 @@ export const ViewEntry = (props) => {
     changeDateAndTimeLastUpdated()
     setSketchData()
     const payload = { ...editableLog }
-    console.log(payload)
     dispatch(changeLog(selectedLogId, payload, userToken))
     history.push("/")
   }
@@ -132,7 +131,7 @@ export const ViewEntry = (props) => {
     <div id="view-entry-paper">
       <div id="view-entry-pattern">
         <div id="view-entry-content">
-          <h1>{selectedLog.book_name}: Entry {selectedLog.book_entry_number} </h1 >
+          <h1>{selectedLog.book}: Entry {selectedLog.book_entry_number} </h1 >
           <form onSubmit={ handleSubmit }>
             <div onClick={() => {
               setEditEntry({

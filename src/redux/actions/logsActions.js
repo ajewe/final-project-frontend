@@ -65,6 +65,7 @@ export const fetchSelectedLog = (logId, userToken) => {
             rxn_sketch: JSON.parse(response.rxn_sketch)
           }
         }
+        console.log('action', action)
         dispatch(action)
       }).catch(e => {
         console.log('issues: ', e)

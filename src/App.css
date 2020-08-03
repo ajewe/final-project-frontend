@@ -3,6 +3,10 @@ body {
   margin: 0;
 }
 
+#top-nav-container {
+  text-align: right;
+}
+
 #home-container {
   margin-left: 240px;
 }
