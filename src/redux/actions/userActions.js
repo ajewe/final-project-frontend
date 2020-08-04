@@ -1,6 +1,6 @@
 export const createUser = userData => {
   return (dispatch) => {
-    fetch('http://localhost:4001/user/create', {
+    fetch(`${process.env.REACT_API_URL}/user/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ export const createUser = userData => {
 
 export const createSession = userLoginInfo => {
   return (dispatch) => {
-    fetch('http://localhost:4001/login', {
+    fetch(`${process.env.REACT_API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -32,6 +32,7 @@ export const createSession = userLoginInfo => {
           value: userObj
         }
         localStorage.setItem('user', JSON.stringify(userObj))
+        console.log(userObj)
         dispatch(action)
       }).catch((e) => {
         console.log("issues", e)

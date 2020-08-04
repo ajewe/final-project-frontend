@@ -1,6 +1,6 @@
 export const fetchLogs = (userToken) => {
   return (dispatch) => {
-    fetch('http://localhost:4001/logs', {
+    fetch(`${process.env.REACT_API_URL}/logs`, {
       headers: {
         token: userToken
       }
@@ -25,7 +25,7 @@ export const fetchLogs = (userToken) => {
 
 export const addLog = (log, userToken) => {
   return (dispatch) => {
-    fetch('http://localhost:4001/logs/create', {
+    fetch(`${process.env.REACT_API_URL}/logs/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

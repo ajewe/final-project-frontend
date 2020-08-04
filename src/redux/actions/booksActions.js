@@ -1,6 +1,6 @@
 export const fetchBooks = (userToken) => {
   return (dispatch) => {
-    fetch('http://localhost:4001/books', {
+    fetch(`${process.env.REACT_API_URL}/books`, {
       headers: {
         token: userToken
       }
@@ -20,7 +20,7 @@ export const fetchBooks = (userToken) => {
 
 export const addBook = (bookInput, userToken) => {
   return (dispatch) => {
-    fetch('http://localhost:4001/books/create', {
+    fetch(`${process.env.REACT_API_URL}/books/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
