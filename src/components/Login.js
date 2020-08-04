@@ -49,12 +49,12 @@ export const Login = ({ location }) => {
   const { from } = location.state || {from: { pathname:"/" }};
 
   useEffect(() => {
-    const user = localStorage.getItem('token')
-
-    if (user) {
+    const userObj = localStorage.getItem('user')
+    
+    if (userObj) {
       const action = {
         type: 'CREATE_SESSION',
-        value: user
+        value: JSON.parse(userObj)
       }
       dispatch(action)
     }

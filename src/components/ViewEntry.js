@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TopNavigation } from './navigation/TopNavigation'
+import { LeftNavigation } from './navigation/LeftNavigation'
 import { fetchSelectedLog } from '../redux/actions/logsActions'
 import { changeLog } from '../redux/actions/logsActions'
 import { Button } from '@material-ui/core';
@@ -11,7 +11,8 @@ export const ViewEntry = (props) => {
   const history = useHistory()
   const dispatch = useDispatch();
   const selectedLogId = props.match.params.id
-  const userToken = useSelector ( state => state.user.token )
+  const user = useSelector( state => state.user )
+  const userToken = user.token
   const [ sketcher, setSketcher ] = React.useState(null);
   const selectedLog = useSelector( state => state.selectedLog )
   const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
@@ -128,7 +129,9 @@ export const ViewEntry = (props) => {
 
   return (
     <>
-      <TopNavigation />
+      <LeftNavigation userToken={ userToken }
+                      user={ user }
+      />
       <div id="view-entry-paper">
         <div id="view-entry-pattern">
           <div id="view-entry-content">

@@ -39,5 +39,4 @@ export const MenuPopUp = (props) => {
       )}
     </Popper>
   )
-
 }

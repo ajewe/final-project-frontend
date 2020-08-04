@@ -1,14 +1,19 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom'
 import { useOutsideClick } from "./useOutsideClick";
 import { MenuPopUp } from './MenuPopUp'
+import { endSession } from '../../redux/actions/userActions'
 import { addBook } from '../../redux/actions/booksActions'
 import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 
 const useStyles = makeStyles(() => ({
   labelField: {
+    width: "175px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -30,7 +35,9 @@ export const LeftNavigation = (props) => {
   const dispatch = useDispatch();
   const allBooks = useSelector( state => state.books )
   const [ anchorEl, setAnchorEl ] = React.useState(null);
+  const [ anchorBookEl, setAnchorBookEl ] = React.useState(null);
   const open = Boolean(anchorEl);
+  const bookOpen = Boolean(anchorBookEl);
   // const id = open ? 'simple-popover' : undefined;
 
   const [ bookInput, setBookInput ] = React.useState({
@@ -69,9 +76,16 @@ export const LeftNavigation = (props) => {
   const handleTextClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
+  const handleBookTextClick = (e) => {
+    setAnchorBookEl(e.currentTarget);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleBookClose = () => {
+    setAnchorBookEl(null);
   };
 
   const handleBookStateSubmit = e => {
@@ -80,6 +94,12 @@ export const LeftNavigation = (props) => {
       bookName: bookInput.bookName
     }
     dispatch(addBook(bookSubmitObject, props.userToken))
+  }
+
+  const signOut = () => {
+    localStorage.removeItem('user')
+    //dispatch action that clears isloggedin and stuff from redux store
+    dispatch(endSession())
   }
 
   useEffect(() => {
@@ -95,8 +115,7 @@ export const LeftNavigation = (props) => {
       variant="permanent"
       anchor="left"
     >
-      <Divider />
-      <List>
+      {/* <List>
         {['Inventory', 'Members', 'Announcements'].map((text) => (
           <ListItem
             button
@@ -106,11 +125,46 @@ export const LeftNavigation = (props) => {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
+      <Link to='/' className="link" >
+        <ListItem>
+          <FontAwesomeIcon icon={faHome} 
+                           style={{ padding: '10px 20px'}}
+                           className="home-icon"
+          />
+          <ListItemText primary="Home" />
+        </ListItem>
+      </Link>
+      <ListItem onClick={ handleTextClick }>
+        <FontAwesomeIcon icon={ faUser } 
+                         style={{ padding: '10px 20px', cursor: "pointer" }}
+        />
+        <ListItemText primary={ props.user.firstName && props.user.lastName 
+                                ?
+                                  props.user.firstName + " " + props.user.lastName
+                                :
+                                  props.user.email }
+                      style={{ cursor: "pointer" }}
+        />
+      </ListItem>
+      <MenuPopUp 
+        open={ open }
+        handleClose={ handleClose }
+        anchorEl={ anchorEl }
+        menuItemContent={
+          [
+            {
+              text: "Sign Out",
+              linkTo: "",
+              handleClick: () => signOut()
+            }
+          ]
+        }
+        extraLinkAttribute={ "" }
+      />
       <Divider />
       <div className={classes.labelField}>
-        <Typography
-          className={classes.label}>
+        <Typography className={classes.label}>
           Books
         </Typography>
         <AddCircleOutlineOutlinedIcon 
@@ -136,7 +190,7 @@ export const LeftNavigation = (props) => {
           <ListItem 
             button 
             key={ b.id }
-            onClick={ handleTextClick }
+            onClick={ handleBookTextClick }
             bookId = { b.id }
           >
             <ListItemIcon></ListItemIcon>
@@ -145,9 +199,9 @@ export const LeftNavigation = (props) => {
         ))}
       </List>
       <MenuPopUp 
-        open={ open }
-        handleClose={ handleClose }
-        anchorEl={ anchorEl }
+        open={ bookOpen }
+        handleClose={ handleBookClose }
+        anchorEl={ anchorBookEl }
         menuItemContent={
           [
             {
@@ -165,7 +219,7 @@ export const LeftNavigation = (props) => {
             // }
           ]
         }
-        extraLinkAttribute={ anchorEl ? anchorEl.getAttribute("bookId"): "" }
+        extraLinkAttribute={ anchorBookEl ? anchorBookEl.getAttribute("bookId"): "" }
       />
     </Drawer>
   )

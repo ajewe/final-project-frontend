@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TopNavigation } from '../navigation/TopNavigation'
+import { LeftNavigation } from '../navigation/LeftNavigation'
 import { AddProcedure } from './AddProcedure';
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
@@ -15,12 +15,14 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     height: '100%',
     padding: '20px',
+    marginLeft: '220px',
   }
 })
 
 export const NewEntry = (props) => {
   const classes = useStyles();
-  const userToken = useSelector ( state => state.user.token )
+  const user = useSelector( state => state.user )
+  const userToken = user.token
   const allLogs = useSelector(state => state.logs)
   const dispatch = useDispatch();
   const history = useHistory()
@@ -141,8 +143,11 @@ export const NewEntry = (props) => {
   }
 
   return (
-    <> 
-      <TopNavigation />
+    <>
+      <LeftNavigation 
+        userToken={ userToken }
+        user={ user }
+      />
       <form className={ classes.formField } onSubmit={ handleSubmit }>
         <TextField
           id="standard-basic"

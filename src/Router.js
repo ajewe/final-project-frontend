@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Login } from './components/Login';
 import { SignUp } from './components/SignUp';
 import { Home } from './components/home/Home';
@@ -8,7 +8,19 @@ import { NewEntry } from './components/newEntry/NewEntry';
 import { ViewEntry } from './components/ViewEntry';
 
 const ProtectedRoute = ({component: Component, location, ...rest}) => {
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  //if no user in redux store, check local storage for token
+  if (!user) {
+    const userObj = localStorage.getItem('user')
+    if (userObj) {
+      const action = {
+        type: 'CREATE_SESSION',
+        value: JSON.parse(userObj)
+      }
+      dispatch(action)
+    }
+  }
 
   return (
     <Route

@@ -26,12 +26,12 @@ export const createSession = userLoginInfo => {
       body: JSON.stringify(userLoginInfo)
     })
       .then(res => res.json())
-      .then(json => {
+      .then(userObj => {
         const action = {
           type: 'CREATE_SESSION',
-          value: json.token
+          value: userObj
         }
-        localStorage.setItem('token', action.value)
+        localStorage.setItem('user', JSON.stringify(userObj))
         dispatch(action)
       }).catch((e) => {
         console.log("issues", e)

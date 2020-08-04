@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-const user = (state = { token: '', isLoggedIn: false}, action) => {
+const user = (state = { token: '', isLoggedIn: false, firstName: '', lastName: ''}, action) => {
   switch(action.type) {
     case 'CREATE_SESSION':
-      return { ...state, isLoggedIn: true, token: action.value }
+      return { ...state, isLoggedIn: true, token: action.value.token, firstName: action.value.firstName, lastName: action.value.lastName }
     case 'END_SESSION':
       return { token: '', isLoggedIn: false}
     default:
