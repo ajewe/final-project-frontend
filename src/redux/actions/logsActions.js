@@ -50,7 +50,7 @@ export const addLog = (log, userToken) => {
 
 export const fetchSelectedLog = (logId, userToken) => {
   return (dispatch) => {
-    fetch(`http://localhost:4001/logs/${logId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/logs/${logId}`, {
       headers: {
         token: userToken
       }
@@ -74,7 +74,7 @@ export const fetchSelectedLog = (logId, userToken) => {
 
 export const changeLog = (logId, payload, userToken) => {
   return (dispatch) => {
-    fetch(`http://localhost:4001/logs/update/${logId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/logs/update/${logId}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
