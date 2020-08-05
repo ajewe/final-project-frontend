@@ -32,23 +32,6 @@ export const MenuPopUp = (props) => {
                       }
                     </>
                   )
-                  // if(props.anchorEl && menuItem.linkTo) {
-                  //   return(
-                  //     <Link to={ menuItem.linkTo + props.extraLinkAttribute }
-                  //       onClick={ menuItem.handleClick }
-                  //       className="link" >
-                  //       <MenuItem>
-                  //         { menuItem.text }
-                  //       </MenuItem>
-                  //     </Link>
-                  //   )
-                  // } else {
-                  //   return (
-                  //     <MenuItem onClick={ menuItem.handleClick } >
-                  //       { menuItem.text }
-                  //     </MenuItem>
-                  //   )
-                  // }
                   })}
               </MenuList>
             </ClickAwayListener>
