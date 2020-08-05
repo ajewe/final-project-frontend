@@ -163,7 +163,7 @@ export const NewEntry = (props) => {
           <div id="container-canvas">
             <canvas id="canvas-id" />
           </div>
-          <label>Procedure:</label>
+          <label className="body-text" >Procedure:</label>
           <br />
           {procedures.map((_, i) => {
             return (
@@ -206,7 +206,9 @@ export const NewEntry = (props) => {
           className={classes.button}>
           Save
         </Button>
-        <h3>Entry {newEntry.bookEntryNumber}</h3>
+        <div id="new-entry-number-container">
+          <h3>Entry {newEntry.bookEntryNumber}</h3>
+        </div>
       </form>
     </>
   )

@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent, Typography } from '@material-ui/core/';
+import { red } from '@material-ui/core/colors';
 /* global ChemDoodle */
 
 const useStyles = makeStyles((theme) => ({
-  // root: {
-  //   width: "20%",
-  //   minWidth: 200,
-  // },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+  header: {
+    // color: 'red',
+
   },
 }));
 
@@ -41,10 +38,11 @@ export const EntryCard = (props) => {
   }, [props]);
 
   return (
-    <Card className={classes.root}>
+    <Card>
       <CardHeader
         title={props.bookName + ' - Entry ' + props.bookEntryNumber}
         titleTypographyProps={{ variant:'h6' }}
+        className={classes.header}
         subheader={createDateFromLastUpdated()}
       />
       <div className="entry-card-canvas-div">

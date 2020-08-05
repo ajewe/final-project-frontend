@@ -1,15 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { useOutsideClick } from "./useOutsideClick";
-import { MenuPopUp } from './MenuPopUp'
-import { endSession } from '../../redux/actions/userActions'
-import { addBook } from '../../redux/actions/booksActions'
 import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import { ThemeProvider } from '@material-ui/styles'
+import theme from '../../styles/theme'
+import { useOutsideClick } from "./useOutsideClick";
+import { MenuPopUp } from './MenuPopUp'
+import { endSession } from '../../redux/actions/userActions'
+import { addBook } from '../../redux/actions/booksActions'
+
 
 const useStyles = makeStyles(() => ({
   labelField: {
@@ -126,42 +129,40 @@ export const LeftNavigation = (props) => {
           </ListItem>
         ))}
       </List> */}
-      <Link to='/' className="link" >
-        <ListItem>
-          <FontAwesomeIcon icon={faHome} 
-                           style={{ padding: '10px 20px', boxSizing: "content-box" }}
-                           className="home-icon"
-          />
-          <ListItemText primary="Home" />
+      <ThemeProvider theme={ theme }>
+        <Link to='/' className="link" >
+          <ListItem>
+            <FontAwesomeIcon icon={faHome} 
+                            style={{ padding: '10px 20px', boxSizing: "content-box" }}
+                            className="home-icon"/>
+            <ListItemText primary="Home" />
+          </ListItem>
+        </Link>
+        <ListItem onClick={ handleTextClick }>
+          <FontAwesomeIcon icon={ faUser } 
+                          style={{ padding: '10px 20px', cursor: "pointer", boxSizing: "content-box" }}/>
+          <ListItemText primary={ props.user.firstName && props.user.lastName 
+                                  ?
+                                    props.user.firstName + " " + props.user.lastName
+                                  :
+                                    props.user.email }
+                        style={{ cursor: "pointer" }}/>
         </ListItem>
-      </Link>
-      <ListItem onClick={ handleTextClick }>
-        <FontAwesomeIcon icon={ faUser } 
-                         style={{ padding: '10px 20px', cursor: "pointer", boxSizing: "content-box" }}
-        />
-        <ListItemText primary={ props.user.firstName && props.user.lastName 
-                                ?
-                                  props.user.firstName + " " + props.user.lastName
-                                :
-                                  props.user.email }
-                      style={{ cursor: "pointer" }}
-        />
-      </ListItem>
-      <MenuPopUp 
-        open={ open }
-        handleClose={ handleClose }
-        anchorEl={ anchorEl }
-        menuItemContent={
-          [
-            {
-              text: "Sign Out",
-              linkTo: "",
-              handleClick: () => signOut()
-            }
-          ]
-        }
-        extraLinkAttribute={ "" }
-      />
+        <MenuPopUp 
+          open={ open }
+          handleClose={ handleClose }
+          anchorEl={ anchorEl }
+          menuItemContent={
+            [
+              {
+                text: "Sign Out",
+                linkTo: "",
+                handleClick: () => signOut()
+              }
+            ]
+          }
+          extraLinkAttribute={ "" }/>
+      </ThemeProvider>
       <Divider />
       <div className={classes.labelField}>
         <Typography className={classes.label}>
@@ -174,8 +175,7 @@ export const LeftNavigation = (props) => {
               ...bookInput, 
               displayInput: !bookInput.displayInput,
             })
-          }}
-        />
+          }}/>
       </div>
       {bookInput.displayInput
         && 
@@ -191,8 +191,7 @@ export const LeftNavigation = (props) => {
             button 
             key={ b.id }
             onClick={ handleBookTextClick }
-            bookId = { b.id }
-          >
+            bookId = { b.id }>
             <ListItemIcon></ListItemIcon>
             <ListItemText primary={ b.book } />
           </ListItem>
@@ -217,10 +216,8 @@ export const LeftNavigation = (props) => {
             //   text: "View All",
             //   linkTo: "",
             // }
-          ]
-        }
-        extraLinkAttribute={ anchorBookEl ? anchorBookEl.getAttribute("bookId"): "" }
-      />
+          ]}
+        extraLinkAttribute={ anchorBookEl ? anchorBookEl.getAttribute("bookId"): "" }/>
     </Drawer>
   )
 }

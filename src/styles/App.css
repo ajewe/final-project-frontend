@@ -15,6 +15,16 @@ body {
   min-height: 200px;
 }
 
+.headline-text {
+  font-family: 'Fredoka One', cursive;
+  font-size: 45px;
+  letter-spacing: 5px;
+}
+
+.body-text {
+  font-size: 16px;
+}
+
 .link {
   text-decoration: none;
   color: black;
@@ -126,6 +136,11 @@ body {
   border: 1px solid black;
 }
 
+.new-entry-text-container {
+  width: 900px;
+  margin-top: 10px;
+}
+
 #add-procedure-date-container {
   display: inline-block;
   margin: 20px;
@@ -137,7 +152,8 @@ body {
   width: 80%;
 }
 
-.new-entry-text-container {
-  width: 900px;
-  margin-top: 10px;
+#new-entry-number-container {
+  width: 100%;
+  text-align: right;
 }
+

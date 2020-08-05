@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom'
 import { LeftNavigation } from '../navigation/LeftNavigation'
 import { fetchBooks } from '../../redux/actions/booksActions'
 import { fetchLogs } from '../../redux/actions/logsActions'
-import { Link } from 'react-router-dom'
 import { EntryCard } from './EntryCard'
 
 export const Home = () => {
@@ -47,12 +47,11 @@ export const Home = () => {
       />
       {/* {allBooksFromState.length === 0 ? <p>no books</p> : <p>{allBooksFromState[0].book}</p>} */}
       <div id="home-container">
-        <h1>
-          {/* Welcome User */}
+        <h1 className="headline-text">
           { user.firstName ? `Welcome ${user.firstName}!` : "Welcome!"}
         </h1>
         <div id="home-recent-logs">
-          Recent Logs:
+          <h3>Recent Logs:</h3>
           <div>
             {recentLogs.length === 0 ? 
               'No Entries'
