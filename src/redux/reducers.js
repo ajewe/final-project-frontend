@@ -5,7 +5,7 @@ const user = (state = { token: '', isLoggedIn: false, firstName: '', lastName: '
     case 'CREATE_SESSION':
       return { ...state, isLoggedIn: true, token: action.value.token, firstName: action.value.firstName, lastName: action.value.lastName }
     case 'END_SESSION':
-      return { token: '', isLoggedIn: false}
+      return { token: '', isLoggedIn: false, firstName: '', lastName: ''}
     default:
       return state
   }
@@ -23,6 +23,8 @@ const books = (state = [], action) => {
           id: action.value.id 
         }
       ]
+    case 'DELETE_BOOK':
+      return state
     default:
       return state
   }

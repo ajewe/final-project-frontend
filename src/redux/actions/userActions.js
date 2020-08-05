@@ -34,7 +34,6 @@ export const createSession = userLoginInfo => {
           value: userObj
         }
         localStorage.setItem('user', JSON.stringify(userObj))
-        console.log(userObj)
         dispatch(action)
       }).catch((e) => {
         console.log("issues", e)

@@ -40,6 +40,15 @@ export const addBook = (bookInput, userToken) => {
       }).catch((e) => {
         console.log(e)
       })
-
   }
+}
+
+export const deleteBook = ( bookId, userToken ) => {
+  fetch(`https://chem-logger.herokuapp.com/books/delete/${bookId}`, {
+    method: 'DELETE',
+    headers: {
+      token: userToken
+    },
+  })
+  // DELETE_BOOK
 }

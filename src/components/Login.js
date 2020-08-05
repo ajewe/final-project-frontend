@@ -13,8 +13,7 @@ export const Login = ({ location }) => {
     email: "",
     password: ""
   })
-  // const [ redirectToReferrer, setRedirectToReferrer ] = React.useState(false)
-
+  
   const handleTextChange = e => {
     setUserLoginInfo({
       ...userLoginInfo,

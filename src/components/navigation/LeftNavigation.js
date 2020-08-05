@@ -10,9 +10,8 @@ import { ThemeProvider } from '@material-ui/styles'
 import theme from '../../styles/theme'
 import { useOutsideClick } from "./useOutsideClick";
 import { MenuPopUp } from './MenuPopUp'
+import { addBook, deleteBook } from '../../redux/actions/booksActions'
 import { endSession } from '../../redux/actions/userActions'
-import { addBook } from '../../redux/actions/booksActions'
-
 
 const useStyles = makeStyles(() => ({
   labelField: {
@@ -41,7 +40,6 @@ export const LeftNavigation = (props) => {
   const [ anchorBookEl, setAnchorBookEl ] = React.useState(null);
   const open = Boolean(anchorEl);
   const bookOpen = Boolean(anchorBookEl);
-  // const id = open ? 'simple-popover' : undefined;
 
   const [ bookInput, setBookInput ] = React.useState({
     bookName: "",
@@ -101,8 +99,13 @@ export const LeftNavigation = (props) => {
 
   const signOut = () => {
     localStorage.removeItem('user')
-    //dispatch action that clears isloggedin and stuff from redux store
+    //sets isloggedin to false, clears user info from redux store
     dispatch(endSession())
+  }
+
+  const handleDeleteBook = () => {
+    console.log('ho')
+    // dispatch(deleteBook())
   }
 
   useEffect(() => {
@@ -206,7 +209,7 @@ export const LeftNavigation = (props) => {
             {
               text: "New Entry",
               linkTo: "/new-entry/",
-              handleClick: null
+              handleClick: () => handleClose()
             },
             // {
             //   text: "Table Of Contents",
@@ -215,7 +218,11 @@ export const LeftNavigation = (props) => {
             // {
             //   text: "View All",
             //   linkTo: "",
-            // }
+            // },
+            {
+              text: "Delete Book",
+              handleClick: () => handleDeleteBook()
+            }
           ]}
         extraLinkAttribute={ anchorBookEl ? anchorBookEl.getAttribute("bookId"): "" }/>
     </Drawer>
