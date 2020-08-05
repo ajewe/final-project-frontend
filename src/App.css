@@ -71,7 +71,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin: 20px auto;
+  margin: 20px 240px;
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: white;
@@ -114,10 +114,30 @@ body {
   padding: 0 20%;
 }
 
+#container-canvas{
+  padding: 20px;
+}
+
 #canvas-div{
   padding: 30px;
 }
 
 #canvas-id {
   border: 1px solid black;
+}
+
+#add-procedure-date-container {
+  display: inline-block;
+  margin: 20px;
+  width: 10%;
+}
+
+#add-procedure-entry-container {
+  display: inline-block;
+  width: 80%;
+}
+
+.new-entry-text-container {
+  width: 900px;
+  margin-top: 10px;
 }

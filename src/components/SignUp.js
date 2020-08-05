@@ -4,20 +4,32 @@ import { createUser } from '../redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
 import { Container, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "40%"
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  txtField: {
-    margin: "10px"
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
   },
-  btn: {
-    marginTop: "30px"
-  }
-})
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 export const SignUp = () => {
   const classes = useStyles();
@@ -44,43 +56,93 @@ export const SignUp = () => {
   }
 
   return (
-    <Container maxWidth="sm">
-      <form className={ classes.root } onSubmit={ handleSubmit } >
-        <TextField 
-          className={ classes.txtField } 
-          name="email"
-          label="Email" 
-          value={ newUserData.email }
-          onChange={ handleChange }
-        />
-        <TextField 
-          className={ classes.txtField } 
-          name="firstName"
-          label="First Name" 
-          value={ newUserData.firstName }
-          onChange={ handleChange }
-        />
-        <TextField 
-          className={ classes.txtField } 
-          name="lastName"
-          label="Last Name" 
-          value={ newUserData.lastName }
-          onChange={ handleChange }
-        />
-        <TextField 
-          className={ classes.txtField } 
-          name="password"
-          label="Password" 
-          value={ newUserData.password }
-          onChange={ handleChange }
-        />
-        <Button className={ classes.btn } 
-                type="submit" 
-                variant="contained"
+    <Container component="main" maxWidth="xs">
+            <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <form className={classes.form} 
+              noValidate
+              onSubmit={ handleSubmit }
         >
-          Sign Up
-        </Button>
-      </form>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                value={ newUserData.firstName }
+                onChange={ handleChange }
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                value={ newUserData.lastName }
+                onChange={ handleChange }
+                autoComplete="lname"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                value={ newUserData.email }
+                onChange={ handleChange }
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                value={ newUserData.password }
+                onChange={ handleChange }
+                id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
     </Container>
   );
 }

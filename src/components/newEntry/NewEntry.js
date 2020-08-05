@@ -16,7 +16,12 @@ const useStyles = makeStyles({
     height: '100%',
     padding: '20px',
     marginLeft: '220px',
-  }
+    alignItems: 'center',
+  },
+  button: {
+    width: '30%',
+    margin: '10px'
+  },
 })
 
 export const NewEntry = (props) => {
@@ -146,50 +151,59 @@ export const NewEntry = (props) => {
     <>
       <LeftNavigation 
         userToken={ userToken }
-        user={ user }
-      />
+        user={ user }/>
       <form className={ classes.formField } onSubmit={ handleSubmit }>
-        <TextField
-          id="standard-basic"
-          label="Quick Info (<10 words)"
-          name="quickInfo"
-          value={ newEntry.quickInfo }
-          onChange={ handleEntryChange }
-        />
-        <canvas id="canvas-id" />
-        <label>Procedure:</label>
-        {procedures.map((_, i) => {
-          return (
-            <AddProcedure
-              key={i}
-              index={i}
-              handleProcedureChange={ handleProcedureChange }
-              procedures={ procedures } 
-            />
-          )
-        })}
+        <div>
+          <TextField
+            label="Quick Info (<10 words)"
+            name="quickInfo"
+            value={ newEntry.quickInfo }
+            onChange={ handleEntryChange }
+            fullWidth/>
+          <div id="container-canvas">
+            <canvas id="canvas-id" />
+          </div>
+          <label>Procedure:</label>
+          <br />
+          {procedures.map((_, i) => {
+            return (
+              <AddProcedure
+                key={i}
+                index={i}
+                handleProcedureChange={ handleProcedureChange }
+                procedures={ procedures } 
+              />
+            )
+          })}
+        </div>
         <Button
           variant="contained"
-          onClick={addProcedure}>
+          onClick={ addProcedure }
+          className={classes.button}>
           Add a new Day
         </Button>
-        <TextField
-          id="standard-basic"
-          label="Results"
-          name="results"
-          value={ newEntry.results }
-          onChange={ handleEntryChange }
-        />
-        <TextField
-          id="standard-basic"
-          label="Yield (%)"
-          name="yield"
-          value={ newEntry.yield }
-          onChange={ handleEntryChange }
-        />
+        <div className="new-entry-text-container">
+          <TextField
+            id="standard-basic"
+            label="Results"
+            name="results"
+            value={ newEntry.results }
+            onChange={ handleEntryChange }
+            fullWidth/>
+        </div>
+        <div className="new-entry-text-container">
+          <TextField
+            id="standard-basic"
+            label="Yield (%)"
+            name="yield"
+            value={ newEntry.yield }
+            onChange={ handleEntryChange }
+            fullWidth/>
+        </div>
         <Button
           type="submit"
-          variant="contained">
+          variant="contained"
+          className={classes.button}>
           Save
         </Button>
         <h3>Entry {newEntry.bookEntryNumber}</h3>

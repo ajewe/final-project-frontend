@@ -129,7 +129,7 @@ export const LeftNavigation = (props) => {
       <Link to='/' className="link" >
         <ListItem>
           <FontAwesomeIcon icon={faHome} 
-                           style={{ padding: '10px 20px'}}
+                           style={{ padding: '10px 20px', boxSizing: "content-box" }}
                            className="home-icon"
           />
           <ListItemText primary="Home" />
@@ -137,7 +137,7 @@ export const LeftNavigation = (props) => {
       </Link>
       <ListItem onClick={ handleTextClick }>
         <FontAwesomeIcon icon={ faUser } 
-                         style={{ padding: '10px 20px', cursor: "pointer" }}
+                         style={{ padding: '10px 20px', cursor: "pointer", boxSizing: "content-box" }}
         />
         <ListItemText primary={ props.user.firstName && props.user.lastName 
                                 ?

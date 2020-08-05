@@ -1,16 +1,6 @@
 import React from 'react';
 import { TextField, FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
 import MaskedInput from 'react-text-mask';
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles({
-  procedureDate: {
-    width: '60%',
-  },
-  procedureEntry: {
-    width: '70%',
-  }
-})
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
@@ -28,35 +18,37 @@ function TextMaskCustom(props) {
 }
 
 export const AddProcedure = (props) => {
-  const classes = useStyles()
-
   return (
-    <div>
-    <FormControl>
-      <InputLabel htmlFor="formatted-text-mask-input">Date</InputLabel>
-      <Input
-        onChange={ (e) => {
-          props.handleProcedureChange(e, props.index) 
-        }}
-        name="date"
-        id="formatted-text-mask-input"
-        inputComponent={ TextMaskCustom }
-      />
-      <FormHelperText>mm/dd/yy</FormHelperText>
-    </FormControl>
-    <TextField
-      id="outlined-multiline-static"
-      className={ classes.procedureEntry }
-      label="Procedure"
-      name='entry'
-      value={ props.procedures.entry}
-      onChange={ (e) => {
-        props.handleProcedureChange(e, props.index) 
-      }}
-      multiline
-      variant="outlined"
-      rows={4}
-    />
-  </div>
+    <>
+      <div id="add-procedure-date-container">
+        <FormControl>
+          <InputLabel htmlFor="formatted-text-mask-input">Date</InputLabel>
+          <Input
+            onChange={ (e) => {
+              props.handleProcedureChange(e, props.index) 
+            }}
+            name="date"
+            id="formatted-text-mask-input"
+            inputComponent={ TextMaskCustom }
+          />
+          <FormHelperText>mm/dd/yy</FormHelperText>
+        </FormControl>
+      </div>
+      <div id="add-procedure-entry-container">
+        <TextField
+          id="outlined-multiline-static"
+          label="Procedure"
+          name='entry'
+          value={ props.procedures.entry}
+          onChange={ (e) => {
+            props.handleProcedureChange(e, props.index) 
+          }}
+          multiline
+          variant="outlined"
+          rows={4}
+          fullWidth/>
+      </div>
+
+  </>
   )
 }
