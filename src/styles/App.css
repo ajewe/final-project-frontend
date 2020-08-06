@@ -20,7 +20,7 @@ body {
 }
 
 .headline-text {
-  /* font-family: 'Fredoka One', cursive; */
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-size: 45px;
   letter-spacing: 5px;
   color: #000000;
