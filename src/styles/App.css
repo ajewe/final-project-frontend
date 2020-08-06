@@ -20,10 +20,11 @@ body {
 }
 
 .headline-text {
+  /* font-family: 'Fredoka One', cursive; */
   font-size: 45px;
   letter-spacing: 5px;
   color: #000000;
-  text-shadow: 2px 2px 2px #0d113786;
+  /* text-shadow: 2px 2px 2px #0d113786; */
 }
 
 .left-nav-icon {
