@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent, Typography } from '@material-ui/core/';
-
 /* global ChemDoodle */
 
-// const useStyles = makeStyles((theme) => ({
-//   header: {
-//     // color: 'red',
-
-//   },
-// }));
+const useStyles = makeStyles(() => ({
+  card: {
+    boxShadow: "2px 2px 7px 0px #0d1137"
+  },
+}));
 
 export const EntryCard = (props) => {
-  // const classes = useStyles();
+  const classes = useStyles();
 
   const createDateFromLastUpdated = () => {
     //convert from str to int 
@@ -38,7 +36,7 @@ export const EntryCard = (props) => {
   }, [props]);
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardHeader title={props.bookName + ' - Entry ' + props.bookEntryNumber}
                   titleTypographyProps={{ variant:'h6' }}
                   // className={classes.header}

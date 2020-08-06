@@ -14,6 +14,12 @@ import { addBook, deleteBook } from '../../redux/actions/booksActions'
 import { endSession } from '../../redux/actions/userActions'
 
 const useStyles = makeStyles(() => ({
+  root: {
+    "& .MuiPaper-root": {
+      backgroundColor: "#eaeaee",
+      boxShadow: "7px 7px 7px 0px #0d1137"
+    }
+  },
   labelField: {
     width: "175px",
     display: "flex",
@@ -118,9 +124,9 @@ export const LeftNavigation = (props) => {
 
   return (
     <Drawer
+      className={ classes.root }
       variant="permanent"
-      anchor="left"
-    >
+      anchor="left" >
       {/* <List>
         {['Inventory', 'Members', 'Announcements'].map((text) => (
           <ListItem
@@ -136,14 +142,13 @@ export const LeftNavigation = (props) => {
         <Link to='/' className="link" >
           <ListItem>
             <FontAwesomeIcon icon={faHome} 
-                            style={{ padding: '10px 20px', boxSizing: "content-box" }}
-                            className="home-icon"/>
+                            className="left-nav-icon"/>
             <ListItemText primary="Home" />
           </ListItem>
         </Link>
         <ListItem onClick={ handleTextClick }>
           <FontAwesomeIcon icon={ faUser } 
-                          style={{ padding: '10px 20px', cursor: "pointer", boxSizing: "content-box" }}/>
+                           className="left-nav-icon" />
           <ListItemText primary={ props.user.firstName && props.user.lastName 
                                   ?
                                     props.user.firstName + " " + props.user.lastName
@@ -166,7 +171,7 @@ export const LeftNavigation = (props) => {
           }
           extraLinkAttribute={ "" }/>
       </ThemeProvider>
-      <Divider />
+      <Divider/>
       <div className={classes.labelField}>
         <Typography className={classes.label}>
           Books

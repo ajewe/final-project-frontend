@@ -15,10 +15,22 @@ body {
   min-height: 200px;
 }
 
+.left-nav-drawer {
+  background-color: yellow;
+}
+
 .headline-text {
-  font-family: 'Fredoka One', cursive;
   font-size: 45px;
   letter-spacing: 5px;
+  color: #000000;
+  text-shadow: 2px 2px 2px #0d113786;
+}
+
+.left-nav-icon {
+  padding: 10px 20px;
+  cursor: pointer;
+  box-sizing: content-box;
+  font-size: 18px;
 }
 
 .body-text {
