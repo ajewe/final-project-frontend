@@ -1,7 +1,7 @@
 export const fetchBooks = (userToken) => {
   return (dispatch) => {
-    // `${process.env.REACT_APP_API_URL}/books`
-    fetch('https://chem-logger.herokuapp.com/books', {
+    // 'https://chem-logger.herokuapp.com/books'
+    fetch(`${process.env.REACT_APP_API_URL}/books`, {
       headers: {
         token: userToken
       }
@@ -21,8 +21,8 @@ export const fetchBooks = (userToken) => {
 
 export const addBook = (bookInput, userToken) => {
   return (dispatch) => {
-    // `${process.env.REACT_APP_API_URL}/books/create`
-    fetch('https://chem-logger.herokuapp.com/books/create', {
+    // 'https://chem-logger.herokuapp.com/books/create'
+    fetch(`${process.env.REACT_APP_API_URL}/books/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,11 +44,22 @@ export const addBook = (bookInput, userToken) => {
 }
 
 export const deleteBook = ( bookId, userToken ) => {
-  fetch(`https://chem-logger.herokuapp.com/books/delete/${bookId}`, {
-    method: 'DELETE',
-    headers: {
-      token: userToken
-    },
-  })
-  // DELETE_BOOK
+  return (dispatch) => {
+
+    fetch(`${process.env.REACT_APP_API_URL}/books/delete/${bookId}`, {
+      method: 'DELETE',
+      headers: {
+        token: userToken
+      },
+    })
+      .then(res => res.json())
+      .then(json => {
+        if(json.message === "Book has logs") {
+          alert("You can't delete a book that contains logs!")
+        }
+        dispatch(fetchBooks(userToken))
+      }).catch((e) => {
+        console.log('err:', e)
+      })
+  }
 }

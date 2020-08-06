@@ -103,9 +103,9 @@ export const LeftNavigation = (props) => {
     dispatch(endSession())
   }
 
-  const handleDeleteBook = () => {
-    console.log('ho')
-    // dispatch(deleteBook())
+  const handleDeleteBook = bookId => {
+    dispatch(deleteBook(bookId, props.userToken))
+    handleBookClose()
   }
 
   useEffect(() => {
@@ -194,7 +194,7 @@ export const LeftNavigation = (props) => {
             button 
             key={ b.id }
             onClick={ handleBookTextClick }
-            bookId = { b.id }>
+            bookid = { b.id }>
             <ListItemIcon></ListItemIcon>
             <ListItemText primary={ b.book } />
           </ListItem>
@@ -221,10 +221,10 @@ export const LeftNavigation = (props) => {
             // },
             {
               text: "Delete Book",
-              handleClick: () => handleDeleteBook()
+              handleClick: () => handleDeleteBook(anchorBookEl.getAttribute("bookid"))
             }
           ]}
-        extraLinkAttribute={ anchorBookEl ? anchorBookEl.getAttribute("bookId"): "" }/>
+        extraLinkAttribute={ anchorBookEl ? anchorBookEl.getAttribute("bookid"): "" }/>
     </Drawer>
   )
 }

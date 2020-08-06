@@ -17,7 +17,7 @@ export const MenuPopUp = (props) => {
               <MenuList autoFocusItem={ props.open } id="menu-list-grow">
                 {props.menuItemContent.map((menuItem, i) => {
                   return (
-                    <>
+                    <div>
                       { props.anchorEl && menuItem.linkTo ? 
                         <Link to={ menuItem.linkTo + props.extraLinkAttribute }
                               onClick={ menuItem.handleClick }
@@ -30,7 +30,7 @@ export const MenuPopUp = (props) => {
                           { menuItem.text }
                       </MenuItem> 
                       }
-                    </>
+                    </div>
                   )
                   })}
               </MenuList>

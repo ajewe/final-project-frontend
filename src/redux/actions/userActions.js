@@ -1,7 +1,7 @@
 export const createUser = userData => {
   return (dispatch) => {
-    // `${process.env.REACT_APP_API_URL}/user/create`
-    fetch('https://chem-logger.herokuapp.com/user/create', {
+    // 'https://chem-logger.herokuapp.com/user/create'
+    fetch(`${process.env.REACT_APP_API_URL}/user/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -19,8 +19,8 @@ export const createUser = userData => {
 
 export const createSession = userLoginInfo => {
   return (dispatch) => {
-    //`${process.env.REACT_APP_API_URL}/login`
-    fetch('https://chem-logger.herokuapp.com/login', {
+    //'https://chem-logger.herokuapp.com/login'
+    fetch(`${process.env.REACT_APP_API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

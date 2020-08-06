@@ -1,7 +1,7 @@
 export const fetchLogs = (userToken) => {
   return (dispatch) => {
-    //`${process.env.REACT_APP_API_URL}/logs`
-    fetch('https://chem-logger.herokuapp.com/logs', {
+    // 'https://chem-logger.herokuapp.com/logs'
+    fetch(`${process.env.REACT_APP_API_URL}/logs`, {
       headers: {
         token: userToken
       }
@@ -26,8 +26,8 @@ export const fetchLogs = (userToken) => {
 
 export const addLog = (log, userToken) => {
   return (dispatch) => {
-    // `${process.env.REACT_APP_API_URL}/logs/create`
-    fetch('https://chem-logger.herokuapp.com/logs/create', {
+    // 'https://chem-logger.herokuapp.com/logs/create'
+    fetch(`${process.env.REACT_APP_API_URL}/logs/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,16 +52,23 @@ export const addLog = (log, userToken) => {
 
 export const fetchSelectedLog = (logId, userToken) => {
   return (dispatch) => {
-//`${process.env.REACT_APP_API_URL}/logs/${logId}`
-    fetch(`https://chem-logger.herokuapp.com/logs/${logId}`, {
+    const action = {
+      type: 'FETCHING_SELECTED_LOG'
+    }
+    dispatch(action)
+
+    // `https://chem-logger.herokuapp.com/logs/${logId}`
+    fetch(`${process.env.REACT_APP_API_URL}/logs/${logId}`, {
       headers: {
         token: userToken
       }
     })
       .then(res => res.json())
+      
       .then(response => {
+        //do you do .then with fetching selected log...then the success one?
         const action = {
-          type: 'FETCH_SELECTED_LOG',
+          type: 'SUCCESS_FETCH_SELECTED_LOG',
           value: {
             ...response,
             rxn_sketch: JSON.parse(response.rxn_sketch)
@@ -77,8 +84,8 @@ export const fetchSelectedLog = (logId, userToken) => {
 
 export const changeLog = (logId, payload, userToken) => {
   return (dispatch) => {
-    // `${process.env.REACT_APP_API_URL}/logs/update/${logId}`
-    fetch(`https://chem-logger.herokuapp.com/logs/update/${logId}`, {
+    // `https://chem-logger.herokuapp.com/logs/update/${logId}`
+    fetch(`${process.env.REACT_APP_API_URL}/logs/update/${logId}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',

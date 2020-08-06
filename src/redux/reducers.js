@@ -23,8 +23,6 @@ const books = (state = [], action) => {
           id: action.value.id 
         }
       ]
-    case 'DELETE_BOOK':
-      return state
     default:
       return state
   }
@@ -52,7 +50,9 @@ const logs = (state = [], action) => {
   }
 }
 
-const selectedLog = (state = {
+const selectedLog = (state = { 
+  isLoading: false,
+  log: {
   procedures: [],
   book_entry_number: null,
   book_name: "",
@@ -63,10 +63,12 @@ const selectedLog = (state = {
   rxn_sketch: { fileType: "", fileData: ""},
   user_id: null, 
   yield: ""
-  }, action) => {
+  } }, action) => {
     switch(action.type) {
-      case 'FETCH_SELECTED_LOG':
-        return action.value
+      case 'FETCHING_SELECTED_LOG':
+        return { ...state, isLoading: true }
+      case 'SUCCESS_FETCH_SELECTED_LOG':
+        return { ...state, log: action.value, isLoading: false }
       default:
         return state
     }

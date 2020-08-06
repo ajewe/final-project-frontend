@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LeftNavigation } from './navigation/LeftNavigation'
 import { fetchSelectedLog } from '../redux/actions/logsActions'
 import { changeLog } from '../redux/actions/logsActions'
+import { fetchBooks } from '../redux/actions/booksActions'
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 /* global ChemDoodle */
@@ -14,14 +15,14 @@ export const ViewEntry = (props) => {
   const user = useSelector( state => state.user )
   const userToken = user.token
   const [ sketcher, setSketcher ] = React.useState(null);
-  const selectedLog = useSelector( state => state.selectedLog )
-  const [ isLoading, setIsLoading ] = React.useState(true)
+  const selectedLog = useSelector( state => state.selectedLog.log )
+  const isLoading = useSelector( state => state.selectedLog.isLoading )
   
-  const updateLoading = () => {
-    if (selectedLog) {
-      setIsLoading(false)
-    }
-  }
+  // const updateLoading = () => {
+  //   if (selectedLog) {
+  //     setIsLoading(false)
+  //   }
+  // }
   const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
   // const findSelectedLog = state => {
   //   return state.logs.find(l => l.id == selectedLogId)
@@ -39,10 +40,11 @@ export const ViewEntry = (props) => {
 
   useEffect(() => {
     dispatch(fetchSelectedLog(selectedLogId, userToken))
+    dispatch(fetchBooks(userToken))
   }, [])
 
   useEffect(() => {
-    updateLoading()
+    // updateLoading()
     setEditEntry({
       ...editEntry,
       procedures: selectedLog?.procedures?.map(() => ({
@@ -142,10 +144,6 @@ export const ViewEntry = (props) => {
       />
         <div id="view-entry-paper">
           <div id="view-entry-pattern">
-            {isLoading && 
-              <h1> Loading...</h1>}
-
-
               <div id="view-entry-content">
                 <h1>{selectedLog.book}: Entry {selectedLog.book_entry_number} </h1 >
                 <form onSubmit={ handleSubmit }>
@@ -287,12 +285,8 @@ export const ViewEntry = (props) => {
                   }
                 </form>
               </div>
-
-
-            {/* } */}
           </div>
         </div>
-
     </>
   )
 }
