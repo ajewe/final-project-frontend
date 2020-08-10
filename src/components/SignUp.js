@@ -2,14 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser } from '../redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
-import { Container, TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles, CssBaseline, Link, Grid, Container, TextField, Button, Avatar, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -67,8 +61,7 @@ export const SignUp = () => {
         </Typography>
         <form className={classes.form} 
               noValidate
-              onSubmit={ handleSubmit }
-        >
+              onSubmit={ handleSubmit }>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -81,8 +74,7 @@ export const SignUp = () => {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
-              />
+                autoFocus/>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -94,8 +86,7 @@ export const SignUp = () => {
                 name="lastName"
                 value={ newUserData.lastName }
                 onChange={ handleChange }
-                autoComplete="lname"
-              />
+                autoComplete="lname"/>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -107,8 +98,7 @@ export const SignUp = () => {
                 name="email"
                 value={ newUserData.email }
                 onChange={ handleChange }
-                autoComplete="email"
-              />
+                autoComplete="email"/>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -121,8 +111,7 @@ export const SignUp = () => {
                 value={ newUserData.password }
                 onChange={ handleChange }
                 id="password"
-                autoComplete="current-password"
-              />
+                autoComplete="current-password"/>
             </Grid>
           </Grid>
           <Button
@@ -130,8 +119,7 @@ export const SignUp = () => {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Sign Up
           </Button>
           <Grid container justify="flex-end">

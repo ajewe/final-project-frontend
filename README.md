@@ -1,3 +1,9 @@
+
+Logger is a virtual chemistry notebook that allows you to keep track of your reactions in lab. You can create books and fill them with as many logs as you like! 
+
+Demo here -> https://chem-logger.herokuapp.com/
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LeftNavigation } from './navigation/LeftNavigation'
-import { fetchSelectedLog } from '../redux/actions/logsActions'
-import { changeLog } from '../redux/actions/logsActions'
+import { fetchSelectedLog, changeLog } from '../redux/actions/logsActions'
 import { fetchBooks } from '../redux/actions/booksActions'
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -24,10 +23,6 @@ export const ViewEntry = (props) => {
   //   }
   // }
   const [ editableLog, setEditableLog ] = React.useState({...selectedLog})
-  // const findSelectedLog = state => {
-  //   return state.logs.find(l => l.id == selectedLogId)
-  // }
-  // const selectedLog = useSelector(state => findSelectedLog(state))
 
   const [ editEntry, setEditEntry ] = React.useState({
     changesMade: false,
