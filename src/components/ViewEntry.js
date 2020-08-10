@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 /* global ChemDoodle */
 
-export const ViewEntry = (props) => {
+export const ViewEntry = props => {
   const history = useHistory()
   const dispatch = useDispatch();
   const selectedLogId = props.match.params.id

@@ -1,8 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
@@ -127,17 +126,6 @@ export const LeftNavigation = (props) => {
       className={ classes.root }
       variant="permanent"
       anchor="left" >
-      {/* <List>
-        {['Inventory', 'Members', 'Announcements'].map((text) => (
-          <ListItem
-            button
-            key={ text }
-          >
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
       <ThemeProvider theme={ theme }>
         <Link to='/' className="link" >
           <ListItem>
@@ -214,16 +202,13 @@ export const LeftNavigation = (props) => {
             {
               text: "New Entry",
               linkTo: "/new-entry/",
-              handleClick: () => handleClose()
+              handleClick: () => handleBookClose()
             },
-            // {
-            //   text: "Table Of Contents",
-            //   linkTo: "",
-            // },
-            // {
-            //   text: "View All",
-            //   linkTo: "",
-            // },
+            {
+              text: "View All",
+              linkTo: "/view-all/",
+              handleClick: () => handleBookClose()
+            },
             {
               text: "Delete Book",
               handleClick: () => handleDeleteBook(anchorBookEl.getAttribute("bookid"))

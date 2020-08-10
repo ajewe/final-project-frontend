@@ -43,9 +43,7 @@ export const Home = () => {
     <>
       <LeftNavigation 
         userToken={ userToken }
-        user={ user }
-      />
-      {/* {allBooksFromState.length === 0 ? <p>no books</p> : <p>{allBooksFromState[0].book}</p>} */}
+        user={ user }/>
       <div id="home-container">
         <h1 className="headline-text">
           { user.firstName ? `Welcome ${user.firstName}!` : "Welcome!"}
@@ -61,8 +59,7 @@ export const Home = () => {
                   return (
                     <div className="entry-card-div">
                       <Link to={`/view-entry/${ log.id }`} 
-                            className="link"
-                      >
+                            className="link">
                         <EntryCard
                           key={ i }
                           index={ i }
@@ -70,8 +67,7 @@ export const Home = () => {
                           rxnSketch={ log.rxn_sketch }
                           quickInfo={ log.quick_info }
                           lastUpdated={ log.last_updated }
-                          bookEntryNumber={ log.book_entry_number }
-                        />
+                          bookEntryNumber={ log.book_entry_number }/>
                       </Link>
                     </div>
                   )

@@ -6,6 +6,7 @@ import { SignUp } from './components/SignUp';
 import { Home } from './components/home/Home';
 import { NewEntry } from './components/newEntry/NewEntry';
 import { ViewEntry } from './components/ViewEntry';
+import { ViewAllBookEntries } from './components/ViewAllBookEntries'
 
 const ProtectedRoute = ({component: Component, location, ...rest}) => {
   const dispatch = useDispatch()
@@ -46,6 +47,7 @@ const Router = () => {
       <ProtectedRoute exact path="/" component={ Home } />
       <ProtectedRoute path="/new-entry/:id" component={ NewEntry } />
       <ProtectedRoute path="/view-entry/:id" component={ ViewEntry } />
+      <ProtectedRoute path="/view-all/:id" component={ ViewAllBookEntries } />
     </Switch>
   )
 }
