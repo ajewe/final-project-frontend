@@ -71,7 +71,7 @@ export const SignIn = (props) => {
             className={classes.submit}>
             Sign In
           </Button>
-              <Link to={"/signup"} variant="body2">
+              <Link to="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
         </form>

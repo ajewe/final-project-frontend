@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { createUser } from '../redux/actions/userActions'
-import { makeStyles, CssBaseline, Link, Grid, Container, TextField, Button, Avatar, Typography } from '@material-ui/core';
+import { makeStyles, CssBaseline, Grid, Container, TextField, Button, Avatar, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const useStyles = makeStyles((theme) => ({
@@ -124,7 +124,7 @@ export const SignUp = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+              <Link to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
