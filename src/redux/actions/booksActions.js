@@ -1,7 +1,6 @@
 export const fetchBooks = (userToken) => {
   return (dispatch) => {
-    // 'https://chem-logger.herokuapp.com/books'
-    fetch(`${process.env.REACT_APP_API_URL}/books`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/books`, {
       headers: {
         token: userToken
       }
@@ -21,8 +20,7 @@ export const fetchBooks = (userToken) => {
 
 export const addBook = (bookInput, userToken) => {
   return (dispatch) => {
-    // 'https://chem-logger.herokuapp.com/books/create'
-    fetch(`${process.env.REACT_APP_API_URL}/books/create`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/books/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +44,7 @@ export const addBook = (bookInput, userToken) => {
 export const deleteBook = ( bookId, userToken ) => {
   return (dispatch) => {
 
-    fetch(`${process.env.REACT_APP_API_URL}/books/delete/${bookId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/books/delete/${bookId}`, {
       method: 'DELETE',
       headers: {
         token: userToken

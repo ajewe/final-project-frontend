@@ -1,7 +1,6 @@
 export const fetchLogs = (userToken) => {
   return (dispatch) => {
-    // 'https://chem-logger.herokuapp.com/logs'
-    fetch(`${process.env.REACT_APP_API_URL}/logs`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/logs`, {
       headers: {
         token: userToken
       }
@@ -26,8 +25,7 @@ export const fetchLogs = (userToken) => {
 
 export const addLog = (log, userToken) => {
   return (dispatch) => {
-    // 'https://chem-logger.herokuapp.com/logs/create'
-    fetch(`${process.env.REACT_APP_API_URL}/logs/create`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/logs/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,9 +54,7 @@ export const fetchSelectedLog = (logId, userToken) => {
       type: 'FETCHING_SELECTED_LOG'
     }
     dispatch(action)
-
-    // `https://chem-logger.herokuapp.com/logs/${logId}`
-    fetch(`${process.env.REACT_APP_API_URL}/logs/${logId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/logs/${logId}`, {
       headers: {
         token: userToken
       }
@@ -84,8 +80,7 @@ export const fetchSelectedLog = (logId, userToken) => {
 
 export const changeLog = (logId, payload, userToken) => {
   return (dispatch) => {
-    // `https://chem-logger.herokuapp.com/logs/update/${logId}`
-    fetch(`${process.env.REACT_APP_API_URL}/logs/update/${logId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/logs/update/${logId}`, {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',
