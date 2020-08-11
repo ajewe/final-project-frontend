@@ -1,5 +1,6 @@
 import React from 'react';
-import { Avatar, Button, CssBaseline, TextField, Link, Typography, Container, makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom'
+import { Avatar, Button, CssBaseline, TextField, Typography, Container, makeStyles } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,8 +38,7 @@ export const SignIn = (props) => {
         </Typography>
         <form className={classes.form} 
               noValidate 
-              onSubmit={ props.handleSubmit }
-        >
+              onSubmit={ props.handleSubmit }>
           <TextField
             variant="outlined"
             margin="normal"
@@ -50,8 +50,7 @@ export const SignIn = (props) => {
             value={ props.userLoginInfo.email }
             onChange={ props.handleTextChange }
             autoComplete="email"
-            autoFocus
-          />
+            autoFocus/>
           <TextField
             variant="outlined"
             margin="normal"
@@ -63,18 +62,16 @@ export const SignIn = (props) => {
             value={ props.userLoginInfo.password }
             onChange={ props.handleTextChange }
             id="password"
-            autoComplete="current-password"
-          />
+            autoComplete="current-password"/>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Sign In
           </Button>
-              <Link href="/signup" variant="body2">
+              <Link to={"/signup"} variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
         </form>

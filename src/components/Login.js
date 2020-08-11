@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
+import { useHistory } from 'react-router-dom'
 import { createSession } from '../redux/actions/userActions'
 import { SignIn } from './SignIn'
-import { useHistory } from 'react-router-dom'
 
 export const Login = ({ location }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.user)
-  const [ userLoginInfo, setUserLoginInfo ] = React.useState({
+  const [ userLoginInfo, setUserLoginInfo ] = useState({
     email: "",
     password: ""
   })

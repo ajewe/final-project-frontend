@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { createUser } from '../redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
+import { createUser } from '../redux/actions/userActions'
 import { makeStyles, CssBaseline, Link, Grid, Container, TextField, Button, Avatar, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
