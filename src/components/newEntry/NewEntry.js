@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LeftNavigation } from '../navigation/LeftNavigation'
 import { AddProcedure } from './AddProcedure';
-import { addLog } from '../../redux/actions/logsActions';
+import { fetchLogs, addLog } from '../../redux/actions/logsActions';
 import { fetchBooks } from '../../redux/actions/booksActions'
 import { makeStyles } from '@material-ui/core/styles'
 import { TextField, Button } from '@material-ui/core';
@@ -55,9 +55,10 @@ export const NewEntry = (props) => {
       }
     ]
   )
-  // useEffect(() => {findBookEntryNumber()}, [allLogs])
+
   useEffect(() => {
     dispatch(fetchBooks(userToken))
+    dispatch(fetchLogs(userToken))
      //need to make sketcher responsive*****
     let newSketcher = new ChemDoodle.SketcherCanvas("canvas-id", "850", "350", {
       useServices: false,
@@ -65,8 +66,11 @@ export const NewEntry = (props) => {
       isMobile: false,
     });
     setSketcher(newSketcher)
-    findBookEntryNumber()
   }, [])
+
+  useEffect(() => {
+    findBookEntryNumber()
+  }, [allLogs])
 
   const findBookEntryNumber = () => {
     const logsinCurrentBookArr = [];
@@ -83,7 +87,7 @@ export const NewEntry = (props) => {
     //sort array by bookEntryNumber in descending order 
     logsinCurrentBookArr.sort((a, b) => b.book_entry_number - a.book_entry_number)
     //add 1 to biggest bookEntryNumber, return this currentBookEntryNumber
-    let updatedNewEntry = newEntry
+    let updatedNewEntry = {...newEntry}
     let newBookEntryNumber = logsinCurrentBookArr[0].book_entry_number + 1
     updatedNewEntry.bookEntryNumber = newBookEntryNumber
     setNewEntry(updatedNewEntry)

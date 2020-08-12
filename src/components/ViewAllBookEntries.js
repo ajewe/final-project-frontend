@@ -1,17 +1,24 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { fetchBooks } from '../redux/actions/booksActions'
+import { fetchLogs } from '../redux/actions/logsActions'
 import { LeftNavigation } from './navigation/LeftNavigation'
 import { EntryCard } from './home/EntryCard'
 
 export const ViewAllBookEntries = props => {
+  const dispatch = useDispatch();
   const user = useSelector( state => state.user )
   const userToken = user.token
   const allLogs = useSelector( state => state.logs )
   const [ logsFromBook, setLogsFromBook ] = React.useState([])
 
   const findSelectedBook = state => {
-    return state.books.find(b => b.id == props.match.params.id)
+    if (state.books.length) {
+      return state.books.find(b => b.id == props.match.params.id)
+    } else {
+      return null
+    }
   }
   const selectedBook = useSelector(state => findSelectedBook(state))
 
@@ -29,13 +36,22 @@ export const ViewAllBookEntries = props => {
   useEffect(()=> {
     selectLogsFromBook()
   }, [selectedBook])
+
+  useEffect(()=> {
+    selectLogsFromBook()
+  }, [allLogs])
+
+  useEffect(() => {
+    dispatch(fetchBooks(userToken))
+    dispatch(fetchLogs(userToken))
+  }, [])
   
   return (
     <>
       <LeftNavigation user={ user } 
                       userToken={ userToken }/>
       <div className="view-all-bk-entries">
-        <h1>{ selectedBook.book }</h1>
+        <h1>{ selectedBook && selectedBook.book }</h1>
         <div>
           { logsFromBook.length === 0 ? 
             "No Entries Yet!" 

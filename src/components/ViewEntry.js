@@ -135,8 +135,7 @@ export const ViewEntry = props => {
   return (
     <>
       <LeftNavigation userToken={ userToken }
-                      user={ user }
-      />
+                      user={ user }/>
         <div id="view-entry-paper">
           <div id="view-entry-pattern">
               <div id="view-entry-content">
