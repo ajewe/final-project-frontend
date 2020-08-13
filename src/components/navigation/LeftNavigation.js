@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
   root: {
     "& .MuiPaper-root": {
       backgroundColor: "#eaeaee",
-      boxShadow: "7px 7px 7px 0px #0d1137"
     }
   },
   labelField: {

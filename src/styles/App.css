@@ -1,5 +1,5 @@
 body {
-  background-color: rgba(0,0,0,0.1);
+  background-color: #fafafa;
   margin: 0;
 }
 
@@ -24,7 +24,6 @@ body {
   font-size: 45px;
   letter-spacing: 5px;
   color: #000000;
-  /* text-shadow: 2px 2px 2px #0d113786; */
 }
 
 .left-nav-icon {
