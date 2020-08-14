@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { makeStyles, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
-import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faUser, faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import { ThemeProvider } from '@material-ui/styles'
@@ -15,7 +15,7 @@ import { endSession } from '../../redux/actions/userActions'
 const useStyles = makeStyles(() => ({
   root: {
     "& .MuiPaper-root": {
-      backgroundColor: "#eaeaee",
+      backgroundColor: "rgb(230, 230, 230)",
     }
   },
   labelField: {
@@ -28,9 +28,14 @@ const useStyles = makeStyles(() => ({
   label: {
     display: "inline-block",
     fontSize: "22px",
+    color: "rgb(85, 85, 85)",
   },
   icon: {
     margin: "0 10px",
+    cursor: "pointer",
+    color: "rgb(85, 85, 85)",
+  },
+  listItem: {
     cursor: "pointer",
   }
 }));
@@ -124,24 +129,26 @@ export const LeftNavigation = (props) => {
     <Drawer
       className={ classes.root }
       variant="permanent"
-      anchor="left" >
+      anchor="left">
       <ThemeProvider theme={ theme }>
         <Link to='/' className="link" >
-          <ListItem>
+          <ListItem className={ classes.listItem }>
             <FontAwesomeIcon icon={faHome} 
                             className="left-nav-icon"/>
-            <ListItemText primary="Home" />
+            <ListItemText primary="Home"
+                          className={ classes.topListItemText}/>
           </ListItem>
         </Link>
-        <ListItem onClick={ handleTextClick }>
+        <ListItem onClick={ handleTextClick }
+                  className={ classes.listItem }>
           <FontAwesomeIcon icon={ faUser } 
-                           className="left-nav-icon" />
+                          className="left-nav-icon" />
           <ListItemText primary={ props.user.firstName && props.user.lastName 
                                   ?
                                     props.user.firstName + " " + props.user.lastName
                                   :
                                     props.user.email }
-                        style={{ cursor: "pointer" }}/>
+                        className={ classes.topListItemText}/>
         </ListItem>
         <MenuPopUp 
           open={ open }
@@ -186,8 +193,10 @@ export const LeftNavigation = (props) => {
             button 
             key={ b.id }
             onClick={ handleBookTextClick }
-            bookid = { b.id }>
-            <ListItemIcon></ListItemIcon>
+            bookid = { b.id }
+            className={ classes.listItem }>
+            <FontAwesomeIcon icon={ faBook } 
+                          className="left-nav-icon" />
             <ListItemText primary={ b.book } />
           </ListItem>
         ))}

@@ -1,8 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core'
+import { makeStyles, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core'
+
+const useStyles = makeStyles(() => ({
+  listItem: {
+    color: "rgb(32, 65, 97)",
+  }
+}))
 
 export const MenuPopUp = (props) => {
+  const classes = useStyles();
+
   return (
     <Popper open={props.open} 
             anchorEl={props.anchorEl} 
@@ -22,11 +30,12 @@ export const MenuPopUp = (props) => {
                         <Link to={ menuItem.linkTo + props.extraLinkAttribute }
                               onClick={ menuItem.handleClick }
                               className="link" >
-                         <MenuItem>
+                         <MenuItem className={ classes.listItem }>
                            { menuItem.text }
                         </MenuItem>
                       </Link> :
-                      <MenuItem onClick={ menuItem.handleClick } >
+                      <MenuItem onClick={ menuItem.handleClick } 
+                                className={ classes.listItem }>
                           { menuItem.text }
                       </MenuItem> 
                       }

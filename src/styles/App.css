@@ -3,27 +3,8 @@ body {
   margin: 0;
 }
 
-#top-nav-container {
-  text-align: right;
-}
-
 #home-container {
   margin-left: 240px;
-}
-
-#home-announcements {
-  min-height: 200px;
-}
-
-.left-nav-drawer {
-  background-color: yellow;
-}
-
-.headline-text {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 45px;
-  letter-spacing: 5px;
-  color: #000000;
 }
 
 .left-nav-icon {
@@ -31,6 +12,29 @@ body {
   cursor: pointer;
   box-sizing: content-box;
   font-size: 18px;
+  color: rgb(143, 143, 143);
+}
+
+.left-nav-input {
+  text-align: center;
+  outline: none;
+  border: none;
+  background-color: rgb(230, 230, 230);
+  color: black;
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  width: 95%;
+}
+
+.headline-text {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 45px;
+  letter-spacing: 5px;
+  color: rgb(0, 0, 0);
 }
 
 .body-text {
@@ -63,20 +67,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.left-nav-input {
-  text-align: center;
-  outline: none;
-  border: none;
-  font-size: 1rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  background-color: #eaeaee;
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.00938em;
-  padding: 0;
-  width: 95%;
 }
 
 .view-entry-procedure-date {
@@ -121,7 +111,6 @@ body {
   padding-left: 15.5%;
   padding-right: 16px;
   line-height: 25px;
-  /* font-family: 'Dancing Script', cursive; */
   font-size: 16px;
   letter-spacing: 1px;
   word-spacing: 5px;
