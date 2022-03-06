@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
 const user = (state = { token: '', isLoggedIn: false, firstName: '', lastName: ''}, action) => {
   switch(action.type) {

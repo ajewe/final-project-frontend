@@ -1,3 +1,19 @@
+@tailwind base;
+
+/* Write your own custom base styles here */
+
+/* Start purging... */
+@tailwind components;
+/* Stop purging. */
+
+/* Write your own custom component styles here */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
+
 body {
   background-color: #fafafa;
   margin: 0;
@@ -92,13 +108,13 @@ body {
 }
 
 #view-entry-paper::before {
-  content: '';
+  content: "";
   width: 2px;
   height: 100%;
   position: absolute;
   top: 0;
   left: 15%;
-  background-color: rgba(255,0,0,0.6);
+  background-color: rgba(255, 0, 0, 0.6);
 }
 
 #view-entry-pattern {
@@ -126,11 +142,11 @@ body {
   padding: 0 20%;
 }
 
-#container-canvas{
+#container-canvas {
   padding: 20px;
 }
 
-#canvas-div{
+#canvas-div {
   padding: 30px;
 }
 
