@@ -1,16 +1,16 @@
 /* global ChemDoodle */
 import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardHeader, CardContent, Typography } from "@material-ui/core/";
+// import { makeStyles } from "@material-ui/core/styles";
+// import { Card, CardHeader, CardContent, Typography } from "@material-ui/core/";
 
-const useStyles = makeStyles(() => ({
-  card: {
-    boxShadow: "2px 2px 7px 0px #0d1137",
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   card: {
+//     boxShadow: "2px 2px 7px 0px #0d1137",
+//   },
+// }));
 
 export const EntryCard = (props) => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   useEffect(() => {
     if (props.rxnSketch.fileData) {
@@ -40,27 +40,29 @@ export const EntryCard = (props) => {
   };
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
+    <>
+      {/* <Card className={classes.card}> */}
+      {/* <CardHeader
         title={props.bookName + " - Entry " + props.bookEntryNumber}
         titleTypographyProps={{ variant: "h6" }}
         // className={classes.header}
         subheader={createDateFromLastUpdated()}
-      />
+      /> */}
       <div className="entry-card-canvas-div">
         {props.rxnSketch.fileData ? (
           <canvas id={`myCanvas-${props.index}`} />
         ) : (
           <div className="entry-card-no-canvas">
-            <Typography>No Reaction Scheme</Typography>
+            {/* <Typography>No Reaction Scheme</Typography> */}
           </div>
         )}
       </div>
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {props.quickInfo}
-        </Typography>
-      </CardContent>
-    </Card>
+      {/* <CardContent> */}
+      {/* <Typography variant="body2" color="textSecondary" component="p"> */}
+      {props.quickInfo}
+      {/* </Typography> */}
+      {/* </CardContent> */}
+      {/* </Card> */}
+    </>
   );
 };

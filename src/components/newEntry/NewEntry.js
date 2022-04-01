@@ -4,29 +4,29 @@ import { LeftNavigation } from "../navigation/LeftNavigation";
 import { AddProcedure } from "./AddProcedure";
 import { fetchLogs, addLog } from "../../redux/actions/logsActions";
 import { fetchBooks } from "../../redux/actions/booksActions";
-import { makeStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
+// import { makeStyles } from "@material-ui/core/styles";
+// import { TextField, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 /* global ChemDoodle */
 
-const useStyles = makeStyles({
-  formField: {
-    backgroundColor: "white",
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    padding: "20px",
-    marginLeft: "220px",
-    alignItems: "center",
-  },
-  button: {
-    width: "30%",
-    margin: "10px",
-  },
-});
+// const useStyles = makeStyles({
+//   formField: {
+//     backgroundColor: "white",
+//     display: "flex",
+//     flexDirection: "column",
+//     height: "100%",
+//     padding: "20px",
+//     marginLeft: "220px",
+//     alignItems: "center",
+//   },
+//   button: {
+//     width: "30%",
+//     margin: "10px",
+//   },
+// });
 
 export const NewEntry = (props) => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const user = useSelector((state) => state.user);
   const userToken = user.token;
   const allLogs = useSelector((state) => state.logs);
@@ -156,15 +156,16 @@ export const NewEntry = (props) => {
   return (
     <>
       <LeftNavigation userToken={userToken} user={user} />
-      <form className={classes.formField} onSubmit={handleSubmit}>
+      {/* <form className={classes.formField} onSubmit={handleSubmit}> */}
+      <form onSubmit={handleSubmit}>
         <div>
-          <TextField
+          {/* <TextField
             label="Quick Info (<10 words)"
             name="quickInfo"
             value={newEntry.quickInfo}
             onChange={handleEntryChange}
             fullWidth
-          />
+          /> */}
           <div id="container-canvas">
             <canvas id="canvas-id" />
           </div>
@@ -181,36 +182,37 @@ export const NewEntry = (props) => {
             );
           })}
         </div>
-        <Button
+        {/* <Button
           variant="contained"
           onClick={addProcedure}
-          className={classes.button}
-        >
-          Add a new Day
-        </Button>
+          // className={classes.button}
+        > */}
+        Add a new Day
+        {/* </Button> */}
         <div className="new-entry-text-container">
-          <TextField
+          {/* <TextField
             id="standard-basic"
             label="Results"
             name="results"
             value={newEntry.results}
             onChange={handleEntryChange}
             fullWidth
-          />
+          /> */}
         </div>
         <div className="new-entry-text-container">
-          <TextField
+          {/* <TextField
             id="standard-basic"
             label="Yield (%)"
             name="yield"
             value={newEntry.yield}
             onChange={handleEntryChange}
             fullWidth
-          />
+          /> */}
         </div>
-        <Button type="submit" variant="contained" className={classes.button}>
-          Save
-        </Button>
+        {/* <Button type="submit" variant="contained" className={classes.button}> */}
+        {/* <Button type="submit" variant="contained"> */}
+        Save
+        {/* </Button> */}
         <div id="new-entry-number-container">
           <h3>Entry {newEntry.bookEntryNumber}</h3>
         </div>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LeftNavigation } from "./navigation/LeftNavigation";
 import { fetchSelectedLog, changeLog } from "../redux/actions/logsActions";
 import { fetchBooks } from "../redux/actions/booksActions";
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 /* global ChemDoodle */
 
@@ -262,10 +262,10 @@ export const ViewEntry = (props) => {
               </div>
               {editEntry.changesMade && (
                 <div id="view-entry-div-buttons">
-                  <Button color="primary" variant="contained" type="submit">
-                    Save Changes
-                  </Button>
-                  <Button
+                  {/* <Button color="primary" variant="contained" type="submit"> */}
+                  Save Changes
+                  {/* </Button> */}
+                  {/* <Button
                     color="secondary"
                     variant="contained"
                     onClick={() => {
@@ -277,9 +277,9 @@ export const ViewEntry = (props) => {
                         history.push("/");
                       }
                     }}
-                  >
-                    Discard Changes
-                  </Button>
+                  > */}
+                  Discard Changes
+                  {/* </Button> */}
                 </div>
               )}
             </form>

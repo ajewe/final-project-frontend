@@ -1,19 +1,19 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  makeStyles,
-  Drawer,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@material-ui/core";
+// import {
+//   makeStyles,
+//   Drawer,
+//   Divider,
+//   List,
+//   ListItem,
+//   ListItemText,
+//   Typography,
+// } from "@material-ui/core";
 import { faHome, faUser, faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-import { ThemeProvider } from "@material-ui/styles";
+// import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
+// import { ThemeProvider } from "@material-ui/styles";
 
 import theme from "../../styles/theme";
 import { useOutsideClick } from "./useOutsideClick";
@@ -21,36 +21,36 @@ import { MenuPopUp } from "./MenuPopUp";
 import { addBook, deleteBook } from "../../redux/actions/booksActions";
 import { endSession } from "../../redux/actions/userActions";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    "& .MuiPaper-root": {
-      backgroundColor: "rgb(230, 230, 230)",
-    },
-  },
-  labelField: {
-    width: "175px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: "10px",
-  },
-  label: {
-    display: "inline-block",
-    fontSize: "22px",
-    color: "rgb(85, 85, 85)",
-  },
-  icon: {
-    margin: "0 10px",
-    cursor: "pointer",
-    color: "rgb(85, 85, 85)",
-  },
-  listItem: {
-    cursor: "pointer",
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   root: {
+//     "& .MuiPaper-root": {
+//       backgroundColor: "rgb(230, 230, 230)",
+//     },
+//   },
+//   labelField: {
+//     width: "175px",
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     margin: "10px",
+//   },
+//   label: {
+//     display: "inline-block",
+//     fontSize: "22px",
+//     color: "rgb(85, 85, 85)",
+//   },
+//   icon: {
+//     margin: "0 10px",
+//     cursor: "pointer",
+//     color: "rgb(85, 85, 85)",
+//   },
+//   listItem: {
+//     cursor: "pointer",
+//   },
+// }));
 
 export const LeftNavigation = (props) => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const ref = useRef();
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
@@ -135,43 +135,44 @@ export const LeftNavigation = (props) => {
   }, [allBooks]);
 
   return (
-    <Drawer className={classes.root} variant="permanent" anchor="left">
-      <ThemeProvider theme={theme}>
-        <Link to="/" className="link">
-          <ListItem className={classes.listItem}>
-            <FontAwesomeIcon icon={faHome} className="left-nav-icon" />
-            <ListItemText primary="Home" className={classes.topListItemText} />
-          </ListItem>
-        </Link>
-        <ListItem onClick={handleTextClick} className={classes.listItem}>
-          <FontAwesomeIcon icon={faUser} className="left-nav-icon" />
-          <ListItemText
+    <>
+      {/* <Drawer className={classes.root} variant="permanent" anchor="left"> */}
+      {/* <ThemeProvider theme={theme}> */}
+      <Link to="/" className="link">
+        {/* <ListItem className={classes.listItem}> */}
+        <FontAwesomeIcon icon={faHome} className="left-nav-icon" />
+        {/* <ListItemText primary="Home" className={classes.topListItemText} /> */}
+        {/* </ListItem> */}
+      </Link>
+      {/* <ListItem onClick={handleTextClick} className={classes.listItem}> */}
+      <FontAwesomeIcon icon={faUser} className="left-nav-icon" />
+      {/* <ListItemText
             primary={
               props.user.firstName && props.user.lastName
                 ? props.user.firstName + " " + props.user.lastName
                 : props.user.email
             }
             className={classes.topListItemText}
-          />
-        </ListItem>
-        <MenuPopUp
-          open={open}
-          handleClose={handleClose}
-          anchorEl={anchorEl}
-          menuItemContent={[
-            {
-              text: "Sign Out",
-              linkTo: "",
-              handleClick: () => signOut(),
-            },
-          ]}
-          extraLinkAttribute={""}
-        />
-      </ThemeProvider>
-      <Divider />
-      <div className={classes.labelField}>
-        <Typography className={classes.label}>Books</Typography>
-        <AddCircleOutlineOutlinedIcon
+          /> */}
+      {/* </ListItem> */}
+      <MenuPopUp
+        open={open}
+        handleClose={handleClose}
+        anchorEl={anchorEl}
+        menuItemContent={[
+          {
+            text: "Sign Out",
+            linkTo: "",
+            handleClick: () => signOut(),
+          },
+        ]}
+        extraLinkAttribute={""}
+      />
+      {/* </ThemeProvider> */}
+      {/* <Divider /> */}
+      {/* <div className={classes.labelField}> */}
+      {/* <Typography className={classes.label}>Books</Typography> */}
+      {/* <AddCircleOutlineOutlinedIcon
           className={classes.icon}
           onClick={() => {
             setBookInput({
@@ -179,8 +180,8 @@ export const LeftNavigation = (props) => {
               displayInput: !bookInput.displayInput,
             });
           }}
-        />
-      </div>
+        /> */}
+      {/* </div> */}
       {bookInput.displayInput && (
         <form ref={ref} onSubmit={handleBookStateSubmit}>
           <input
@@ -190,20 +191,20 @@ export const LeftNavigation = (props) => {
           />
         </form>
       )}
-      <List>
+      {/* <List>
         {reversedBooks.map((b) => (
-          <ListItem
-            button
-            key={b.id}
-            onClick={handleBookTextClick}
-            bookid={b.id}
-            className={classes.listItem}
-          >
+          // <ListItem
+          //   button
+          //   key={b.id}
+          //   onClick={handleBookTextClick}
+          //   bookid={b.id}
+          //   className={classes.listItem}
+          // >
             <FontAwesomeIcon icon={faBook} className="left-nav-icon" />
-            <ListItemText primary={b.book} />
-          </ListItem>
+            // <ListItemText primary={b.book} />
+          // </ListItem>
         ))}
-      </List>
+      </List> */}
       <MenuPopUp
         open={bookOpen}
         handleClose={handleBookClose}
@@ -229,6 +230,7 @@ export const LeftNavigation = (props) => {
           anchorBookEl ? anchorBookEl.getAttribute("bookid") : ""
         }
       />
-    </Drawer>
+      {/* </Drawer> */}
+    </>
   );
 };
