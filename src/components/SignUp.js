@@ -1,41 +1,11 @@
+import { BeakerIcon, LockClosedIcon } from "@heroicons/react/solid";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
-import { createUser } from "../redux/actions/userActions";
-// import {
-//   makeStyles,
-//   CssBaseline,
-//   Grid,
-//   Container,
-//   TextField,
-//   Button,
-//   Avatar,
-//   Typography,
-// } from "@material-ui/core";
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useHistory } from "react-router-dom";
 
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     marginTop: theme.spacing(8),
-//     display: 'flex',
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//   },
-//   avatar: {
-//     margin: theme.spacing(1),
-//     backgroundColor: theme.palette.secondary.main,
-//   },
-//   form: {
-//     width: '100%', // Fix IE 11 issue.
-//     marginTop: theme.spacing(3),
-//   },
-//   submit: {
-//     margin: theme.spacing(3, 0, 2),
-//   },
-// }));
+import { createUser } from "../redux/actions/userActions";
 
 export const SignUp = () => {
-  // const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const [newUserData, setNewUserData] = React.useState({
@@ -60,92 +30,107 @@ export const SignUp = () => {
 
   return (
     <>
-      {/* <Container component="main" maxWidth="xs"> */}
-      {/* <CssBaseline /> */}
-      {/* <div className={classes.paper}> */}
-      <div>
-        {/* <Avatar className={classes.avatar}> */}
-        {/* <Avatar><LockOutlinedIcon /></Avatar> */}
-        {/* <Typography component="h1" variant="h5"> */}
-        Sign up
-        {/* </Typography> */}
-        {/* <form className={classes.form} */}
-        <form noValidate onSubmit={handleSubmit}>
-          {/* <Grid container spacing={2}> */}
-          {/* <Grid item xs={12} sm={6}> */}
-          {/* <TextField
-            autoComplete="fname"
-            name="firstName"
-            variant="outlined"
-            value={newUserData.firstName}
-            onChange={handleChange}
-            required
-            fullWidth
-            id="firstName"
-            label="First Name"
-            autoFocus
-          /> */}
-          {/* </Grid>
-            <Grid item xs={12} sm={6}> */}
-          {/* <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="lastName"
-            label="Last Name"
-            name="lastName"
-            value={newUserData.lastName}
-            onChange={handleChange}
-            autoComplete="lname"
-          /> */}
-          {/* </Grid> */}
-          {/* <Grid item xs={12}> */}
-          {/* <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            value={newUserData.email}
-            onChange={handleChange}
-            autoComplete="email"
-          /> */}
-          {/* </Grid> */}
-          {/* <Grid item xs={12}> */}
-          {/* <TextField
-            variant="outlined"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            value={newUserData.password}
-            onChange={handleChange}
-            id="password"
-            autoComplete="current-password"
-          /> */}
-          {/* </Grid> */}
-          {/* </Grid> */}
-          {/* <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            // className={classes.submit}
-          > */}
-          Sign Up
-          {/* </Button> */}
-          {/* <Grid container justify="flex-end"> */}
-          {/* <Grid item> */}
-          <Link to="/login" variant="body2">
-            Already have an account? Sign in
-          </Link>
-          {/* </Grid> */}
-          {/* </Grid> */}
-        </form>
+      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <BeakerIcon className="mx-auto h-12 w-auto text-blue-500" />
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Sign up
+            </h2>
+          </div>
+          <form className="mt-8 space-y-6" noValidate onSubmit={handleSubmit}>
+            <div className="rounded-md shadow-sm -space-y-px">
+              <div className="flex justify-between w-full">
+                <label htmlFor="email-address" className="sr-only">
+                  First Name
+                </label>
+                <input
+                  id="firstName"
+                  name="firstName"
+                  autoComplete="fname"
+                  required
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mr-1"
+                  placeholder="First Name"
+                  value={newUserData.firstName}
+                  onChange={handleChange}
+                  autoFocus
+                />
+                <label htmlFor="last-name" className="sr-only">
+                  Last Name
+                </label>
+                <input
+                  id="last-name"
+                  name="lastName"
+                  autoComplete="lname"
+                  required
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ml-1"
+                  placeholder="Last Name"
+                  value={newUserData.lastName}
+                  onChange={handleChange}
+                  autoFocus
+                />
+              </div>
+              <div>
+                <label htmlFor="email-address" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-4"
+                  placeholder="Email address"
+                  value={newUserData.email}
+                  onChange={handleChange}
+                  autoFocus
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="sr-only">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm my-1"
+                  placeholder="Password"
+                  value={newUserData.password}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <LockClosedIcon
+                    className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                    aria-hidden="true"
+                  />
+                </span>
+                Sign in
+              </button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm">
+                <a
+                  href="/login"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Already have an account? Sign in
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      {/* </Container> */}
     </>
   );
 };
