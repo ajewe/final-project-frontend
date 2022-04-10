@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { LeftNavigationContainer } from "../navigation/LeftNavigation.container";
-import { fetchBooks } from "../../redux/actions/booksActions";
-import { fetchLogs } from "../../redux/actions/logsActions";
-import { EntryCard } from "./EntryCard";
+import {
+  ReactionEntryCard,
+  ReactionEntryCardContainer,
+} from "./common/ReactionEntryCard";
+import { LeftNavigationContainer } from "./navigation/LeftNavigation.container";
+import { fetchBooks } from "../redux/actions/booksActions";
+import { fetchLogs } from "../redux/actions/logsActions";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -43,23 +46,22 @@ export const Home = () => {
 
   return (
     <LeftNavigationContainer userToken={userToken} user={user}>
-      <div id="home-container">
-        <h1 className="headline-text">
+      <div className="ml-5">
+        <h1 className="text-5xl tracking-wide my-4">
           {user.firstName ? `Welcome ${user.firstName}!` : "Welcome!"}
         </h1>
-        <div id="home-recent-logs">
-          <h3>Recent Logs:</h3>
+        <div>
+          <h2 className="text-base font-bold my-4">Recent Logs:</h2>
           <div>
             {recentLogs.length === 0 ? (
               "No Entries"
             ) : (
-              <div className="entry-card-container-div">
+              <ReactionEntryCardContainer>
                 {recentLogs.map((log, i) => {
                   return (
-                    <div className="entry-card-div">
-                      <Link to={`/view-entry/${log.id}`} className="link">
-                        <EntryCard
-                          key={i}
+                    <div key={log.id} className="entry-card-div">
+                      <Link to={`/view-entry/${log.id}`}>
+                        <ReactionEntryCard
                           index={i}
                           bookName={log.book}
                           rxnSketch={log.rxn_sketch}
@@ -71,7 +73,7 @@ export const Home = () => {
                     </div>
                   );
                 })}
-              </div>
+              </ReactionEntryCardContainer>
             )}
           </div>
         </div>

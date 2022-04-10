@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { fetchBooks } from "../redux/actions/booksActions";
 import { fetchLogs } from "../redux/actions/logsActions";
 import { LeftNavigationContainer } from "./navigation/LeftNavigation.container";
-import { EntryCard } from "./home/EntryCard";
+
+import {
+  ReactionEntryCard,
+  ReactionEntryCardContainer,
+} from "./common/ReactionEntryCard";
 
 export const ViewAllBookEntries = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +19,7 @@ export const ViewAllBookEntries = (props) => {
 
   const findSelectedBook = (state) => {
     if (state.books.length) {
-      return state.books.find((b) => b.id === props.match.params.id);
+      return state.books.find((b) => b.id === parseInt(props.match.params.id));
     } else {
       return null;
     }
@@ -48,19 +52,20 @@ export const ViewAllBookEntries = (props) => {
 
   return (
     <LeftNavigationContainer user={user} userToken={userToken}>
-      <div className="view-all-bk-entries">
-        <h1>{selectedBook ? selectedBook.book : null}</h1>
+      <div className="ml-5">
+        <h1 className="text-4xl py-6">
+          {selectedBook ? selectedBook.book : null}
+        </h1>
         <div>
           {logsFromBook.length === 0 ? (
             "No Entries Yet!"
           ) : (
-            <div className="entry-card-container-div">
+            <ReactionEntryCardContainer>
               {logsFromBook.map((log, i) => {
                 return (
-                  <div className="entry-card-div">
-                    <Link to={`/view-entry/${log.id}`} className="link">
-                      <EntryCard
-                        key={i}
+                  <div key={log.id} className="entry-card-div">
+                    <Link to={`/view-entry/${log.id}`}>
+                      <ReactionEntryCard
                         index={i}
                         bookName={log.book}
                         rxnSketch={log.rxn_sketch}
@@ -72,7 +77,7 @@ export const ViewAllBookEntries = (props) => {
                   </div>
                 );
               })}
-            </div>
+            </ReactionEntryCardContainer>
           )}
         </div>
       </div>
