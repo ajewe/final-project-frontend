@@ -67,7 +67,6 @@ export const SignUp = () => {
                   placeholder="Last Name"
                   value={newUserData.lastName}
                   onChange={handleChange}
-                  autoFocus
                 />
               </div>
               <div>
@@ -84,7 +83,6 @@ export const SignUp = () => {
                   placeholder="Email address"
                   value={newUserData.email}
                   onChange={handleChange}
-                  autoFocus
                 />
               </div>
               <div>

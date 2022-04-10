@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { LeftNavigation } from "../navigation/LeftNavigation";
+import { LeftNavigationContainer } from "../navigation/LeftNavigation.container";
 import { fetchBooks } from "../../redux/actions/booksActions";
 import { fetchLogs } from "../../redux/actions/logsActions";
 import { EntryCard } from "./EntryCard";
@@ -42,8 +42,7 @@ export const Home = () => {
   }, [allLogs]);
 
   return (
-    <>
-      <LeftNavigation userToken={userToken} user={user} />
+    <LeftNavigationContainer userToken={userToken} user={user}>
       <div id="home-container">
         <h1 className="headline-text">
           {user.firstName ? `Welcome ${user.firstName}!` : "Welcome!"}
@@ -77,6 +76,6 @@ export const Home = () => {
           </div>
         </div>
       </div>
-    </>
+    </LeftNavigationContainer>
   );
 };

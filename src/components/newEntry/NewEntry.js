@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LeftNavigation } from "../navigation/LeftNavigation";
+import { LeftNavigationContainer } from "../navigation/LeftNavigation.container";
 import { AddProcedure } from "./AddProcedure";
 import { fetchLogs, addLog } from "../../redux/actions/logsActions";
 import { fetchBooks } from "../../redux/actions/booksActions";
@@ -154,8 +154,7 @@ export const NewEntry = (props) => {
   };
 
   return (
-    <>
-      <LeftNavigation userToken={userToken} user={user} />
+    <LeftNavigationContainer userToken={userToken} user={user}>
       {/* <form className={classes.formField} onSubmit={handleSubmit}> */}
       <form onSubmit={handleSubmit}>
         <div>
@@ -217,6 +216,6 @@ export const NewEntry = (props) => {
           <h3>Entry {newEntry.bookEntryNumber}</h3>
         </div>
       </form>
-    </>
+    </LeftNavigationContainer>
   );
 };

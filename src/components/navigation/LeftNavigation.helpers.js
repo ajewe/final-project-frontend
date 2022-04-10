@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 
+export const classNames = (...classes) => {
+  return classes.filter(Boolean).join(" ");
+};
+
 export const useOutsideClick = (ref, callback) => {
-  const handleClick = e => {
+  const handleClick = (e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       callback(e);
     }

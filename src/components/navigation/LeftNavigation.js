@@ -1,63 +1,29 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-// import {
-//   makeStyles,
-//   Drawer,
-//   Divider,
-//   List,
-//   ListItem,
-//   ListItemText,
-//   Typography,
-// } from "@material-ui/core";
-import { faHome, faUser, faBook } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
-// import { ThemeProvider } from "@material-ui/styles";
 
-import theme from "../../styles/theme";
-import { useOutsideClick } from "./useOutsideClick";
-import { MenuPopUp } from "./MenuPopUp";
+import {
+  MenuAlt2Icon,
+  PlusCircleIcon,
+  UserIcon,
+  XIcon,
+} from "@heroicons/react/outline";
+
+import { BookMenu } from "./BookMenuDropdown";
+import { HomeLink, ProfileButton } from "./NavItems";
+
+import { useOutsideClick } from "./LeftNavigation.helpers";
 import { addBook, deleteBook } from "../../redux/actions/booksActions";
 import { endSession } from "../../redux/actions/userActions";
 
-// const useStyles = makeStyles(() => ({
-//   root: {
-//     "& .MuiPaper-root": {
-//       backgroundColor: "rgb(230, 230, 230)",
-//     },
-//   },
-//   labelField: {
-//     width: "175px",
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     margin: "10px",
-//   },
-//   label: {
-//     display: "inline-block",
-//     fontSize: "22px",
-//     color: "rgb(85, 85, 85)",
-//   },
-//   icon: {
-//     margin: "0 10px",
-//     cursor: "pointer",
-//     color: "rgb(85, 85, 85)",
-//   },
-//   listItem: {
-//     cursor: "pointer",
-//   },
-// }));
-
-export const LeftNavigation = (props) => {
-  // const classes = useStyles();
-  const ref = useRef();
+export const LeftNavigation = ({ user, userToken }) => {
+  const ref = React.useRef();
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorBookEl, setAnchorBookEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const bookOpen = Boolean(anchorBookEl);
+
+  const username =
+    user.firstName && user.lastName
+      ? user.firstName + " " + user.lastName
+      : user.email;
 
   const [bookInput, setBookInput] = React.useState({
     bookName: "",
@@ -92,27 +58,12 @@ export const LeftNavigation = (props) => {
     }
   });
 
-  const handleTextClick = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-  const handleBookTextClick = (e) => {
-    setAnchorBookEl(e.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleBookClose = () => {
-    setAnchorBookEl(null);
-  };
-
   const handleBookStateSubmit = (e) => {
     e.preventDefault();
     let bookSubmitObject = {
       bookName: bookInput.bookName,
     };
-    dispatch(addBook(bookSubmitObject, props.userToken));
+    dispatch(addBook(bookSubmitObject, userToken));
   };
 
   const signOut = () => {
@@ -122,11 +73,10 @@ export const LeftNavigation = (props) => {
   };
 
   const handleDeleteBook = (bookId) => {
-    dispatch(deleteBook(bookId, props.userToken));
-    handleBookClose();
+    dispatch(deleteBook(bookId, userToken));
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     reverseAllBooks();
     setBookInput({
       bookName: "",
@@ -136,101 +86,46 @@ export const LeftNavigation = (props) => {
 
   return (
     <>
-      {/* <Drawer className={classes.root} variant="permanent" anchor="left"> */}
-      {/* <ThemeProvider theme={theme}> */}
-      <Link to="/" className="link">
-        {/* <ListItem className={classes.listItem}> */}
-        <FontAwesomeIcon icon={faHome} className="left-nav-icon" />
-        {/* <ListItemText primary="Home" className={classes.topListItemText} /> */}
-        {/* </ListItem> */}
-      </Link>
-      {/* <ListItem onClick={handleTextClick} className={classes.listItem}> */}
-      <FontAwesomeIcon icon={faUser} className="left-nav-icon" />
-      {/* <ListItemText
-            primary={
-              props.user.firstName && props.user.lastName
-                ? props.user.firstName + " " + props.user.lastName
-                : props.user.email
-            }
-            className={classes.topListItemText}
-          /> */}
-      {/* </ListItem> */}
-      <MenuPopUp
-        open={open}
-        handleClose={handleClose}
-        anchorEl={anchorEl}
-        menuItemContent={[
-          {
-            text: "Sign Out",
-            linkTo: "",
-            handleClick: () => signOut(),
-          },
-        ]}
-        extraLinkAttribute={""}
-      />
-      {/* </ThemeProvider> */}
-      {/* <Divider /> */}
-      {/* <div className={classes.labelField}> */}
-      {/* <Typography className={classes.label}>Books</Typography> */}
-      {/* <AddCircleOutlineOutlinedIcon
-          className={classes.icon}
-          onClick={() => {
-            setBookInput({
-              ...bookInput,
-              displayInput: !bookInput.displayInput,
-            });
-          }}
-        /> */}
-      {/* </div> */}
-      {bookInput.displayInput && (
-        <form ref={ref} onSubmit={handleBookStateSubmit}>
-          <input
-            autoFocus="autofocus"
-            className="left-nav-input"
-            onChange={handleBookChange}
+      <div className="flex-1 space-y-1">
+        <div className="border-b border-indigo-300 pb-4">
+          <HomeLink />
+        </div>
+        <div className="w-full flex flex-row text-center align-center justify-center py-2">
+          <span className="text-2xl text-indigo-100">Books</span>
+          <PlusCircleIcon
+            className="inline-block cursor-pointer flex-shrink-0 h-7 w-7 text-indigo-300 ml-4"
+            onClick={() => {
+              setBookInput({
+                ...bookInput,
+                displayInput: !bookInput.displayInput,
+              });
+            }}
           />
-        </form>
-      )}
-      {/* <List>
-        {reversedBooks.map((b) => (
-          // <ListItem
-          //   button
-          //   key={b.id}
-          //   onClick={handleBookTextClick}
-          //   bookid={b.id}
-          //   className={classes.listItem}
-          // >
-            <FontAwesomeIcon icon={faBook} className="left-nav-icon" />
-            // <ListItemText primary={b.book} />
-          // </ListItem>
+        </div>
+        {bookInput.displayInput && (
+          <form ref={ref} onSubmit={handleBookStateSubmit}>
+            <div>
+              <label htmlFor="new-book" className="sr-only">
+                New book
+              </label>
+              <input
+                id="new-book"
+                className="appearance-none rounded-md relative block w-full my-4 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                onChange={handleBookChange}
+                autoFocus
+              />
+            </div>
+          </form>
+        )}
+        {reversedBooks.map((book) => (
+          <BookMenu
+            bookId={book.id}
+            bookTitle={book.book}
+            handleDeleteBook={handleDeleteBook}
+          />
         ))}
-      </List> */}
-      <MenuPopUp
-        open={bookOpen}
-        handleClose={handleBookClose}
-        anchorEl={anchorBookEl}
-        menuItemContent={[
-          {
-            text: "New Entry",
-            linkTo: "/new-entry/",
-            handleClick: () => handleBookClose(),
-          },
-          {
-            text: "View All",
-            linkTo: "/view-all/",
-            handleClick: () => handleBookClose(),
-          },
-          {
-            text: "Delete Book",
-            handleClick: () =>
-              handleDeleteBook(anchorBookEl.getAttribute("bookid")),
-          },
-        ]}
-        extraLinkAttribute={
-          anchorBookEl ? anchorBookEl.getAttribute("bookid") : ""
-        }
-      />
-      {/* </Drawer> */}
+      </div>
+      <ProfileButton username={username} signOut={signOut} />
     </>
   );
 };

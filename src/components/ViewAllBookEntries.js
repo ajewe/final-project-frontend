@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBooks } from "../redux/actions/booksActions";
 import { fetchLogs } from "../redux/actions/logsActions";
-import { LeftNavigation } from "./navigation/LeftNavigation";
+import { LeftNavigationContainer } from "./navigation/LeftNavigation.container";
 import { EntryCard } from "./home/EntryCard";
 
 export const ViewAllBookEntries = (props) => {
@@ -47,8 +47,7 @@ export const ViewAllBookEntries = (props) => {
   }, []);
 
   return (
-    <>
-      <LeftNavigation user={user} userToken={userToken} />
+    <LeftNavigationContainer user={user} userToken={userToken}>
       <div className="view-all-bk-entries">
         <h1>{selectedBook ? selectedBook.book : null}</h1>
         <div>
@@ -77,6 +76,6 @@ export const ViewAllBookEntries = (props) => {
           )}
         </div>
       </div>
-    </>
+    </LeftNavigationContainer>
   );
 };

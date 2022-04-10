@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LeftNavigation } from "./navigation/LeftNavigation";
+import { LeftNavigationContainer } from "./navigation/LeftNavigation.container";
 import { fetchSelectedLog, changeLog } from "../redux/actions/logsActions";
 import { fetchBooks } from "../redux/actions/booksActions";
 // import { Button } from "@material-ui/core";
@@ -126,8 +126,7 @@ export const ViewEntry = (props) => {
   };
 
   return (
-    <>
-      <LeftNavigation userToken={userToken} user={user} />
+    <LeftNavigationContainer userToken={userToken} user={user}>
       <div id="view-entry-paper">
         <div id="view-entry-pattern">
           <div id="view-entry-content">
@@ -286,6 +285,6 @@ export const ViewEntry = (props) => {
           </div>
         </div>
       </div>
-    </>
+    </LeftNavigationContainer>
   );
 };
