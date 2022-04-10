@@ -57,9 +57,7 @@ export const LeftNavigationContainer = ({ children, user, userToken }) => {
                 </div>
               </Transition.Child>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
-                <div className="px-2 space-y-1">
-                  <LeftNavigation user={user} userToken={userToken} />
-                </div>
+                <LeftNavigation user={user} userToken={userToken} />
               </div>
             </div>
           </Transition.Child>
@@ -72,9 +70,7 @@ export const LeftNavigationContainer = ({ children, user, userToken }) => {
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           <div className="flex flex-col flex-grow pt-5 bg-indigo-700 overflow-y-auto">
             <div className="mt-5 flex-1 flex flex-col">
-              <div className="flex flex-col h-full justify-between px-2 pb-4">
-                <LeftNavigation user={user} userToken={userToken} />
-              </div>
+              <LeftNavigation user={user} userToken={userToken} />
             </div>
           </div>
         </div>

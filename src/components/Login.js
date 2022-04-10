@@ -9,7 +9,7 @@ export const Login = ({ location }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.user);
-  console.log("hm", user);
+
   const [userLoginInfo, setUserLoginInfo] = useState({
     email: "",
     password: "",
@@ -43,7 +43,7 @@ export const Login = ({ location }) => {
       dispatch(action);
     }
   }, []);
-  console.log("yo", user.isLoggedIn);
+
   return (
     <>
       {user.isLoggedIn ? (

@@ -85,7 +85,7 @@ export const LeftNavigation = ({ user, userToken }) => {
   }, [allBooks]);
 
   return (
-    <>
+    <div className="flex flex-col h-full justify-between px-2 pb-4">
       <div className="flex-1 space-y-1">
         <div className="border-b border-indigo-300 pb-4">
           <HomeLink />
@@ -119,6 +119,7 @@ export const LeftNavigation = ({ user, userToken }) => {
         )}
         {reversedBooks.map((book) => (
           <BookMenu
+            key={book.id}
             bookId={book.id}
             bookTitle={book.book}
             handleDeleteBook={handleDeleteBook}
@@ -126,6 +127,6 @@ export const LeftNavigation = ({ user, userToken }) => {
         ))}
       </div>
       <ProfileButton username={username} signOut={signOut} />
-    </>
+    </div>
   );
 };
