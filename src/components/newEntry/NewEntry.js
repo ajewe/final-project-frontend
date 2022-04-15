@@ -135,7 +135,7 @@ export const NewEntry = (props) => {
   };
   // todo put input as a new component and reuse, and buttons
   return (
-    // this should probably be called main container tbh
+    // todo this should probably be called main container tbh
     <LeftNavigationContainer userToken={userToken} user={user}>
       <div className="max-w-4xl">
         <form
@@ -154,6 +154,7 @@ export const NewEntry = (props) => {
               value={newEntry.quickInfo}
               onChange={handleEntryChange}
               autoFocus
+              required
             />
           </div>
           <canvas

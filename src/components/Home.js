@@ -59,7 +59,7 @@ export const Home = () => {
               <ReactionEntryCardContainer>
                 {recentLogs.map((log, i) => {
                   return (
-                    <div key={log.id} className="entry-card-div">
+                    <div key={log.id} className="w-1/4 min-w-min m-3">
                       <Link to={`/view-entry/${log.id}`}>
                         <ReactionEntryCard
                           index={i}

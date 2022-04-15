@@ -31,20 +31,20 @@ export const ReactionEntryCard = (props) => {
 
   return (
     <>
-      <div className="py-6 px-4 shadow-lg shadow-slate-800 drop-shadow-md border-solid border rounded border-gray-900 border-opacity-10">
+      <div className="py-6 px-4 shadow-lg shadow-slate-800 drop-shadow-md border-solid border rounded">
         <h3 className="text-xl font-bold">
           {props.bookName + " - Entry " + props.bookEntryNumber}
         </h3>
         <h4 className="text-gray-600 font-light pb-4">
           {createDateFromLastUpdated()}
         </h4>
-        <div className="flex justify-center border-solid border rounded border-gray-900 border-opacity-10">
+        <div className="flex justify-center items-center h-24">
           {props.rxnSketch.fileData ? (
             <canvas id={`myCanvas-${props.index}`} />
           ) : (
-            <div className="entry-card-no-canvas">
-              <p>No Reaction Scheme</p>
-            </div>
+            // <div className="h-24 ">
+            <p>No Reaction Scheme</p>
+            // </div>
           )}
         </div>
         <p className="text-sm text-gray-600 font-light py-4">
