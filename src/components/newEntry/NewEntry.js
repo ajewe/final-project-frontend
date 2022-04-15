@@ -1,39 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { LeftNavigationContainer } from "../navigation/LeftNavigation.container";
 import { AddProcedure } from "./AddProcedure";
 import { fetchLogs, addLog } from "../../redux/actions/logsActions";
 import { fetchBooks } from "../../redux/actions/booksActions";
-// import { makeStyles } from "@material-ui/core/styles";
-// import { TextField, Button } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 /* global ChemDoodle */
 
-// const useStyles = makeStyles({
-//   formField: {
-//     backgroundColor: "white",
-//     display: "flex",
-//     flexDirection: "column",
-//     height: "100%",
-//     padding: "20px",
-//     marginLeft: "220px",
-//     alignItems: "center",
-//   },
-//   button: {
-//     width: "30%",
-//     margin: "10px",
-//   },
-// });
-
 export const NewEntry = (props) => {
-  // const classes = useStyles();
   const user = useSelector((state) => state.user);
   const userToken = user.token;
   const allLogs = useSelector((state) => state.logs);
   const dispatch = useDispatch();
   const history = useHistory();
   const [sketcher, setSketcher] = React.useState(null);
-
   const [newEntry, setNewEntry] = React.useState({
     bookId: props.match.params.id,
     bookEntryNumber: 1,
@@ -75,7 +56,7 @@ export const NewEntry = (props) => {
     const logsinCurrentBookArr = [];
     //search allLogs for book_id that matches props.match.params.id, add these to array
     for (let i = 0; i < allLogs.length; i++) {
-      if (allLogs[i].book_id === props.match.params.id) {
+      if (allLogs[i].book_id === parseInt(props.match.params.id)) {
         logsinCurrentBookArr.push(allLogs[i]);
       }
     }
@@ -152,70 +133,82 @@ export const NewEntry = (props) => {
     alert("Entry added!");
     history.push("/");
   };
-
+  // todo put input as a new component and reuse, and buttons
   return (
+    // this should probably be called main container tbh
     <LeftNavigationContainer userToken={userToken} user={user}>
-      {/* <form className={classes.formField} onSubmit={handleSubmit}> */}
-      <form onSubmit={handleSubmit}>
-        <div>
-          {/* <TextField
-            label="Quick Info (<10 words)"
-            name="quickInfo"
-            value={newEntry.quickInfo}
-            onChange={handleEntryChange}
-            fullWidth
-          /> */}
-          <div id="container-canvas">
-            <canvas id="canvas-id" />
+      <div className="max-w-4xl">
+        <form
+          onSubmit={handleSubmit}
+          className="h-full flex flex-col bg-white p-5 ml-5"
+        >
+          <div className="pb-4">
+            <label htmlFor="quick-entry-info" className="sr-only">
+              Quick Info
+            </label>
+            <input
+              id="quick-entry-info"
+              name="quickInfo"
+              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Quick Info (<10 words)"
+              value={newEntry.quickInfo}
+              onChange={handleEntryChange}
+              autoFocus
+            />
           </div>
-          <label className="body-text">Procedure:</label>
-          <br />
-          {procedures.map((_, i) => {
-            return (
-              <AddProcedure
-                key={i}
-                index={i}
-                handleProcedureChange={handleProcedureChange}
-                procedures={procedures}
-              />
-            );
-          })}
-        </div>
-        {/* <Button
-          variant="contained"
-          onClick={addProcedure}
-          // className={classes.button}
-        > */}
-        Add a new Day
-        {/* </Button> */}
-        <div className="new-entry-text-container">
-          {/* <TextField
-            id="standard-basic"
-            label="Results"
-            name="results"
-            value={newEntry.results}
-            onChange={handleEntryChange}
-            fullWidth
-          /> */}
-        </div>
-        <div className="new-entry-text-container">
-          {/* <TextField
-            id="standard-basic"
-            label="Yield (%)"
-            name="yield"
-            value={newEntry.yield}
-            onChange={handleEntryChange}
-            fullWidth
-          /> */}
-        </div>
-        {/* <Button type="submit" variant="contained" className={classes.button}> */}
-        {/* <Button type="submit" variant="contained"> */}
-        Save
-        {/* </Button> */}
-        <div id="new-entry-number-container">
-          <h3>Entry {newEntry.bookEntryNumber}</h3>
-        </div>
-      </form>
+          <canvas
+            id="canvas-id"
+            className="flex border border-solid border-black"
+          />
+          <div className="flex flex-col items-center my-4">
+            <label className="self-start my-2">Procedure:</label>
+            {procedures.map((_, i) => {
+              return (
+                <AddProcedure
+                  key={i}
+                  index={i}
+                  handleProcedureChange={handleProcedureChange}
+                  procedures={procedures}
+                />
+              );
+            })}
+            <button
+              type="button"
+              onClick={addProcedure}
+              className="w-3/12 py-1 mt-2 border border-solid bg-indigo-500 text-white"
+            >
+              Add a new Day
+            </button>
+          </div>
+          <div className="my-4 flex flex-col items-center">
+            <input
+              id="results"
+              name="results"
+              value={newEntry.results}
+              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mt-3"
+              placeholder="Results"
+              onChange={handleEntryChange}
+            />
+            <input
+              id="yield"
+              name="yield"
+              value={newEntry.yield}
+              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mt-3"
+              placeholder="Yield (%)"
+              onChange={handleEntryChange}
+            />
+            <button
+              className="w-4/12 py-2 mt-6 border border-solid bg-indigo-500 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+          <div className="w-full text-right font-bold">
+            <h3>Entry {newEntry.bookEntryNumber}</h3>
+          </div>
+        </form>
+      </div>
     </LeftNavigationContainer>
   );
 };

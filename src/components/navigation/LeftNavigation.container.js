@@ -88,8 +88,7 @@ export const LeftNavigationContainer = ({ children, user, userToken }) => {
               <div className="ml-4 flex items-center md:ml-6"></div>
             </div>
           </div>
-
-          <main>{children}</main>
+          <main className="flex justify-center">{children}</main>
         </div>
       </div>
     </>

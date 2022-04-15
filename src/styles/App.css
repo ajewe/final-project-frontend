@@ -126,39 +126,11 @@ body {
   padding: 0 20%;
 }
 
-#container-canvas {
-  padding: 20px;
-}
-
-#canvas-div {
-  padding: 30px;
-}
-
 #canvas-id {
   border: 1px solid black;
-}
-
-.new-entry-text-container {
-  width: 900px;
-  margin-top: 10px;
-}
-
-#add-procedure-date-container {
-  display: inline-block;
-  margin: 20px;
-  width: 10%;
 }
 
 #add-procedure-entry-container {
   display: inline-block;
   width: 80%;
-}
-
-#new-entry-number-container {
-  width: 100%;
-  text-align: right;
-}
-
-.view-all-bk-entries {
-  margin-left: 220px;
 }
