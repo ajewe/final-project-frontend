@@ -781,16 +781,24 @@ select {
   margin-left: 0.25rem;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.ml-4 {
+  margin-left: 1rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
 .-mr-12 {
   margin-right: -3rem;
 }
 
 .mt-5 {
   margin-top: 1.25rem;
-}
-
-.ml-4 {
-  margin-left: 1rem;
 }
 
 .mt-2 {
@@ -821,6 +829,10 @@ select {
   display: inline-block;
 }
 
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -837,6 +849,10 @@ select {
   height: 1.25rem;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .h-10 {
   height: 2.5rem;
 }
@@ -851,10 +867,6 @@ select {
 
 .h-16 {
   height: 4rem;
-}
-
-.h-full {
-  height: 100%;
 }
 
 .h-7 {
@@ -885,6 +897,10 @@ select {
   width: 1.25rem;
 }
 
+.w-4\/12 {
+  width: 33.333333%;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -903,10 +919,6 @@ select {
 
 .w-3\/12 {
   width: 25%;
-}
-
-.w-4\/12 {
-  width: 33.333333%;
 }
 
 .w-48 {
@@ -1122,6 +1134,16 @@ select {
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
 
+.bg-indigo-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+}
+
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-gray-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
@@ -1137,11 +1159,6 @@ select {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-indigo-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
-}
-
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -1149,6 +1166,14 @@ select {
 
 .bg-opacity-75 {
   --tw-bg-opacity: 0.75;
+}
+
+.bg-paper-pattern {
+  background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
+}
+
+.p-4 {
+  padding: 1rem;
 }
 
 .p-5 {
@@ -1199,16 +1224,20 @@ select {
   padding-left: 0.75rem;
 }
 
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.pl-\[16\%\] {
+  padding-left: 16%;
+}
+
 .pt-5 {
   padding-top: 1.25rem;
 }
 
 .pb-4 {
   padding-bottom: 1rem;
-}
-
-.pt-2 {
-  padding-top: 0.5rem;
 }
 
 .text-left {

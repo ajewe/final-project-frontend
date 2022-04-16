@@ -62,15 +62,6 @@ body {
   justify-content: center;
 }
 
-.view-entry-procedure-date {
-  display: inline;
-  margin: 0px 30px;
-}
-
-.view-entry-procedure-entry {
-  display: inline;
-}
-
 #view-entry-paper {
   width: 70%;
   min-height: 100%;
@@ -94,11 +85,6 @@ body {
   background-color: rgba(255, 0, 0, 0.6);
 }
 
-#view-entry-pattern {
-  height: 100%;
-  background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
-}
-
 #view-entry-content {
   padding-top: 6px;
   padding-left: 15.5%;
@@ -107,16 +93,6 @@ body {
   font-size: 16px;
   letter-spacing: 1px;
   word-spacing: 5px;
-}
-
-.view-entry-text {
-  display: inline;
-}
-
-#view-entry-div-buttons {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20%;
 }
 
 #canvas-id {
