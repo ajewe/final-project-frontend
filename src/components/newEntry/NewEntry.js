@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { LeftNavigationContainer } from "../navigation/LeftNavigation.container";
-import { AddProcedure } from "./AddProcedure";
 import { fetchLogs, addLog } from "../../redux/actions/logsActions";
 import { fetchBooks } from "../../redux/actions/booksActions";
+import { MainContainer } from "../common/MainContainer";
+import { AddProcedure } from "./AddProcedure";
 /* global ChemDoodle */
 
 export const NewEntry = (props) => {
@@ -135,8 +135,7 @@ export const NewEntry = (props) => {
   };
   // todo put input as a new component and reuse, and buttons
   return (
-    // todo this should probably be called main container tbh
-    <LeftNavigationContainer userToken={userToken} user={user}>
+    <MainContainer userToken={userToken} user={user}>
       <div className="max-w-4xl">
         <form
           onSubmit={handleSubmit}
@@ -210,6 +209,6 @@ export const NewEntry = (props) => {
           </div>
         </form>
       </div>
-    </LeftNavigationContainer>
+    </MainContainer>
   );
 };

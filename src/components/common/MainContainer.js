@@ -2,9 +2,9 @@ import { Dialog, Transition } from "@headlessui/react";
 import { MenuAlt2Icon, XIcon } from "@heroicons/react/outline";
 import React from "react";
 
-import { LeftNavigation } from "./LeftNavigation";
+import { LeftNavigation } from "./Navigation/LeftNavigation";
 
-export const LeftNavigationContainer = ({ children, user, userToken }) => {
+export const MainContainer = ({ children, user, userToken }) => {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   return (

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LeftNavigationContainer } from "./navigation/LeftNavigation.container";
+import { useHistory } from "react-router-dom";
+
 import { fetchSelectedLog, changeLog } from "../redux/actions/logsActions";
 import { fetchBooks } from "../redux/actions/booksActions";
-// import { Button } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { MainContainer } from "./common/MainContainer";
 /* global ChemDoodle */
 
 export const ViewEntry = (props) => {
@@ -126,7 +126,7 @@ export const ViewEntry = (props) => {
   };
 
   return (
-    <LeftNavigationContainer userToken={userToken} user={user}>
+    <MainContainer userToken={userToken} user={user}>
       <div className="h-full w-full bg-paper-pattern">
         <div className="p-4 pt-2 pl-[16%]">
           <h1 className="text-3xl tracking-wide my-2">
@@ -289,6 +289,6 @@ export const ViewEntry = (props) => {
           </form>
         </div>
       </div>
-    </LeftNavigationContainer>
+    </MainContainer>
   );
 };

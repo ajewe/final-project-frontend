@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
 import { fetchBooks } from "../redux/actions/booksActions";
 import { fetchLogs } from "../redux/actions/logsActions";
-import { LeftNavigationContainer } from "./navigation/LeftNavigation.container";
-
+import { MainContainer } from "./common/MainContainer";
 import {
   ReactionEntryCard,
   ReactionEntryCardContainer,
@@ -51,7 +51,7 @@ export const ViewAllBookEntries = (props) => {
   }, []);
 
   return (
-    <LeftNavigationContainer user={user} userToken={userToken}>
+    <MainContainer user={user} userToken={userToken}>
       <div className="ml-5">
         <h1 className="text-4xl py-6">
           {selectedBook ? selectedBook.book : null}
@@ -81,6 +81,6 @@ export const ViewAllBookEntries = (props) => {
           )}
         </div>
       </div>
-    </LeftNavigationContainer>
+    </MainContainer>
   );
 };

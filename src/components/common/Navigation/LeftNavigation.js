@@ -1,19 +1,12 @@
+import { PlusCircleIcon } from "@heroicons/react/outline";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  MenuAlt2Icon,
-  PlusCircleIcon,
-  UserIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-
+import { addBook, deleteBook } from "../../../redux/actions/booksActions";
+import { endSession } from "../../../redux/actions/userActions";
 import { BookMenu } from "./BookMenuDropdown";
-import { HomeLink, ProfileButton } from "./NavItems";
-
 import { useOutsideClick } from "./LeftNavigation.helpers";
-import { addBook, deleteBook } from "../../redux/actions/booksActions";
-import { endSession } from "../../redux/actions/userActions";
+import { HomeLink, ProfileButton } from "./NavItems";
 
 export const LeftNavigation = ({ user, userToken }) => {
   const ref = React.useRef();

@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
+import { fetchBooks } from "../redux/actions/booksActions";
+import { fetchLogs } from "../redux/actions/logsActions";
+import { MainContainer } from "./common/MainContainer";
 import {
   ReactionEntryCard,
   ReactionEntryCardContainer,
 } from "./common/ReactionEntryCard";
-import { LeftNavigationContainer } from "./navigation/LeftNavigation.container";
-import { fetchBooks } from "../redux/actions/booksActions";
-import { fetchLogs } from "../redux/actions/logsActions";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ export const Home = () => {
   }, [allLogs]);
 
   return (
-    <LeftNavigationContainer userToken={userToken} user={user}>
+    <MainContainer userToken={userToken} user={user}>
       <div className="ml-5">
         <h1 className="text-5xl tracking-wide my-4">
           {user.firstName ? `Welcome ${user.firstName}!` : "Welcome!"}
@@ -78,6 +78,6 @@ export const Home = () => {
           </div>
         </div>
       </div>
-    </LeftNavigationContainer>
+    </MainContainer>
   );
 };

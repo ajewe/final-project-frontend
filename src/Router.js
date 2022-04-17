@@ -2,12 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router";
 
-import { Login } from "./components/Login";
-import { SignUp } from "./components/SignUp";
 import { Home } from "./components/Home";
-import { NewEntry } from "./components/newEntry/NewEntry";
-import { ViewEntry } from "./components/ViewEntry";
+import { Login } from "./components/Login";
+import { NewEntry } from "./components/NewEntry";
+import { SignUp } from "./components/SignUp";
 import { ViewAllBookEntries } from "./components/ViewAllBookEntries";
+import { ViewEntry } from "./components/ViewEntry";
 
 const ProtectedRoute = ({ component: Component, location, ...rest }) => {
   const dispatch = useDispatch();
