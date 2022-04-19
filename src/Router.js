@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router";
 
 import { Home } from "./components/Home";
 import { Login } from "./components/Login";
-import { NewEntry } from "./components/NewEntry";
+import { NewEntry } from "./components/newEntry";
 import { SignUp } from "./components/SignUp";
 import { ViewAllBookEntries } from "./components/ViewAllBookEntries";
 import { ViewEntry } from "./components/ViewEntry";
